@@ -1,0 +1,18 @@
+<div class="content" fxLayout="row wrap" fxLayoutGap="grid">
+  <div fxFlex="25%" fxFlex.lg="25%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" *ngFor="let item of data">
+    <mat-card class="mat-elevation-z4" (click)="detailCard(item)">
+      <mat-card-header>
+        <mat-card-title>
+          <span class="text-title">{{ item.name }}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{ item.thumbnailLink }}" />
+      <mat-card-content>
+        <div class="price">
+          <span class="text-content">Giá bán:</span>
+          <span>{{ item.price }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

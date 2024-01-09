@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="header">
+    <h1 class="header-text">Trang Chủ Quản Lý</h1>
+  </div>
+  <div class="body" fxLayout="row wrap" fxLayoutAlign="center " fxLayoutGap="grid">
+    <div fxFlex="25%" fxFlex.lg="25%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
+      <button mat-raised-button class="btn-info" style="background-color: #93002a" (click)="redirect_page(this.user)">
+        <mat-icon style="color: #ffffff">people icon</mat-icon>
+        <span class="group-text">Tài khoản: {{ this.totalUser }}</span>
+      </button>
+    </div>
+    <div fxFlex="25%" fxFlex.lg="25%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
+      <button
+        mat-raised-button
+        class="btn-info"
+        style="background-color: #80009a"
+        (click)="redirect_page(this.product)"
+      >
+        <mat-icon style="color: #ffffff">archive icon</mat-icon>
+        <span class="group-text">Sản phẩm: {{ this.totalProduct }}</span>
+      </button>
+    </div>
+    <div fxFlex="25%" fxFlex.lg="25%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
+      <button mat-raised-button class="btn-info" style="background-color: #0700c6" (click)="redirect_page(this.brand)">
+        <mat-icon style="color: #ffffff">shop</mat-icon>
+        <span class="group-text">Nhãn hàng: {{ this.totalBrand }}</span>
+      </button>
+    </div>
+    <div fxFlex="25%" fxFlex.lg="25%" fxFlex.md="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
+      <button
+        mat-raised-button
+        class="btn-info"
+        style="background-color: #00a403"
+        (click)="redirect_page(this.category)"
+      >
+        <mat-icon style="color: #ffffff">bookmark</mat-icon>
+        <span class="group-text">Danh mục: {{ this.totalCategory }}</span>
+      </button>
+    </div>
+  </div>
+</div>

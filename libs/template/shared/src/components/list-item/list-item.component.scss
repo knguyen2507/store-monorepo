@@ -1,0 +1,28 @@
+.content {
+  min-height: 800px;
+
+  mat-card {
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+
+    mat-card-header {
+      .text-title {
+        text-transform: capitalize;
+      }
+    }
+
+    mat-card-content {
+      text-align: center;
+
+      .price {
+        margin-top: 4px;
+        font-size: 20px;
+
+        .text-content {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

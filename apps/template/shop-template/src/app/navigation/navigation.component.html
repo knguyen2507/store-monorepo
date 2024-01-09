@@ -1,0 +1,91 @@
+<mat-toolbar>
+  <button
+    mat-icon-button
+    aria-label="Example icon-button with menu icon"
+    (click)="drawer.toggle()"
+    style="color: #ffffff"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="logo-wrapper" (click)="onClick()">
+    <img src="assets/icons/logo.png" alt="nguyenphat-logo" />
+  </div>
+  <span class="page-title" (click)="onClick()">Cửa hàng Nguyên Phát</span>
+</mat-toolbar>
+
+<mat-drawer-container #navContainer>
+  <mat-drawer #drawer opened="false" mode="side">
+    <div class="menu-wrapper">
+      <mat-form-field class="search-form">
+        <input
+          type="tel"
+          matInput
+          placeholder="tìm kiếm"
+          name="search"
+          [(ngModel)]="dataSearch"
+        />
+        <button matSuffix mat-button (click)="search()" class="search-btn">
+          <mat-icon style="color: #ffffff">search</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-raised-button class="redirect-admin" (click)="admin_page()">
+        <mat-icon style="color: #ffffff">people icon</mat-icon>
+        <span class="group-text">ADMIN</span>
+      </button>
+      <mat-expansion-panel *ngFor="let g of menuGroups">
+        <mat-expansion-panel-header
+          collapsedHeight="56px"
+          expandedHeight="56px"
+        >
+          <mat-icon style="color: #ffffff">{{ g.matIcon }}</mat-icon>
+          <span class="group-text">{{ g.title }}</span>
+        </mat-expansion-panel-header>
+        <mat-nav-list matExpansionPanelContent>
+          <div *ngFor="let m of g.menus">
+            <a
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-item"
+              (click)="onActionClick(m.url, m.type)"
+            >
+              <div class="logo-title">
+                <img src="{{ m.thumbnailLink }}" />
+              </div>
+              <span class="nav-text">{{ m.name }}</span>
+            </a>
+          </div>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="routerWrapper">
+      <router-outlet></router-outlet>
+      <mat-card-footer>
+        <div class="footer-col" fxLayout="row wrap" fxLayoutGap="grid">
+          <div
+            fxFlex="50%"
+            fxFlex.lg="50%"
+            fxFlex.sm="100%"
+            fxFlex.lt-sm="100%"
+          >
+            <div>
+              <h1>Cửa hàng Nguyên Phát</h1>
+            </div>
+          </div>
+          <div
+            fxFlex="50%"
+            fxFlex.lg="50%"
+            fxFlex.sm="100%"
+            fxFlex.lt-sm="100%"
+          >
+            <div>aaaaaaaaaaaaaaaaa</div>
+          </div>
+        </div>
+        <div class="copyright">
+          <span class="copyright-text">&copy; 2023 Copyright</span>
+        </div>
+      </mat-card-footer>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

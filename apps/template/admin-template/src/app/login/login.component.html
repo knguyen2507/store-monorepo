@@ -1,0 +1,75 @@
+<mat-sidenav-container #navContainer>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <div class="title-component">
+        <div class="logo-wrapper" (click)="onClick()">
+          <img src="assets/icons/logo.png" alt="nguyen-phat-logo" />
+        </div>
+        <span class="page-title">Đăng Nhập</span>
+      </div>
+    </mat-toolbar>
+
+    <div class="routerWrapper">
+      <form class="loginForm" fxLayout="column" fxLayoutGap="24px" [formGroup]="loginForm">
+        <div class="generalForm" fxLayoutGap="24px">
+          <div fxLayout="column" fxLayoutGap="24px">
+            <div fxFlex="50">
+              <div class="fieldWrapper column">
+                <h1 class="tilte">Đăng Nhập</h1>
+              </div>
+            </div>
+            <div fxFlex="50">
+              <div class="fieldWrapper column">
+                <label class="label">Tên Đăng Nhập</label>
+                <div class="inputWrapper">
+                  <input
+                    class="input"
+                    type="text"
+                    id="username"
+                    placeholder="Tên đăng nhập"
+                    formControlName="username"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div fxFlex="50">
+              <div class="fieldWrapper column">
+                <label class="label">Mật khẩu</label>
+                <div class="inputWrapper">
+                  <input
+                    class="input"
+                    type="password"
+                    id="password"
+                    placeholder="Mật khẩu"
+                    formControlName="password"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div fxFlex="50">
+              <button class="loginBtn" mat-flat-button color="primary" (click)="onSubmit()">Gửi</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <mat-card-footer>
+        <div class="footer-col" fxLayout="row wrap" fxLayoutGap="grid">
+          <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
+            <div>
+              <h1>Cửa hàng Nguyên Phát</h1>
+            </div>
+          </div>
+          <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
+            <div>aaaaaaaaaaaaaaaaa</div>
+          </div>
+        </div>
+        <div class="copyright">
+          <span class="copyright-text">&copy; 2023 Copyright</span>
+        </div>
+      </mat-card-footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

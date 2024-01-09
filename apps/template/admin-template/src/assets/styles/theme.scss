@@ -1,0 +1,99 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+@include mat.core();
+
+@import './partial/variables';
+
+$primary-palette: (
+  50: $color-primary-background,
+  100: $color-primary-border,
+  200: $color-primary-border,
+  300: $color-primary-hover,
+  400: $color-primary-hover,
+  500: $color-primary-base,
+  600: $color-primary-base,
+  700: $color-primary-active,
+  800: $color-primary-active,
+  900: $color-primary-active,
+  contrast: (
+    50: $color-typo-primary,
+    100: $color-typo-primary,
+    200: $color-typo-primary,
+    300: $color-typo-white,
+    400: $color-typo-white,
+    500: $color-typo-white,
+    600: $color-typo-white,
+    700: $color-typo-white,
+    800: $color-typo-white,
+    900: $color-typo-white,
+  ),
+);
+
+$accent-palette: (
+  50: $color-secondary1-background,
+  100: $color-secondary2-background,
+  200: $color-secondary1-border,
+  300: $color-secondary2-border,
+  400: $color-secondary1-hover,
+  500: $color-secondary2-hover,
+  600: $color-secondary1-base,
+  700: $color-secondary2-base,
+  800: $color-secondary1-active,
+  900: $color-secondary2-active,
+  contrast: (
+    50: $color-typo-primary,
+    100: $color-typo-primary,
+    200: $color-typo-primary,
+    300: $color-typo-white,
+    400: $color-typo-white,
+    500: $color-typo-white,
+    600: $color-typo-white,
+    700: $color-typo-white,
+    800: $color-typo-white,
+    900: $color-typo-white,
+  ),
+);
+
+$warn-palette: (
+  50: $color-error-background,
+  100: $color-error-border,
+  200: $color-error-border,
+  300: $color-error-hover,
+  400: $color-error-hover,
+  500: $color-error-base,
+  600: $color-error-base,
+  700: $color-error-active,
+  800: $color-error-active,
+  900: $color-error-active,
+  contrast: (
+    50: $color-typo-primary,
+    100: $color-typo-primary,
+    200: $color-typo-primary,
+    300: $color-typo-white,
+    400: $color-typo-white,
+    500: $color-typo-white,
+    600: $color-typo-white,
+    700: $color-typo-white,
+    800: $color-typo-white,
+    900: $color-typo-white,
+  ),
+);
+
+$dxg-primary: mat.define-palette($primary-palette, 500);
+$dxg-accent: mat.define-palette($accent-palette, 600);
+$dxg-warn: mat.define-palette($warn-palette, 500);
+
+$dxg-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $dxg-primary,
+      accent: $dxg-accent,
+      warn: $dxg-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: -2,
+  )
+);
+
+@include mat.all-component-themes($dxg-theme);

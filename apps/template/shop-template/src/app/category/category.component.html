@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="header">
+    <h1 class="header-text">{{ this.categoryName }}</h1>
+  </div>
+  <app-list-item [data]="this.data"></app-list-item>
+  <app-paginator
+    [total]="this.total"
+    (paginatorChanged)="onPaginatorChanged()"
+    [sizeOptions]="this.sizeOptions"
+    [size]="this.size"
+  ></app-paginator>
+</div>

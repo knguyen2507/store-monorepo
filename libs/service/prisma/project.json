@@ -1,0 +1,18 @@
+{
+  "name": "prisma",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/service/prisma/src",
+  "prefix": "lib",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "generate-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "prisma generate --schema=libs/service/prisma/src/prisma/schema/schema.prisma"
+        ]
+      }
+    }
+  }
+}

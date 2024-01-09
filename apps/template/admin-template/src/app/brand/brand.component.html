@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="header">
+    <h1 class="header-text">Quản Lý Hãng Sản Xuất</h1>
+  </div>
+  <div class="body">
+    <div fxFlex="grow" fxLayout="column">
+      <div fxFlex="grow">
+        <ag-grid-angular
+          fxFill
+          class="ag-theme-material"
+          [rowData]="this.data"
+          [columnDefs]="this.colDefs"
+          [gridOptions]="this.gridOptions"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.container {
+  width: auto;
+
+  .header {
+    width: 100%;
+    text-align: center;
+    padding: 70px 0;
+
+    .header-text {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 40px;
+    }
+  }
+
+  // .viewed {
+  //   width: 100%;
+  //   text-align: center;
+  //   height: 200px;
+  //   background-color: red;
+  //   margin-top: 10px;
+  // }
+}

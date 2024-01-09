@@ -1,0 +1,106 @@
+$bg: #cf3030;
+$bg-copyright: #b10b0b;
+
+mat-toolbar {
+  background-color: $bg;
+  height: 64px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  .title-component {
+    display: flex;
+    align-items: center;
+    .sidenav-toggler {
+      margin-right: 20px;
+    }
+    .page-title {
+      margin-left: 20px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+  }
+
+  .logo-wrapper {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    overflow: hidden;
+    img {
+      display: inline;
+      margin: 0 auto;
+      height: 100%;
+      width: auto;
+    }
+  }
+}
+
+.routerWrapper {
+  height: calc(100vh - 93px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 32px;
+
+  .loginForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .generalForm {
+      background-color: #ffffff;
+      width: 40%;
+
+      .label {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: larger;
+        font-weight: bold;
+      }
+      .inputWrapper {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+
+        input {
+          height: 50px;
+          width: calc(100% - 10px);
+        }
+      }
+    }
+    .tilte {
+      text-align: center;
+      margin-top: 20px;
+      font-size: xx-large;
+      font-weight: bold;
+    }
+    .loginBtn {
+      float: right;
+      margin-bottom: 20px;
+      margin-right: 40px;
+    }
+  }
+
+  mat-card-footer {
+    text-align: center;
+
+    .footer-col {
+      height: 200px;
+      background-color: $bg;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+    }
+    .copyright {
+      background-color: $bg-copyright;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+    }
+  }
+}

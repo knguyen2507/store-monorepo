@@ -1,0 +1,52 @@
+.container {
+  width: auto;
+
+  .header {
+    width: 100%;
+    text-align: center;
+    padding: 70px 0;
+
+    .header-text {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 40px;
+    }
+  }
+
+  .imgBox,
+  .inforBox {
+    min-height: 700px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .inforBox {
+    border: 2px solid black;
+    border-radius: 5px;
+
+    .table {
+      border-collapse: collapse;
+      margin: 5px;
+      margin-top: 30px;
+
+      .item-line {
+        display: table;
+        width: 100%;
+
+        .item-key,
+        .item-value {
+          border: 1px solid #dddddd;
+          text-align: left;
+          font-size: 14px;
+          padding: 5px;
+        }
+
+        .item-key {
+          width: 25%;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="header">
+    <h1 class="header-text">Chi Tiết Sản Phẩm</h1>
+  </div>
+  <div fxLayout="row wrap" fxLayoutGap="grid">
+    <div fxFlex="39%" fxFlex.lg="39%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="imgBox">
+      <gallery gallerize [items]="this.productImages" thumbPosition="bottom"></gallery>
+    </div>
+    <div fxFlex="59%" fxFlex.lg="59%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="inforBox">
+      <table class="table">
+        <div *ngFor="let item of this.desciptions">
+          <tr class="item-line">
+            <td class="item-key">{{ item.key }}</td>
+            <td class="item-value">{{ item.value }}</td>
+          </tr>
+        </div>
+      </table>
+      <div *ngIf="this.stock; else elseBlock">
+        <h1 style="color: green; margin: 10px">Còn Hàng</h1>
+      </div>
+      <ng-template #elseBlock><h1 style="color: red; margin: 10px">Hết Hàng</h1></ng-template>
+    </div>
+  </div>
+</div>

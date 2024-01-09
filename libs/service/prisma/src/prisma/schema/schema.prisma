@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../../../node_modules/@prisma/client/store"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  phone    String
+  username String
+  password String
+  created  DateTime?
+
+  @@map("users")
+}
+
+model Brands {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  brandCode     String     @unique
+  name          String
+  thumbnailLink String
+  created       DateTime?
+  updated       DateTime[]
+  product       Products[]
+
+  @@map("brands")
+}
+
+model Categories {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  categoryCode  String     @unique
+  name          String
+  thumbnailLink String
+  created       DateTime?
+  updated       DateTime[]
+  product       Products[]
+
+  @@map("categories")
+}
+
+model Products {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  productCode   String     @unique
+  name          String
+  qty           Int
+  category      Categories @relation(fields: [categoryId], references: [id])
+  categoryId    String     @db.ObjectId
+  brand         Brands     @relation(fields: [brandId], references: [id])
+  brandId       String     @db.ObjectId
+  price         Int
+  thumbnailLink Images
+  description   String
+  images        Images[]
+  created       DateTime?
+  updated       DateTime[]
+
+  @@map("products")
+}
+
+type Images {
+  id     String  @db.ObjectId
+  name   String
+  url    String
+  isMain Boolean
+}

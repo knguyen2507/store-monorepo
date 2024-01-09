@@ -1,0 +1,29 @@
+.container {
+  width: auto;
+
+  .header {
+    width: 100%;
+    text-align: center;
+    padding: 70px 0;
+
+    .header-text {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 40px;
+    }
+  }
+
+  .body {
+    min-height: 800px;
+    margin-left: 10px;
+
+    .btn-info {
+      width: 95%;
+      height: 50px;
+
+      .group-text {
+        color: #ffffff;
+      }
+    }
+  }
+}

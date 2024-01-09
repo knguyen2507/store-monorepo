@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="header">
+    <h1 class="header-text" *ngIf="this.searchName !== ''">Trang Chủ</h1>
+    <h1 class="header-text" *ngIf="this.searchName === ''">Tìm Kiếm</h1>
+  </div>
+  <app-list-item [data]="this.data"></app-list-item>
+  <app-paginator
+    [total]="this.total"
+    (paginatorChanged)="onPaginatorChanged()"
+    [sizeOptions]="this.sizeOptions"
+    [size]="this.size"
+  ></app-paginator>
+  <!-- <div class="viewed">
+    <p>Sản Phẩm Đã Xem</p>
+  </div> -->
+</div>
