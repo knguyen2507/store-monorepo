@@ -2,7 +2,11 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import {
+  UtilityImplement,
+  pathPrefixProduct,
+  pathPrefixQueryProduct,
+} from '@store-monorepo/service/utility';
 import { FindProductByCode } from '../application/query/product/detail';
 import { FindProductByCodeRequestDTO } from '../application/query/product/detail/dto';
 import { FindProduct } from '../application/query/product/find';
@@ -17,15 +21,15 @@ import { FindProductSimilarRequestDTO } from '../application/query/product/find-
 import { FindProductRequestDTO } from '../application/query/product/find/dto';
 import { GetTotalProduct } from '../application/query/product/get-total';
 
-@ApiTags('product')
-@Controller('product')
+@ApiTags(pathPrefixProduct.swagger)
+@Controller(pathPrefixProduct.controller)
 export class ProductQueryController {
   constructor(
     private readonly util: UtilityImplement,
     readonly queryBus: QueryBus
   ) {}
 
-  @Get('/admin/find')
+  @Get(pathPrefixQueryProduct.findProductListByAdmin)
   async FindProductListByAdmin(
     @Query() query: FindProductByAdminRequestDTO
   ): Promise<any> {
@@ -37,7 +41,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/find')
+  @Get(pathPrefixQueryProduct.findProducts)
   async FindProducts(@Query() query: FindProductRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -47,7 +51,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/detail')
+  @Get(pathPrefixQueryProduct.findProductByCode)
   async FindProductByCode(
     @Query() query: FindProductByCodeRequestDTO
   ): Promise<any> {
@@ -59,7 +63,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/find-by-brand')
+  @Get(pathPrefixQueryProduct.findProductByBrand)
   async FindProductByBrand(
     @Query() query: FindProductByBrandRequestDTO
   ): Promise<any> {
@@ -71,7 +75,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/find-by-category')
+  @Get(pathPrefixQueryProduct.findProductByCategory)
   async FindProductByCategory(
     @Query() query: FindProductByCategoryRequestDTO
   ): Promise<any> {
@@ -83,7 +87,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/find-by-ids')
+  @Get(pathPrefixQueryProduct.findProductByIds)
   async FindProductByIds(
     @Query() query: FindProductByCategoryRequestDTO
   ): Promise<any> {
@@ -95,7 +99,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/find-similar')
+  @Get(pathPrefixQueryProduct.findProductSimilar)
   async FindProductSimilar(
     @Query() query: FindProductSimilarRequestDTO
   ): Promise<any> {
@@ -107,7 +111,7 @@ export class ProductQueryController {
     return await this.queryBus.execute(Products);
   }
 
-  @Get('/get-total-product')
+  @Get(pathPrefixQueryProduct.getTotalProduct)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async GetTotalProduct(): Promise<any> {

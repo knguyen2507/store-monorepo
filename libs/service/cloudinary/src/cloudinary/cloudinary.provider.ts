@@ -1,8 +1,11 @@
-import { environment } from '@store-monorepo/service/utility';
+import {
+  CloudinaryProviderConstant,
+  environment,
+} from '@store-monorepo/service/utility';
 import { v2 as cloudinary } from 'cloudinary';
 
 export const CloudinaryProvider = {
-  provide: 'CLOUDINARY',
+  provide: CloudinaryProviderConstant,
   useFactory: () => {
     return cloudinary.config({
       cloud_name: environment.CLOUDINARY_CLOUDNAME,

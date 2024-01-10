@@ -2,7 +2,11 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import {
+  UtilityImplement,
+  pathPrefixBrand,
+  pathPrefixQueryBrand,
+} from '@store-monorepo/service/utility';
 import { FindBrandById } from '../application/query/brand/detail';
 import { FindBrandByIdRequestDTO } from '../application/query/brand/detail/dto';
 import { FindBrand } from '../application/query/brand/find';
@@ -10,15 +14,15 @@ import { FindBrandByCode } from '../application/query/brand/find-by-code';
 import { FindBrandByCodeRequestDTO } from '../application/query/brand/find-by-code/dto';
 import { GetTotalBrand } from '../application/query/brand/get-total';
 
-@ApiTags('brand')
-@Controller('brand')
+@ApiTags(pathPrefixBrand.swagger)
+@Controller(pathPrefixBrand.controller)
 export class BrandQueryController {
   constructor(
     private readonly util: UtilityImplement,
     readonly queryBus: QueryBus
   ) {}
 
-  @Get('/find')
+  @Get(pathPrefixQueryBrand.findBrands)
   async FindBrands(): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -28,7 +32,7 @@ export class BrandQueryController {
     return await this.queryBus.execute(Brands);
   }
 
-  @Get('/detail')
+  @Get(pathPrefixQueryBrand.findBrandById)
   async FindBrandById(@Query() query: FindBrandByIdRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -38,7 +42,7 @@ export class BrandQueryController {
     return await this.queryBus.execute(Brands);
   }
 
-  @Get('/find-by-code')
+  @Get(pathPrefixQueryBrand.findBrandByCode)
   async FindBrandByCode(
     @Query() query: FindBrandByCodeRequestDTO
   ): Promise<any> {
@@ -50,7 +54,7 @@ export class BrandQueryController {
     return await this.queryBus.execute(Brands);
   }
 
-  @Get('/get-total-brand')
+  @Get(pathPrefixQueryBrand.getTotalBrand)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async GetTotalBrand(): Promise<any> {

@@ -5,6 +5,8 @@ import { AuthGuard } from '@store-monorepo/service/guard';
 import {
   RequestWithUser,
   UtilityImplement,
+  pathPrefixQueryUser,
+  pathPrefixUser,
 } from '@store-monorepo/service/utility';
 import { FindUserById } from '../application/query/user/detail';
 import { FindUser } from '../application/query/user/find';
@@ -12,15 +14,15 @@ import { FindUserRequestDTO } from '../application/query/user/find/dto';
 import { GetTotalUser } from '../application/query/user/get-total';
 import { VerifyAccessToken } from '../application/query/user/verify-token';
 
-@ApiTags('user')
-@Controller('user')
+@ApiTags(pathPrefixUser.swagger)
+@Controller(pathPrefixUser.controller)
 export class UserQueryController {
   constructor(
     private readonly util: UtilityImplement,
     readonly queryBus: QueryBus
   ) {}
 
-  @Get('/find')
+  @Get(pathPrefixQueryUser.findUsers)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async FindUsers(@Query() query: FindUserRequestDTO): Promise<any> {
@@ -32,7 +34,7 @@ export class UserQueryController {
     return await this.queryBus.execute(users);
   }
 
-  @Get('/detail')
+  @Get(pathPrefixQueryUser.findUserById)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async FindUserById(@Req() request: RequestWithUser): Promise<any> {
@@ -44,7 +46,7 @@ export class UserQueryController {
     return await this.queryBus.execute(users);
   }
 
-  @Get('/get-total-user')
+  @Get(pathPrefixQueryUser.getTotalUser)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async GetTotalUser(): Promise<any> {
@@ -56,7 +58,7 @@ export class UserQueryController {
     return await this.queryBus.execute(query);
   }
 
-  @Get('/verify-access-token')
+  @Get(pathPrefixQueryUser.verifyAccessToken)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async VerifyAccessToken(@Req() request: RequestWithUser): Promise<any> {

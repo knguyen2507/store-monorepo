@@ -8,19 +8,23 @@ import {
 import { CommandBus } from '@nestjs/cqrs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import {
+  UtilityImplement,
+  pathPrefixBrand,
+  pathPrefixCommandBrand,
+} from '@store-monorepo/service/utility';
 import { CreateBrand } from '../application/command/brand/create';
 import { CreateBrandResquestDTO } from '../application/command/brand/create/dto';
 
-@ApiTags('brand')
-@Controller('brand')
+@ApiTags(pathPrefixBrand.swagger)
+@Controller(pathPrefixBrand.controller)
 export class BrandCommandController {
   constructor(
     private readonly util: UtilityImplement,
     readonly commandBus: CommandBus
   ) {}
 
-  @Post('/create')
+  @Post(pathPrefixCommandBrand.createBrand)
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   async CreateBrand(

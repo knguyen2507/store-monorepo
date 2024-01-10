@@ -2,7 +2,11 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import {
+  UtilityImplement,
+  pathPrefixCategory,
+  pathPrefixQueryCategory,
+} from '@store-monorepo/service/utility';
 import { FindCategoryById } from '../application/query/category/detail';
 import { FindCategoryByIdRequestDTO } from '../application/query/category/detail/dto';
 import { FindCategory } from '../application/query/category/find';
@@ -10,15 +14,15 @@ import { FindCategoryByCode } from '../application/query/category/find-by-code';
 import { FindCategoryByCodeRequestDTO } from '../application/query/category/find-by-code/dto';
 import { GetTotalCategory } from '../application/query/category/get-total';
 
-@ApiTags('category')
-@Controller('category')
+@ApiTags(pathPrefixCategory.swagger)
+@Controller(pathPrefixCategory.controller)
 export class CategoryQueryController {
   constructor(
     private readonly util: UtilityImplement,
     readonly queryBus: QueryBus
   ) {}
 
-  @Get('/find')
+  @Get(pathPrefixQueryCategory.findCategories)
   async FindCategories(): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -28,7 +32,7 @@ export class CategoryQueryController {
     return await this.queryBus.execute(Categories);
   }
 
-  @Get('/detail')
+  @Get(pathPrefixQueryCategory.findCategoryById)
   async FindCategoryById(
     @Query() query: FindCategoryByIdRequestDTO
   ): Promise<any> {
@@ -40,7 +44,7 @@ export class CategoryQueryController {
     return await this.queryBus.execute(Categories);
   }
 
-  @Get('/find-by-code')
+  @Get(pathPrefixQueryCategory.findCategoryByCode)
   async FindCategoryByCode(
     @Query() query: FindCategoryByCodeRequestDTO
   ): Promise<any> {
@@ -52,7 +56,7 @@ export class CategoryQueryController {
     return await this.queryBus.execute(Categories);
   }
 
-  @Get('/get-total-category')
+  @Get(pathPrefixQueryCategory.getTotalCategory)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async GetTotalCategory(): Promise<any> {

@@ -8,19 +8,23 @@ import {
 import { CommandBus } from '@nestjs/cqrs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import {
+  UtilityImplement,
+  pathPrefixCategory,
+  pathPrefixCommandCategory,
+} from '@store-monorepo/service/utility';
 import { CreateCategory } from '../application/command/category/create';
 import { CreateCategoryResquestDTO } from '../application/command/category/create/dto';
 
-@ApiTags('category')
-@Controller('category')
+@ApiTags(pathPrefixCategory.swagger)
+@Controller(pathPrefixCategory.controller)
 export class CategoryCommandController {
   constructor(
     private readonly util: UtilityImplement,
     readonly commandBus: CommandBus
   ) {}
 
-  @Post('/create')
+  @Post(pathPrefixCommandCategory.createCategory)
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   async CreateCategory(

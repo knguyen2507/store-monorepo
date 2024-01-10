@@ -8,21 +8,25 @@ import {
 import { CommandBus } from '@nestjs/cqrs';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import {
+  UtilityImplement,
+  pathPrefixCommandProduct,
+  pathPrefixProduct,
+} from '@store-monorepo/service/utility';
 import { CreateProduct } from '../application/command/product/create';
 import { CreateProductResquestDTO } from '../application/command/product/create/dto';
 import { DeleteProduct } from '../application/command/product/delete';
 import { DeleteProductResquestDTO } from '../application/command/product/delete/dto';
 
-@ApiTags('product')
-@Controller('product')
+@ApiTags(pathPrefixProduct.swagger)
+@Controller(pathPrefixProduct.controller)
 export class ProductCommandController {
   constructor(
     private readonly util: UtilityImplement,
     readonly commandBus: CommandBus
   ) {}
 
-  @Post('/create')
+  @Post(pathPrefixCommandProduct.deleteProduct)
   @UseInterceptors(AnyFilesInterceptor())
   @ApiConsumes('multipart/form-data')
   async CreateProduct(
@@ -47,7 +51,7 @@ export class ProductCommandController {
     return await this.commandBus.execute(Brands);
   }
 
-  @Post('/delete')
+  @Post(pathPrefixCommandProduct.deleteProduct)
   async DeleteProduct(@Body() body: DeleteProductResquestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),

@@ -13,6 +13,8 @@ import { AuthGuard } from '@store-monorepo/service/guard';
 import {
   RequestWithUser,
   UtilityImplement,
+  pathPrefixCommandUser,
+  pathPrefixUser,
 } from '@store-monorepo/service/utility';
 import { CreateUser } from '../application/command/user/create';
 import { CreateUserRequestDTO } from '../application/command/user/create/dto';
@@ -22,15 +24,15 @@ import { Logout } from '../application/command/user/logout';
 import { UpdatePassword } from '../application/command/user/update/password';
 import { UpdatePasswordRequestDTO } from '../application/command/user/update/password/dto';
 
-@ApiTags('user')
-@Controller('user')
+@ApiTags(pathPrefixUser.swagger)
+@Controller(pathPrefixUser.controller)
 export class UserCommandController {
   constructor(
     private readonly util: UtilityImplement,
     readonly commandBus: CommandBus
   ) {}
 
-  @Post('/create-user')
+  @Post(pathPrefixCommandUser.createUser)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async CreateUser(@Body() body: CreateUserRequestDTO): Promise<void> {
@@ -43,7 +45,7 @@ export class UserCommandController {
   }
 
   @HttpCode(200)
-  @Post('/login')
+  @Post(pathPrefixCommandUser.login)
   async Login(@Body() body: LoginRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -53,7 +55,7 @@ export class UserCommandController {
     return await this.commandBus.execute(command);
   }
 
-  @Post('/change-password')
+  @Post(pathPrefixCommandUser.updatePassword)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async UpdatePassword(
@@ -68,7 +70,7 @@ export class UserCommandController {
     return await this.commandBus.execute(command);
   }
 
-  @Post('/logout')
+  @Post(pathPrefixCommandUser.logout)
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   async Logout(@Req() request: RequestWithUser): Promise<any> {
