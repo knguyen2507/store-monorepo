@@ -47,3 +47,30 @@ Chạy tất cả app
 ```
 pnpm nx run-many -t serve --all
 ```
+
+## LocalHost
+
+Api Documentation
+
+```
+http://localhost:3000/api/docs
+```
+
+Website cửa hàng
+
+```
+http://localhost:4202/cua-hang
+```
+
+Website quản lý
+
+```
+http://localhost:4201/quan-ly
+```
+
+Tài khoản Admin
+
+```
+username: admin001
+password: 123456
+```
