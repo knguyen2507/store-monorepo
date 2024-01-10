@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import { UtilityImplement, environment } from '@store-monorepo/utility';
+import { UtilityImplement } from '@store-monorepo/utility';
 import { Request } from 'express';
 
 @Injectable()
@@ -13,9 +13,6 @@ export class AuthGuard implements CanActivate {
   constructor(private readonly util: UtilityImplement) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    if (environment.GUARD) {
-      return true;
-    }
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {

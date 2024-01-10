@@ -28,7 +28,7 @@ export class NavigationComponent implements OnInit {
   setItem() {}
 
   onClick() {
-    window.location.href = environment.hostAdmin;
+    window.location.href = `${environment.hostAdmin}/quan-ly`;
   }
 
   shop_page() {
@@ -56,7 +56,7 @@ export class NavigationComponent implements OnInit {
     if (token) {
       this.authService.logout().subscribe();
     }
-    window.location.href = `${environment.hostAdmin}/login-page`;
+    window.location.href = `${environment.hostAdmin}/dang-nhap`;
     localStorage.removeItem(`accessToken`);
   }
 }

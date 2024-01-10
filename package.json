@@ -30,6 +30,7 @@
     "@nrwl/angular": "^17.2.8",
     "@nx/nest": "^17.2.8",
     "@prisma/client": "^5.7.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/multer": "^1.4.11",
     "ag-grid-angular": "^31.0.1",
     "ag-grid-community": "^31.0.1",
