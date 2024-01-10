@@ -1,6 +1,6 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import { UtilityImplement } from '@store-monorepo/utility';
 import { UpdatePassword } from '.';
 import { UserRepositoryImplement } from '../../../../../infrastructure/repository';
 

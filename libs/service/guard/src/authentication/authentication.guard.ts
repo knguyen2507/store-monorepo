@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
-import { UtilityImplement, environment } from '@store-monorepo/service/utility';
+import { UtilityImplement, environment } from '@store-monorepo/utility';
 import { Request } from 'express';
 
 @Injectable()

@@ -6,7 +6,7 @@ import {
   UtilityImplement,
   pathPrefixBrand,
   pathPrefixQueryBrand,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { FindBrandById } from '../application/query/brand/detail';
 import { FindBrandByIdRequestDTO } from '../application/query/brand/detail/dto';
 import { FindBrand } from '../application/query/brand/find';

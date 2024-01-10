@@ -6,7 +6,7 @@ import {
   UtilityImplement,
   pathPrefixProduct,
   pathPrefixQueryProduct,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { FindProductByCode } from '../application/query/product/detail';
 import { FindProductByCodeRequestDTO } from '../application/query/product/detail/dto';
 import { FindProduct } from '../application/query/product/find';

@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import { UtilityImplement } from '@store-monorepo/utility';
 import { UserFactory } from 'apps/store-services/src/user/infrastructure/factory/user';
 import moment from 'moment';
 import { CreateUser } from '.';

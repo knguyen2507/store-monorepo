@@ -6,7 +6,7 @@ import {
   UtilityImplement,
   pathPrefixCategory,
   pathPrefixQueryCategory,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { FindCategoryById } from '../application/query/category/detail';
 import { FindCategoryByIdRequestDTO } from '../application/query/category/detail/dto';
 import { FindCategory } from '../application/query/category/find';

@@ -1,4 +1,4 @@
-import { UserInterface } from '@store-monorepo/service/utility';
+import { UserInterface } from '@store-monorepo/utility';
 import { BaseQuery } from '../../base';
 
 export class VerifyAccessToken extends BaseQuery {

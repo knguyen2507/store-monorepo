@@ -12,7 +12,7 @@ import {
   UtilityImplement,
   pathPrefixCommandProduct,
   pathPrefixProduct,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { CreateProduct } from '../application/command/product/create';
 import { CreateProductResquestDTO } from '../application/command/product/create/dto';
 import { DeleteProduct } from '../application/command/product/delete';

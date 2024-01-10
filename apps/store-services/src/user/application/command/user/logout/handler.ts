@@ -1,6 +1,6 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import { UtilityImplement } from '@store-monorepo/utility';
 import { Logout } from '.';
 
 @CommandHandler(Logout)

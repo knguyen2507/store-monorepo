@@ -5,10 +5,7 @@ import {
 } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import {
-  environment,
-  pathPrefixSwagger,
-} from '@store-monorepo/service/utility';
+import { environment, pathPrefixSwagger } from '@store-monorepo/utility';
 import compression from 'compression';
 import helmet from 'helmet';
 import { AppModule } from './app.module';

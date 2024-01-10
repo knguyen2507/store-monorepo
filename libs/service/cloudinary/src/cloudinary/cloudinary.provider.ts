@@ -1,7 +1,7 @@
 import {
   CloudinaryProviderConstant,
   environment,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { v2 as cloudinary } from 'cloudinary';
 
 export const CloudinaryProvider = {

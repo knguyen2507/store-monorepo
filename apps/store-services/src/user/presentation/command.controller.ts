@@ -15,7 +15,7 @@ import {
   UtilityImplement,
   pathPrefixCommandUser,
   pathPrefixUser,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { CreateUser } from '../application/command/user/create';
 import { CreateUserRequestDTO } from '../application/command/user/create/dto';
 import { Login } from '../application/command/user/login';

@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CloudinaryService } from '@store-monorepo/service/cloudinary';
-import { UtilityImplement } from '@store-monorepo/service/utility';
+import { UtilityImplement } from '@store-monorepo/utility';
 import moment from 'moment';
 import { CreateProduct } from '.';
 import { ProductFactory } from '../../../../infrastructure/factory/product';

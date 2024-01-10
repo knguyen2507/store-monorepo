@@ -2,7 +2,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import * as redisStore from 'cache-manager-ioredis';
 
-import { environment } from '@store-monorepo/service/utility';
+import { environment } from '@store-monorepo/utility';
 
 @Module({
   imports: [

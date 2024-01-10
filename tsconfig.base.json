@@ -21,7 +21,7 @@
       "@store-monorepo/service/guard": ["libs/service/guard/src/index.ts"],
       "@store-monorepo/service/prisma": ["libs/service/prisma/src/index.ts"],
       "@store-monorepo/service/redis": ["libs/service/redis/src/index.ts"],
-      "@store-monorepo/service/utility": ["libs/utility/src/index.ts"],
+      "@store-monorepo/utility": ["libs/utility/src/index.ts"],
       "@store-monorepo/template/admin-template": [
         "libs/template/admin-template/src/index.ts"
       ],

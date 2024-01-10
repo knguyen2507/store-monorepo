@@ -12,7 +12,7 @@ import {
   UtilityImplement,
   pathPrefixCategory,
   pathPrefixCommandCategory,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { CreateCategory } from '../application/command/category/create';
 import { CreateCategoryResquestDTO } from '../application/command/category/create/dto';
 

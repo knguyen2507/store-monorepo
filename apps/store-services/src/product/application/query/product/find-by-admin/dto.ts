@@ -1,3 +1,3 @@
-import { PaginatorDTO } from '@store-monorepo/service/utility';
+import { PaginatorDTO } from '@store-monorepo/utility';
 
 export class FindProductByAdminRequestDTO extends PaginatorDTO {}

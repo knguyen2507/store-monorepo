@@ -12,7 +12,7 @@ import {
   UtilityImplement,
   pathPrefixBrand,
   pathPrefixCommandBrand,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { CreateBrand } from '../application/command/brand/create';
 import { CreateBrandResquestDTO } from '../application/command/brand/create/dto';
 

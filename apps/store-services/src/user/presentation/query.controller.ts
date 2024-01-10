@@ -7,7 +7,7 @@ import {
   UtilityImplement,
   pathPrefixQueryUser,
   pathPrefixUser,
-} from '@store-monorepo/service/utility';
+} from '@store-monorepo/utility';
 import { FindUserById } from '../application/query/user/detail';
 import { FindUser } from '../application/query/user/find';
 import { FindUserRequestDTO } from '../application/query/user/find/dto';
