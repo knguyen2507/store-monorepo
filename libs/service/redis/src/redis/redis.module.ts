@@ -1,7 +1,7 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import * as redisStore from 'cache-manager-ioredis';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import { environment } from '@store-monorepo/service/utility';
 
 @Module({

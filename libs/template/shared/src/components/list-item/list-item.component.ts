@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { environment } from '@store-monorepo/template/environment';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import * as AppStore from '@store-monorepo/template/store';
 
 @Component({

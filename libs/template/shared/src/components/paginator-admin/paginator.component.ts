@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+
 import * as AppStore from '@store-monorepo/template/store';
 
 @Component({

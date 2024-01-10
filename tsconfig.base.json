@@ -18,6 +18,7 @@
       "@store-monorepo/service/cloudinary": [
         "libs/service/cloudinary/src/index.ts"
       ],
+      "@store-monorepo/service/guard": ["libs/service/guard/src/index.ts"],
       "@store-monorepo/service/prisma": ["libs/service/prisma/src/index.ts"],
       "@store-monorepo/service/redis": ["libs/service/redis/src/index.ts"],
       "@store-monorepo/service/utility": ["libs/utility/src/index.ts"],
@@ -32,8 +33,7 @@
       "@store-monorepo/template/shop-template": [
         "libs/template/shop-template/src/index.ts"
       ],
-      "@store-monorepo/template/store": ["libs/template/store/src/index.ts"],
-      "@store-monorepo/service/guard": ["libs/service/guard/src/index.ts"]
+      "@store-monorepo/template/store": ["libs/template/store/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

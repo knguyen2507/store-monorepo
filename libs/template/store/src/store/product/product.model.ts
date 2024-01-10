@@ -1,6 +1,3 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
-
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { GeneralStatusEnum } from '@store-monorepo/template/shared';
 
 export class ProductModel {
