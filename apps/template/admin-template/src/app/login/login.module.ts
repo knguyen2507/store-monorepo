@@ -6,7 +6,7 @@ import { LoginComponent } from './login.component';
 
 const routes: Routes = [
   {
-    path: 'dang-nhap',
+    path: 'quan-ly/dang-nhap',
     component: LoginComponent,
     title: 'Form Đăng Nhập',
     data: {

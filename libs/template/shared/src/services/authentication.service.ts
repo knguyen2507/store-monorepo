@@ -13,7 +13,7 @@ export class AuthenticationService {
   private apiUrl = environment.urlApi;
 
   SwitchToLoginPage() {
-    window.location.href = `${environment.hostAdmin}/dang-nhap`;
+    window.location.href = `${environment.hostAdmin}/quan-ly/dang-nhap`;
   }
 
   getDataByAccessToken(): Observable<TokenDataModel> {

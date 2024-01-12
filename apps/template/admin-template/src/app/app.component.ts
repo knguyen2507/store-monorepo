@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
-        if (event.url === '/dang-nhap') {
+        if (event.url === '/quan-ly/dang-nhap') {
           this.showComponent = false;
         }
       }
