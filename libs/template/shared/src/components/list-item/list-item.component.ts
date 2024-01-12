@@ -13,6 +13,6 @@ export class ListItemComponent {
   @Input() data!: Partial<AppStore.ProductStore.ProductModel>[];
 
   detailCard(item: Partial<AppStore.ProductStore.ProductModel>) {
-    window.location.href = `${environment.hostShop}/cua-hang/san-pham/chi-tiet/${item.productCode}`;
+    window.location.href = `${environment.host}/cua-hang/san-pham/chi-tiet/${item.productCode}`;
   }
 }

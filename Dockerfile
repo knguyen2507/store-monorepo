@@ -11,13 +11,10 @@ FROM base as build
 WORKDIR /usr/src/app
 COPY . .
 RUN nx reset
-RUN pnpm nx build admin-template --base-href quan-ly
-RUN pnpm nx build shop-template --base-href cua-hang
+RUN pnpm nx build store-template
 
 FROM nginx:latest as deploy
 WORKDIR /usr/src/app
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=build /usr/src/app/dist/apps/template/admin-template /usr/share/nginx/html/quan-ly
-COPY --from=build /usr/src/app/dist/apps/template/shop-template /usr/share/nginx/html/cua-hang
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/local/app/dist/store-template /usr/share/nginx/html
 EXPOSE 80

@@ -5,7 +5,7 @@
 Tạo 1 app mới (Angular)
 
 ```
-pnpm nx g @nx/angular:application <appName> --port=<portNumber> --directory=apps/template/<appName>
+pnpm nx g @nx/angular:application <appName> --port=<portNumber> --directory=apps/<appName>
 ```
 
 Tạo 1 app mới (NestJS)
@@ -59,13 +59,13 @@ http://localhost:3000/api/docs
 Website cửa hàng
 
 ```
-http://localhost:4202/cua-hang
+http://localhost:4200/cua-hang
 ```
 
 Website quản lý
 
 ```
-http://localhost:4201/quan-ly
+http://localhost:4200/quan-ly
 ```
 
 Tài khoản Admin

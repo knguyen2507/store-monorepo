@@ -1,8 +1,7 @@
 export const environment = {
   production: false,
   mode: '',
-  hostAdmin: '',
-  hostShop: '',
+  host: '',
   urlApi: '',
   guard: false,
 };
