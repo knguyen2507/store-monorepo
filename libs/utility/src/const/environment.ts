@@ -73,6 +73,18 @@ class EnvironmentVariables {
     'CLOUDINARY_APISECRET'
   ] as string;
 
+  @IsString()
+  readonly RMQ_USER: string = process.env['RMQ_USER'] as string;
+
+  @IsString()
+  readonly RMQ_PASSWORD: string = process.env['RMQ_PASSWORD'] as string;
+
+  @IsString()
+  readonly RMQ_HOST: string = process.env['RMQ_HOST'] as string;
+
+  @IsNumber()
+  readonly RMQ_PORT: number = Number(process.env['RMQ_PORT']);
+
   constructor() {
     const error = validateSync(this);
     if (!error.length) return;
