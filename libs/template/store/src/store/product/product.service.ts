@@ -17,7 +17,7 @@ import {
 export class ProductService {
   constructor(private httpService: HttpService) {}
 
-  private apiUrl = environment.urlApi;
+  private apiUrl = `${environment.urlApi}/msx-shop`;
 
   findProductList(
     pagi?: { offset: number; limit: number },

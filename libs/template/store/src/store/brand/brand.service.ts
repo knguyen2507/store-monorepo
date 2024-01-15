@@ -13,7 +13,7 @@ import { BrandModel } from './brand.model';
 export class BrandService {
   constructor(private httpService: HttpService) {}
 
-  private apiUrl = environment.urlApi;
+  private apiUrl = `${environment.urlApi}/msx-shop`;
 
   findBrandList() {
     return this.httpService.get<FindMany<BrandModel>>(

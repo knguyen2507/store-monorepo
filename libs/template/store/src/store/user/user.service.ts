@@ -14,7 +14,7 @@ import { UserModel } from './user.model';
 export class UserService {
   constructor(private httpService: HttpService) {}
 
-  private apiUrl = environment.urlApi;
+  private apiUrl = `${environment.urlApi}/msx-authn`;
 
   findUserList(pagi?: { offset: number; limit: number }) {
     return this.httpService.getAdmin<FindMany<UserModel>>(

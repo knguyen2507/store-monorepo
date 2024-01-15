@@ -10,7 +10,7 @@ import { LoginModel } from './login.model';
 export class LoginService {
   constructor(private httpService: HttpService) {}
 
-  private apiUrl = environment.urlApi;
+  private apiUrl = `${environment.urlApi}/msx-authn`;
 
   login(loginInfo: Partial<LoginModel>): Observable<any> {
     return this.httpService
