@@ -3,15 +3,15 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
 import {
+  FindCategoryByCodeRequestDTO,
+  FindCategoryByIdRequestDTO,
   UtilityImplement,
   pathPrefixCategory,
   pathPrefixQueryCategory,
 } from '@store-monorepo/utility';
 import { FindCategoryById } from '../application/query/category/detail';
-import { FindCategoryByIdRequestDTO } from '../application/query/category/detail/dto';
 import { FindCategory } from '../application/query/category/find';
 import { FindCategoryByCode } from '../application/query/category/find-by-code';
-import { FindCategoryByCodeRequestDTO } from '../application/query/category/find-by-code/dto';
 import { GetTotalCategory } from '../application/query/category/get-total';
 
 @ApiTags(pathPrefixCategory.swagger)

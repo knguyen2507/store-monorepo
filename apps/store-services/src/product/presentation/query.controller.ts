@@ -3,22 +3,22 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
 import {
+  FindProductByAdminRequestDTO,
+  FindProductByBrandRequestDTO,
+  FindProductByCategoryRequestDTO,
+  FindProductByCodeRequestDTO,
+  FindProductRequestDTO,
+  FindProductSimilarRequestDTO,
   UtilityImplement,
   pathPrefixProduct,
   pathPrefixQueryProduct,
 } from '@store-monorepo/utility';
 import { FindProductByCode } from '../application/query/product/detail';
-import { FindProductByCodeRequestDTO } from '../application/query/product/detail/dto';
 import { FindProduct } from '../application/query/product/find';
 import { FindProductByAdmin } from '../application/query/product/find-by-admin';
-import { FindProductByAdminRequestDTO } from '../application/query/product/find-by-admin/dto';
 import { FindProductByBrand } from '../application/query/product/find-by-brand';
-import { FindProductByBrandRequestDTO } from '../application/query/product/find-by-brand/dto';
 import { FindProductByCategory } from '../application/query/product/find-by-category';
-import { FindProductByCategoryRequestDTO } from '../application/query/product/find-by-category/dto';
 import { FindProductSimilar } from '../application/query/product/find-similar';
-import { FindProductSimilarRequestDTO } from '../application/query/product/find-similar/dto';
-import { FindProductRequestDTO } from '../application/query/product/find/dto';
 import { GetTotalProduct } from '../application/query/product/get-total';
 
 @ApiTags(pathPrefixProduct.swagger)

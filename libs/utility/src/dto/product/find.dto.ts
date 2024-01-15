@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PaginatorDTO } from '@store-monorepo/utility';
 import { IsOptional, IsString } from 'class-validator';
+import { PaginatorDTO } from '../paginator.dto';
 
 export class FindProductRequestDTO extends PaginatorDTO {
   @ApiProperty({ required: false })

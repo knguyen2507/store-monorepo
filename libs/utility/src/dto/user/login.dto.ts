@@ -5,10 +5,10 @@ export class LoginRequestDTO {
   @ApiProperty({ type: String, example: 'test001' })
   @IsString()
   @IsNotEmpty()
-  readonly username: string;
+  readonly username!: string;
 
   @ApiProperty({ type: String, example: '123456' })
   @IsString()
   @IsNotEmpty()
-  readonly password: string;
+  readonly password!: string;
 }

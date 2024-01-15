@@ -5,5 +5,5 @@ export class FindProductByIdsRequestDTO {
   @ApiProperty({ type: [String] })
   @IsArray()
   @IsNotEmpty({ each: true })
-  readonly ids: string[];
+  readonly ids!: string[];
 }

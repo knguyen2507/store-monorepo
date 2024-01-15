@@ -3,6 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
 import {
+  FindUserRequestDTO,
   RequestWithUser,
   UtilityImplement,
   pathPrefixQueryUser,
@@ -10,7 +11,6 @@ import {
 } from '@store-monorepo/utility';
 import { FindUserById } from '../application/query/user/detail';
 import { FindUser } from '../application/query/user/find';
-import { FindUserRequestDTO } from '../application/query/user/find/dto';
 import { GetTotalUser } from '../application/query/user/get-total';
 import { VerifyAccessToken } from '../application/query/user/verify-token';
 

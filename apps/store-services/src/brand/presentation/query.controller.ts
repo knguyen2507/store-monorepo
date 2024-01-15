@@ -3,15 +3,15 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@store-monorepo/service/guard';
 import {
+  FindBrandByCodeRequestDTO,
+  FindBrandByIdRequestDTO,
   UtilityImplement,
   pathPrefixBrand,
   pathPrefixQueryBrand,
 } from '@store-monorepo/utility';
 import { FindBrandById } from '../application/query/brand/detail';
-import { FindBrandByIdRequestDTO } from '../application/query/brand/detail/dto';
 import { FindBrand } from '../application/query/brand/find';
 import { FindBrandByCode } from '../application/query/brand/find-by-code';
-import { FindBrandByCodeRequestDTO } from '../application/query/brand/find-by-code/dto';
 import { GetTotalBrand } from '../application/query/brand/get-total';
 
 @ApiTags(pathPrefixBrand.swagger)

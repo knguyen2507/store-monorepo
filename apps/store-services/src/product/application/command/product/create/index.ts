@@ -1,3 +1,4 @@
+import { FileUpload } from '@store-monorepo/utility';
 import { BaseCommand } from '../../base';
 
 export class CreateProduct extends BaseCommand {
@@ -10,7 +11,7 @@ export class CreateProduct extends BaseCommand {
     readonly price: number;
     readonly description: string;
     readonly main: string;
-    readonly files: Array<Express.Multer.File>;
+    readonly files: Array<FileUpload>;
   };
 
   constructor(data: CreateProduct) {

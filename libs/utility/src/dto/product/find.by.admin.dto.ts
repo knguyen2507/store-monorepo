@@ -1,3 +1,3 @@
-import { PaginatorDTO } from '@store-monorepo/utility';
+import { PaginatorDTO } from '../paginator.dto';
 
 export class FindProductByAdminRequestDTO extends PaginatorDTO {}

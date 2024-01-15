@@ -9,12 +9,13 @@ import { CommandBus } from '@nestjs/cqrs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import {
+  CreateCategoryResquestDTO,
+  FileUpload,
   UtilityImplement,
   pathPrefixCategory,
   pathPrefixCommandCategory,
 } from '@store-monorepo/utility';
 import { CreateCategory } from '../application/command/category/create';
-import { CreateCategoryResquestDTO } from '../application/command/category/create/dto';
 
 @ApiTags(pathPrefixCategory.swagger)
 @Controller(pathPrefixCategory.controller)
@@ -28,7 +29,7 @@ export class CategoryCommandController {
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   async CreateCategory(
-    @UploadedFile() image: Express.Multer.File,
+    @UploadedFile() image: FileUpload,
     @Body() body: CreateCategoryResquestDTO
   ): Promise<any> {
     const msg = {

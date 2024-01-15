@@ -1,11 +1,12 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { FileUpload } from '@store-monorepo/utility';
 import { v2 as cloudinary } from 'cloudinary';
 import { Readable } from 'stream';
 import { CloudinaryResponse } from './cloudinary.response';
 
 @Injectable()
 export class CloudinaryService {
-  uploadFile(file: Express.Multer.File): Promise<CloudinaryResponse> {
+  uploadFile(file: FileUpload): Promise<CloudinaryResponse> {
     return new Promise<CloudinaryResponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         (error, result) => {

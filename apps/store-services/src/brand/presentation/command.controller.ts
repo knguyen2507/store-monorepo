@@ -9,12 +9,13 @@ import { CommandBus } from '@nestjs/cqrs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import {
+  CreateBrandResquestDTO,
+  FileUpload,
   UtilityImplement,
   pathPrefixBrand,
   pathPrefixCommandBrand,
 } from '@store-monorepo/utility';
 import { CreateBrand } from '../application/command/brand/create';
-import { CreateBrandResquestDTO } from '../application/command/brand/create/dto';
 
 @ApiTags(pathPrefixBrand.swagger)
 @Controller(pathPrefixBrand.controller)
@@ -28,7 +29,7 @@ export class BrandCommandController {
   @UseInterceptors(FileInterceptor('image'))
   @ApiConsumes('multipart/form-data')
   async CreateBrand(
-    @UploadedFile() image: Express.Multer.File,
+    @UploadedFile() image: FileUpload,
     @Body() body: CreateBrandResquestDTO
   ): Promise<any> {
     const msg = {
