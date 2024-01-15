@@ -20,6 +20,9 @@
       ],
       "@store-monorepo/service/guard": ["libs/service/guard/src/index.ts"],
       "@store-monorepo/service/prisma": ["libs/service/prisma/src/index.ts"],
+      "@store-monorepo/service/rabbitmq": [
+        "libs/service/rabbitmq/src/index.ts"
+      ],
       "@store-monorepo/service/redis": ["libs/service/redis/src/index.ts"],
       "@store-monorepo/template/admin-template": [
         "libs/template/admin-template/src/index.ts"
@@ -33,8 +36,7 @@
         "libs/template/shop-template/src/index.ts"
       ],
       "@store-monorepo/template/store": ["libs/template/store/src/index.ts"],
-      "@store-monorepo/utility": ["libs/utility/src/index.ts"],
-      "@store-monorepo/service/rabbitmq": ["libs/service/rabbitmq/src/index.ts"]
+      "@store-monorepo/utility": ["libs/utility/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

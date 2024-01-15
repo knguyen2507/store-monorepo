@@ -1,0 +1,52 @@
+{
+  "name": "authn",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/store-services/authn/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/store-services/authn",
+        "main": "apps/store-services/authn/src/main.ts",
+        "tsConfig": "apps/store-services/authn/tsconfig.app.json",
+        "webpackConfig": "apps/store-services/authn/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "authn:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "authn:build:development"
+        },
+        "production": {
+          "buildTarget": "authn:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/store-services/authn/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

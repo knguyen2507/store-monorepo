@@ -1,8 +1,6 @@
 import { Nack, RabbitRPC } from '@golevelup/nestjs-rabbitmq';
-import { Controller, UseGuards } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
 import { RMQ, RmqMessage, environment } from '@store-monorepo/utility';
 import { FindCategoryById } from '../application/query/category/detail';
 import { FindCategory } from '../application/query/category/find';
@@ -63,8 +61,6 @@ export class CategoryQueryController {
     routingKey: RMQ.RK_PROPERTY_QRY_GET_TOTAL_CATEGORY,
     queue: `${RMQ.EXCHANGE}-${RMQ.RK_PROPERTY_QRY_GET_TOTAL_CATEGORY}-${environment.APPNAME}`,
   })
-  @UseGuards(AuthGuard)
-  @ApiBearerAuth()
   async GetTotalCategory(msg: RmqMessage) {
     try {
       const query = new GetTotalCategory(msg);

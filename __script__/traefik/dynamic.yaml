@@ -1,0 +1,21 @@
+http:
+  routers:
+    router-msx-authn:
+      entryPoints:
+        - http
+      service: msx-authn
+      rule: PathPrefix(`/msx-authn`)
+    router-msx-shop:
+      entryPoints:
+        - http
+      service: msx-shop
+      rule: PathPrefix(`/msx-shop`)
+  services:
+    msx-authn:
+      loadBalancer:
+        servers:
+          - url: http://host.docker.internal:3010/
+    msx-shop:
+      loadBalancer:
+        servers:
+          - url: http://host.docker.internal:3020/

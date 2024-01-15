@@ -1,12 +1,7 @@
 import { Nack, RabbitRPC } from '@golevelup/nestjs-rabbitmq';
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import {
-  RMQ,
-  RmqMessage,
-  environment,
-  pathPrefixQueryBrand,
-} from '@store-monorepo/utility';
+import { RMQ, RmqMessage, environment } from '@store-monorepo/utility';
 import { FindBrandById } from '../application/query/brand/detail';
 import { FindBrand } from '../application/query/brand/find';
 import { FindBrandByCode } from '../application/query/brand/find-by-code';
@@ -36,7 +31,6 @@ export class BrandQueryController {
     routingKey: RMQ.RK_PROPERTY_QRY_FIND_DETAIL_BRAND,
     queue: `${RMQ.EXCHANGE}-${RMQ.RK_PROPERTY_QRY_FIND_DETAIL_BRAND}-${environment.APPNAME}`,
   })
-  @Get(pathPrefixQueryBrand.findBrandById)
   async FindBrandById(msg: RmqMessage) {
     try {
       const query = new FindBrandById(msg);
@@ -52,7 +46,6 @@ export class BrandQueryController {
     routingKey: RMQ.RK_PROPERTY_QRY_FIND_BRAND_BYCODE,
     queue: `${RMQ.EXCHANGE}-${RMQ.RK_PROPERTY_QRY_FIND_BRAND_BYCODE}-${environment.APPNAME}`,
   })
-  @Get(pathPrefixQueryBrand.findBrandByCode)
   async FindBrandByCode(msg: RmqMessage) {
     try {
       const query = new FindBrandByCode(msg);

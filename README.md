@@ -11,7 +11,7 @@ pnpm nx g @nx/angular:application <appName> --port=<portNumber> --directory=apps
 Tạo 1 app mới (NestJS)
 
 ```
-pnpm nx g @nx/nest:apps <appName> --directory=apps/<appName>
+pnpm nx g @nx/nest:application <appName> --directory=apps/<appName>
 ```
 
 Tạo 1 lib mới

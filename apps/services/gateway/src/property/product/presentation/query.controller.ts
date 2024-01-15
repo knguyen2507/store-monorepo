@@ -7,6 +7,7 @@ import {
   FindProductByBrandRequestDTO,
   FindProductByCategoryRequestDTO,
   FindProductByCodeRequestDTO,
+  FindProductByIdsRequestDTO,
   FindProductRequestDTO,
   FindProductSimilarRequestDTO,
   RMQ,
@@ -104,7 +105,7 @@ export class ProductQueryController {
 
   @Get(pathPrefixQueryProduct.findProductByIds)
   async FindProductByIds(
-    @Query() query: FindProductByCategoryRequestDTO
+    @Query() query: FindProductByIdsRequestDTO
   ): Promise<any> {
     const payload: RmqMessage = {
       messageId: this.util.generateId(),

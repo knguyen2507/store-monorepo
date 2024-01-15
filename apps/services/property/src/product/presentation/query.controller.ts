@@ -7,6 +7,7 @@ import { FindProduct } from '../application/query/product/find';
 import { FindProductByAdmin } from '../application/query/product/find-by-admin';
 import { FindProductByBrand } from '../application/query/product/find-by-brand';
 import { FindProductByCategory } from '../application/query/product/find-by-category';
+import { FindProductByIds } from '../application/query/product/find-by-ids';
 import { FindProductSimilar } from '../application/query/product/find-similar';
 import { GetTotalProduct } from '../application/query/product/get-total';
 
@@ -96,7 +97,7 @@ export class ProductQueryController {
   })
   async FindProductByIds(msg: RmqMessage) {
     try {
-      const query = new FindProductByCategory(msg);
+      const query = new FindProductByIds(msg);
       return await this.queryBus.execute(query);
     } catch (error) {
       console.error(error);

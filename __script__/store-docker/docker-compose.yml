@@ -9,6 +9,7 @@ volumes:
   postgresdb-data:
   redis-data:
   rabbitmq-data:
+  traefik-data:
 
 services:
   store-mongodb:
@@ -74,3 +75,32 @@ services:
       - RABBITMQ_DEFAULT_PASS=abc12345
     networks:
       - gateway-network
+
+  traefik:
+    image: traefik:v2.9.8
+    restart: always
+    container_name: store-traefik
+    ports:
+      - target: 3000
+        published: 3000
+        mode: host
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    volumes:
+      # traefik logs
+      - traefik-data:/logs
+      # traefik config
+      - ../traefik/traefik.yml:/etc/traefik/traefik.yml
+      # traefik file provider
+      - ../traefik/dynamic.yaml:/dynamic/dynamic.yaml
+    networks:
+      - gateway-network
+    labels:
+      - traefik.enable=true
+      - traefik.constraint-label=traefik-public
+      - traefik.http.middlewares.admin-auth.basicauth.users=admin:$$apr1$$Yem0Wlpo$$PMK2N5GIdk1dLWQgtQSPK0 #abc12345 password
+      - traefik.http.routers.traefik-public-http.rule=(PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      - traefik.http.routers.traefik-public-http.entrypoints=http
+      - traefik.http.routers.traefik-public-http.service=api@internal
+      - traefik.http.routers.traefik-public-http.middlewares=admin-auth
+      - traefik.http.services.traefik-public.loadbalancer.server.port=8080
