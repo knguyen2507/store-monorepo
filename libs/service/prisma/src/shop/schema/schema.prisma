@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../../../../../../node_modules/@prisma/client/store"
+  output   = "../../../../../../node_modules/@prisma/client/shop"
 }
 
 datasource db {
@@ -11,25 +11,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  phone    String
-  username String
-  password String
-  created  DateTime?
-
-  @@map("users")
-}
-
 model Brands {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
   brandCode     String     @unique
   name          String
   thumbnailLink String
-  created       DateTime?
-  updated       DateTime[]
+  created       PIC?
+  updated       PIC[]
   product       Products[]
+  shop          Shop[]
 
   @@map("brands")
 }
@@ -39,9 +29,10 @@ model Categories {
   categoryCode  String     @unique
   name          String
   thumbnailLink String
-  created       DateTime?
-  updated       DateTime[]
+  created       PIC?
+  updated       PIC[]
   product       Products[]
+  shop          Shop[]
 
   @@map("categories")
 }
@@ -59,8 +50,9 @@ model Products {
   thumbnailLink Images
   description   String
   images        Images[]
-  created       DateTime?
-  updated       DateTime[]
+  created       PIC?
+  updated       PIC[]
+  shop          Shop[]
 
   @@map("products")
 }
@@ -70,4 +62,16 @@ type Images {
   name   String
   url    String
   isMain Boolean
+}
+
+type PIC {
+  id       String
+  username String
+  at       DateTime
+}
+
+type Shop {
+  id      String
+  name    String
+  address String
 }

@@ -1,5 +1,17 @@
 import { Expose } from 'class-transformer';
 
+export type PIC = {
+  id: string;
+  username: string;
+  at: Date;
+};
+
+export type Shop = {
+  id: string;
+  name: string;
+  address: string;
+};
+
 export type Images = {
   id: string;
   name: string;
@@ -29,9 +41,11 @@ export class ProductModel {
   @Expose()
   images: Images[];
   @Expose()
-  created: Date;
+  created: PIC;
   @Expose()
-  updated: Date[];
+  updated: PIC[];
+  @Expose()
+  shop: Shop[];
 
   update(data: Partial<this>) {
     this.qty = data.qty ? data.qty : this.qty;

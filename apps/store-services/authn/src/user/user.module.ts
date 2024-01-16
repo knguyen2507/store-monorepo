@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { PrismaModule } from '@store-monorepo/service/prisma';
+import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
 import { CreateUserHandler } from './application/command/user/create/handler';
 import { LoginHandler } from './application/command/user/login/handler';
 import { LogoutHandler } from './application/command/user/logout/handler';
@@ -34,7 +34,7 @@ const queries = [
 const domain = [UserFactory];
 
 @Module({
-  imports: [CqrsModule, PrismaModule],
+  imports: [CqrsModule, AuthnPrismaModule],
   controllers: [UserQueryController, UserCommandController],
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })

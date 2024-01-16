@@ -1,7 +1,9 @@
-import { Inject } from '@nestjs/common';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Shop } from '@prisma/client/shop';
 import { CloudinaryService } from '@store-monorepo/service/cloudinary';
-import { UtilityImplement } from '@store-monorepo/utility';
+import { RMQ, RmqMessage, UtilityImplement } from '@store-monorepo/utility';
 import moment from 'moment';
 import { CreateProduct } from '.';
 import { ProductFactory } from '../../../../infrastructure/factory/product';
@@ -13,7 +15,8 @@ export class CreateProductHandler
 {
   constructor(
     private readonly util: UtilityImplement,
-    private readonly cloudinaryService: CloudinaryService
+    private readonly cloudinaryService: CloudinaryService,
+    private readonly amqpService: AmqpConnection
   ) {}
   @Inject()
   private readonly factory: ProductFactory;
@@ -21,11 +24,33 @@ export class CreateProductHandler
   private readonly product: ProductRepositoryImplement;
 
   async execute(command: CreateProduct): Promise<void> {
-    const created = moment().toDate();
     const id = this.util.generateId();
-    const { main, files, ...data } = command.data;
+    const { main, files, user, shop, ...data } = command.data;
+    const created = {
+      id: user.id,
+      username: user.username,
+      at: moment().toDate(),
+    };
     const upload = [];
     let thumbnailLink: any;
+    let shopInfor: Shop[] = [];
+
+    try {
+      const payload: RmqMessage = {
+        messageId: this.util.generateId(),
+        data: {
+          ids: shop,
+        },
+      };
+      shopInfor = await this.amqpService.request<any>({
+        exchange: RMQ.EXCHANGE,
+        routingKey: RMQ.RK_AUHTN_QRY_GET_SHOP_INFORMATION,
+        payload,
+        timeout: 10000,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
 
     for (const image of files) {
       const uploaded = await this.cloudinaryService.uploadFile(image);
@@ -61,6 +86,7 @@ export class CreateProductHandler
       id,
       created,
       updated: [],
+      shop: shopInfor,
     });
 
     await this.product.save(model);

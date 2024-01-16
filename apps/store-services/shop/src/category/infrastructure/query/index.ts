@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { ShopPrismaService } from '@store-monorepo/service/prisma';
 import { plainToClass } from 'class-transformer';
 import { FindCategoryById } from '../../application/query/category/detail';
 import { FindCategoryByIdResult } from '../../application/query/category/detail/result';
@@ -14,13 +14,13 @@ import { CategoryQuery } from '../../domain/query';
 
 export class CategoryQueryImplement implements CategoryQuery {
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: ShopPrismaService;
 
   async find(): Promise<FindCategoryResult> {
     const categories = await this.prisma.categories.findMany({
       orderBy: [
         {
-          created: 'desc',
+          created: { at: 'desc' },
         },
         {
           id: 'asc',

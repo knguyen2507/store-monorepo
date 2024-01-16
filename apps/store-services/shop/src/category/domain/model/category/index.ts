@@ -1,5 +1,17 @@
 import { Expose } from 'class-transformer';
 
+export type PIC = {
+  id: string;
+  username: string;
+  at: Date;
+};
+
+export type Shop = {
+  id: string;
+  name: string;
+  address: string;
+};
+
 export class CategoryModel {
   @Expose()
   id: string;
@@ -10,11 +22,9 @@ export class CategoryModel {
   @Expose()
   thumbnailLink: string;
   @Expose()
-  created: Date;
+  created: PIC;
   @Expose()
-  updated: Date[];
-
-  update(data: Partial<this>) {
-    console.log(data);
-  }
+  updated: PIC[];
+  @Expose()
+  shop: Shop[];
 }

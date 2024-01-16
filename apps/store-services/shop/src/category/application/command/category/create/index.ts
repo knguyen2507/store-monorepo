@@ -1,4 +1,4 @@
-import { FileUpload } from '@store-monorepo/utility';
+import { FileUpload, UserInterface } from '@store-monorepo/utility';
 import { BaseCommand } from '../../base';
 
 export class CreateCategory extends BaseCommand {
@@ -6,6 +6,8 @@ export class CreateCategory extends BaseCommand {
     readonly name: string;
     readonly thumbnailLink: FileUpload;
     readonly categoryCode: string;
+    readonly user: UserInterface;
+    readonly shop: string[];
   };
 
   constructor(data: CreateCategory) {

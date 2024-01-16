@@ -1,5 +1,5 @@
 import { Inject, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { AuthnPrismaService } from '@store-monorepo/service/prisma';
 import { UserInterface, UtilityImplement } from '@store-monorepo/utility';
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { FindUserById } from '../../application/query/user/detail';
@@ -15,7 +15,7 @@ import { UserQuery } from '../../domain/query';
 
 export class UserQueryImplement implements UserQuery {
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: AuthnPrismaService;
   @Inject()
   private readonly util: UtilityImplement;
 

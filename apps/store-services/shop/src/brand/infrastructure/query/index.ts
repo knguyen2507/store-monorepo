@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { ShopPrismaService } from '@store-monorepo/service/prisma';
 import { plainToClass } from 'class-transformer';
 import { FindBrandById } from '../../application/query/brand/detail';
 import { FindBrandByIdResult } from '../../application/query/brand/detail/result';
@@ -14,13 +14,13 @@ import { BrandQuery } from '../../domain/query';
 
 export class BrandQueryImplement implements BrandQuery {
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: ShopPrismaService;
 
   async find(): Promise<FindBrandResult> {
     const brands = await this.prisma.brands.findMany({
       orderBy: [
         {
-          created: 'desc',
+          created: { at: 'desc' },
         },
         {
           id: 'asc',

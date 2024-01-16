@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { AuthnPrismaService } from '@store-monorepo/service/prisma';
 import { UserModel } from '../../domain/model/users';
 import { UserRepository } from '../../domain/repository';
 import { UserFactory } from '../factory/user';
@@ -8,10 +8,13 @@ export class UserRepositoryImplement implements UserRepository {
   @Inject()
   private readonly factory: UserFactory;
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: AuthnPrismaService;
 
   async save(data: UserModel): Promise<UserModel> {
-    const saved = await this.prisma.users.create({ data });
+    const { role, ...user } = data;
+    const saved = await this.prisma.users.create({
+      data: { ...user, role: { connect: { id: role.id } } },
+    });
     return this.factory.createUserModel(saved);
   }
 
@@ -35,9 +38,9 @@ export class UserRepositoryImplement implements UserRepository {
   }
 
   async update(data: UserModel): Promise<UserModel> {
-    const { id, ...model } = data;
+    const { id, role, ...model } = data;
     const updated = await this.prisma.users.update({
-      data: model,
+      data: { ...model, role: { connect: { id: role.id } } },
       where: { id },
     });
     return this.factory.createUserModel(updated);

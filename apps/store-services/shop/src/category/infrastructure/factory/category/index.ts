@@ -1,4 +1,4 @@
-import { Categories } from '@prisma/client/store';
+import { Categories } from '@prisma/client/shop';
 import { CategoryModel } from '../../../domain/model/category';
 import { BaseFactory } from '../base';
 

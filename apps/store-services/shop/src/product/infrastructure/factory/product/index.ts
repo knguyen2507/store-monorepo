@@ -1,4 +1,4 @@
-import { Products } from '@prisma/client/store';
+import { Products } from '@prisma/client/shop';
 import { ProductModel } from '../../../domain/model/product';
 import { BaseFactory } from '../base';
 

@@ -1,7 +1,9 @@
-import { Inject } from '@nestjs/common';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Shop } from '@prisma/client/shop';
 import { CloudinaryService } from '@store-monorepo/service/cloudinary';
-import { UtilityImplement } from '@store-monorepo/utility';
+import { RMQ, RmqMessage, UtilityImplement } from '@store-monorepo/utility';
 import jimp from 'jimp';
 import moment from 'moment';
 import { CreateBrand } from '.';
@@ -12,7 +14,8 @@ import { BrandRepositoryImplement } from '../../../../infrastructure/repository'
 export class CreateBrandHandler implements ICommandHandler<CreateBrand, void> {
   constructor(
     private readonly util: UtilityImplement,
-    private readonly cloudinaryService: CloudinaryService
+    private readonly cloudinaryService: CloudinaryService,
+    private readonly amqpService: AmqpConnection
   ) {}
   @Inject()
   private readonly factory: BrandFactory;
@@ -20,10 +23,31 @@ export class CreateBrandHandler implements ICommandHandler<CreateBrand, void> {
   private readonly Brand: BrandRepositoryImplement;
 
   async execute(command: CreateBrand): Promise<void> {
-    const created = moment().toDate();
     const id = this.util.generateId();
-    const { name, thumbnailLink, brandCode } = command.data;
+    const { name, thumbnailLink, brandCode, user, shop } = command.data;
+    const created = {
+      id: user.id,
+      username: user.username,
+      at: moment().toDate(),
+    };
+    let shopInfor: Shop[] = [];
 
+    try {
+      const payload: RmqMessage = {
+        messageId: this.util.generateId(),
+        data: {
+          ids: shop,
+        },
+      };
+      shopInfor = await this.amqpService.request<any>({
+        exchange: RMQ.EXCHANGE,
+        routingKey: RMQ.RK_AUHTN_QRY_GET_SHOP_INFORMATION,
+        payload,
+        timeout: 10000,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
     const file = await jimp.read(thumbnailLink.buffer);
     file.resize(200, 200);
     file.getBuffer(jimp.MIME_PNG, (err, buffer) => {
@@ -39,6 +63,7 @@ export class CreateBrandHandler implements ICommandHandler<CreateBrand, void> {
       id,
       created,
       updated: [],
+      shop: shopInfor,
     });
 
     await this.Brand.save(model);

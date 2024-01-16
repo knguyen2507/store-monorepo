@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { ShopPrismaService } from '@store-monorepo/service/prisma';
 import { plainToClass } from 'class-transformer';
 import { FindProductByCode } from '../../application/query/product/detail';
 import { FindProductByCodeResult } from '../../application/query/product/detail/result';
@@ -38,7 +38,7 @@ import { ProductQuery } from '../../domain/query';
 
 export class ProductQueryImplement implements ProductQuery {
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: ShopPrismaService;
 
   async find(query: FindProduct): Promise<FindProductResult> {
     const { offset, limit, searchName } = query.data;
@@ -54,7 +54,7 @@ export class ProductQueryImplement implements ProductQuery {
         take: Number(limit),
         orderBy: [
           {
-            created: 'desc',
+            created: { at: 'desc' },
           },
           {
             id: 'asc',
@@ -95,7 +95,7 @@ export class ProductQueryImplement implements ProductQuery {
         take: Number(limit),
         orderBy: [
           {
-            created: 'desc',
+            created: { at: 'desc' },
           },
           {
             id: 'asc',
@@ -156,7 +156,7 @@ export class ProductQueryImplement implements ProductQuery {
         take: Number(limit),
         orderBy: [
           {
-            created: 'desc',
+            created: { at: 'desc' },
           },
           {
             id: 'asc',
@@ -196,7 +196,7 @@ export class ProductQueryImplement implements ProductQuery {
         take: Number(limit),
         orderBy: [
           {
-            created: 'desc',
+            created: { at: 'desc' },
           },
           {
             id: 'asc',
@@ -277,7 +277,7 @@ export class ProductQueryImplement implements ProductQuery {
       },
       orderBy: [
         {
-          created: 'desc',
+          created: { at: 'desc' },
         },
         {
           id: 'asc',

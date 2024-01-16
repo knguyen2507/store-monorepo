@@ -1,4 +1,4 @@
-import { FileUpload } from '@store-monorepo/utility';
+import { FileUpload, UserInterface } from '@store-monorepo/utility';
 import { BaseCommand } from '../../base';
 
 export class CreateBrand extends BaseCommand {
@@ -6,6 +6,8 @@ export class CreateBrand extends BaseCommand {
     readonly name: string;
     readonly thumbnailLink: FileUpload;
     readonly brandCode: string;
+    readonly shop: string[];
+    readonly user: UserInterface;
   };
 
   constructor(data: CreateBrand) {

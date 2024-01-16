@@ -1,9 +1,7 @@
-export {
-  Brands,
-  Categories,
-  Images,
-  Products,
-  Users,
-} from '@prisma/client/store';
-export * from './prisma/client/prisma.module';
-export * from './prisma/client/prisma.service';
+export { Permission, Role, Store, Users } from '@prisma/client/authn';
+export * from './authn/client/prisma.module';
+export * from './authn/client/prisma.service';
+
+export { Brands, Categories, Images, PIC, Products } from '@prisma/client/shop';
+export * from './shop/client/prisma.module';
+export * from './shop/client/prisma.service';

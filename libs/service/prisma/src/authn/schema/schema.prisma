@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../../../node_modules/@prisma/client/authn"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  phone    String
+  username String
+  password String
+  created  DateTime?
+  role     Role      @relation(fields: [roleId], references: [id])
+  roleId   String    @db.ObjectId
+
+  @@map("users")
+}
+
+model Shop {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  address    String
+  permission Permission[]
+
+  @@map("shops")
+}
+
+model Role {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  permission Permission[]
+  user       Users[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  store  Shop   @relation(fields: [shopId], references: [id])
+  role   Role   @relation(fields: [roleId], references: [id])
+  roleId String @db.ObjectId
+  shopId String @db.ObjectId
+
+  @@map("permissions")
+}

@@ -7,4 +7,6 @@ export class UserInterface {
   readonly name!: string;
   @IsString()
   readonly phone!: string;
+  @IsString()
+  readonly username!: string;
 }

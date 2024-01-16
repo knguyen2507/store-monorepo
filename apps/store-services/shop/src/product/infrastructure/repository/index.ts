@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { ShopPrismaService } from '@store-monorepo/service/prisma';
 import { ProductModel } from '../../domain/model/product';
 import { ProductRepository } from '../../domain/repository';
 import { ProductFactory } from '../factory/product';
@@ -8,7 +8,7 @@ export class ProductRepositoryImplement implements ProductRepository {
   @Inject()
   private readonly factory: ProductFactory;
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: ShopPrismaService;
 
   async save(data: ProductModel): Promise<ProductModel> {
     const saved = await this.prisma.products.create({ data });

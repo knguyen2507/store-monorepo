@@ -1,4 +1,4 @@
-import { FileUpload } from '@store-monorepo/utility';
+import { FileUpload, UserInterface } from '@store-monorepo/utility';
 import { BaseCommand } from '../../base';
 
 export class CreateProduct extends BaseCommand {
@@ -11,7 +11,9 @@ export class CreateProduct extends BaseCommand {
     readonly price: number;
     readonly description: string;
     readonly main: string;
+    readonly shop: string[];
     readonly files: Array<FileUpload>;
+    readonly user: UserInterface;
   };
 
   constructor(data: CreateProduct) {

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CloudinaryModule } from '@store-monorepo/service/cloudinary';
 import { GuardModule } from '@store-monorepo/service/guard';
-import { PrismaModule } from '@store-monorepo/service/prisma';
+import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
 import { RmqModule } from '@store-monorepo/service/rabbitmq';
 import { RedisModule } from '@store-monorepo/service/redis';
 import { UtilityModule } from '@store-monorepo/utility';
@@ -9,7 +9,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    PrismaModule,
+    AuthnPrismaModule,
     UtilityModule,
     GuardModule,
     RedisModule,

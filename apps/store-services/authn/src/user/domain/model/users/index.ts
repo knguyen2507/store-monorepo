@@ -1,5 +1,6 @@
 import { Expose } from 'class-transformer';
 import { BaseModel } from '../base';
+import { RoleModel } from '../roles';
 
 export class UserModel extends BaseModel {
   @Expose()
@@ -12,6 +13,8 @@ export class UserModel extends BaseModel {
   username: string;
   @Expose()
   password: string;
+  @Expose()
+  role: RoleModel;
   @Expose()
   created: Date;
 

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import {
   CreateBrandResquestDTO,
   FileUpload,
+  RequestWithUser,
   UtilityImplement,
   pathPrefixBrand,
   pathPrefixCommandBrand,
@@ -30,7 +32,8 @@ export class BrandCommandController {
   @ApiConsumes('multipart/form-data')
   async CreateBrand(
     @UploadedFile() image: FileUpload,
-    @Body() body: CreateBrandResquestDTO
+    @Body() body: CreateBrandResquestDTO,
+    @Req() request: RequestWithUser
   ): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -38,6 +41,8 @@ export class BrandCommandController {
         name: body.name,
         thumbnailLink: image,
         brandCode: body.brandCode,
+        shop: body.shop,
+        user: request.user,
       },
     };
     const command = new CreateBrand(msg);

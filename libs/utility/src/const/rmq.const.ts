@@ -34,4 +34,7 @@ export const RMQ = {
   RK_PROPERTY_QRY_FIND_PRODUCT_BYIDS: 'property.qry.find.product.byids',
   RK_PROPERTY_QRY_FIND_PRODUCT_SIMILAR: 'property.qry.find.product.similar',
   RK_PROPERTY_QRY_GET_TOTAL_PRODUCT: 'property.qry.get.total.product',
+
+  // -------------------------------------------------------------------
+  RK_AUHTN_QRY_GET_SHOP_INFORMATION: 'authn.qry.get.shop.information',
 };

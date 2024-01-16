@@ -32,6 +32,8 @@ export class ProductQueryController {
   ) {}
 
   @Get(pathPrefixQueryProduct.findProductListByAdmin)
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   async FindProductListByAdmin(
     @Query() query: FindProductByAdminRequestDTO
   ): Promise<any> {

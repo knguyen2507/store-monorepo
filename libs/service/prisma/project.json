@@ -10,9 +10,16 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "prisma generate --schema=libs/service/prisma/src/prisma/schema/schema.prisma"
+          "prisma generate --schema=libs/service/prisma/src/authn/schema/schema.prisma",
+          "prisma generate --schema=libs/service/prisma/src/shop/schema/schema.prisma"
         ]
       }
+    },
+    "generate-authn": {
+      "command": "prisma generate --schema=libs/service/prisma/src/authn/schema/schema.prisma"
+    },
+    "generate-shop": {
+      "command": "prisma generate --schema=libs/service/prisma/src/shop/schema/schema.prisma"
     }
   }
 }

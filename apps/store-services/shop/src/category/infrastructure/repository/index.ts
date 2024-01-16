@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
+import { ShopPrismaService } from '@store-monorepo/service/prisma';
 import { CategoryModel } from '../../domain/model/category';
 import { CategoryRepository } from '../../domain/repository';
 import { CategoryFactory } from '../factory/category';
@@ -8,7 +8,7 @@ export class CategoryRepositoryImplement implements CategoryRepository {
   @Inject()
   private readonly factory: CategoryFactory;
   @Inject()
-  private readonly prisma: PrismaService;
+  private readonly prisma: ShopPrismaService;
 
   async save(data: CategoryModel): Promise<CategoryModel> {
     const saved = await this.prisma.categories.create({ data });
