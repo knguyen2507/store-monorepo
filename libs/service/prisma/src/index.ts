@@ -1,4 +1,11 @@
-export { Permission, Role, Store, Users } from '@prisma/client/authn';
+export {
+  ActionEnum,
+  Permission,
+  Role,
+  Shop,
+  StatusEnum,
+  Users,
+} from '@prisma/client/authn';
 export * from './authn/client/prisma.module';
 export * from './authn/client/prisma.service';
 

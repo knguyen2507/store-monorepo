@@ -12,14 +12,15 @@ datasource db {
 }
 
 model Users {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  phone    String
-  username String
-  password String
-  created  DateTime?
-  role     Role      @relation(fields: [roleId], references: [id])
-  roleId   String    @db.ObjectId
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  phone        String
+  username     String
+  password     String
+  created      DateTime?
+  role         Role?     @relation(fields: [roleId], references: [id])
+  roleId       String?   @db.ObjectId
+  isSuperAdmin Boolean?  @default(false)
 
   @@map("users")
 }
@@ -43,12 +44,26 @@ model Role {
 }
 
 model Permission {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  id     String     @id @default(auto()) @map("_id") @db.ObjectId
   name   String
-  store  Shop   @relation(fields: [shopId], references: [id])
-  role   Role   @relation(fields: [roleId], references: [id])
-  roleId String @db.ObjectId
-  shopId String @db.ObjectId
+  status StatusEnum
+  action ActionEnum
+  shop   Shop       @relation(fields: [shopId], references: [id])
+  role   Role       @relation(fields: [roleId], references: [id])
+  roleId String     @db.ObjectId
+  shopId String     @db.ObjectId
 
   @@map("permissions")
+}
+
+enum StatusEnum {
+  ACTIVE   @map("ACTIVE")
+  INACTIVE @map("INACTIVE")
+}
+
+enum ActionEnum {
+  CREATE @map("CREATE")
+  READ   @map("READ")
+  UPDATE @map("UPDATE")
+  DELETE @map("DELETE")
 }

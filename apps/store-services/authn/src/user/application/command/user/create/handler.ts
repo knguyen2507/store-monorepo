@@ -4,7 +4,7 @@ import { UtilityImplement } from '@store-monorepo/utility';
 import moment from 'moment';
 import { CreateUser } from '.';
 import { UserFactory } from '../../../../infrastructure/factory/user';
-import { UserRepositoryImplement } from '../../../../infrastructure/repository';
+import { UserRepositoryImplement } from '../../../../infrastructure/repository/user';
 
 @CommandHandler(CreateUser)
 export class CreateUserHandler implements ICommandHandler<CreateUser, void> {
@@ -28,6 +28,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUser, void> {
       password: hashPwd,
       created,
       id,
+      isSuperAdmin: false,
     });
 
     await this.user.save(model);

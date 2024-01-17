@@ -1,11 +1,9 @@
-import { FindUserById } from '../../application/query/user/detail';
-import { FindUserByIdResult } from '../../application/query/user/detail/result';
-import { FindUser } from '../../application/query/user/find';
-import { FindUserResult } from '../../application/query/user/find/result';
-import { GetTotalUserResult } from '../../application/query/user/get-total/result';
+import { FindShopById } from '../../application/query/shop/detail';
+import { FindShopByIdResult } from '../../application/query/shop/detail/result';
+import { FindShop } from '../../application/query/shop/find';
+import { FindShopResult } from '../../application/query/shop/find/result';
 
-export interface UserQuery {
-  find: (query: FindUser) => Promise<FindUserResult>;
-  findById: (query: FindUserById) => Promise<FindUserByIdResult>;
-  getTotal: () => Promise<GetTotalUserResult>;
+export interface ShopQuery {
+  find: (query: FindShop) => Promise<FindShopResult>;
+  findById: (query: FindShopById) => Promise<FindShopByIdResult>;
 }

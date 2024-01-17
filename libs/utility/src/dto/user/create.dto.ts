@@ -21,4 +21,9 @@ export class CreateUserRequestDTO {
   @IsString()
   @IsNotEmpty()
   readonly password!: string;
+
+  @ApiProperty({ type: String, example: '653780f1e12684704e5a02ee' })
+  @IsString()
+  @IsNotEmpty()
+  readonly roleId!: string;
 }

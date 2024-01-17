@@ -10,8 +10,8 @@ import { FindUserHandler } from './application/query/user/find/handler';
 import { GetTotalUserHandler } from './application/query/user/get-total/handler';
 import { VerifyAccessTokenHandler } from './application/query/user/verify-token/handler';
 import { UserFactory } from './infrastructure/factory/user';
-import { UserQueryImplement } from './infrastructure/query';
-import { UserRepositoryImplement } from './infrastructure/repository';
+import { UserQueryImplement } from './infrastructure/query/user';
+import { UserRepositoryImplement } from './infrastructure/repository/user';
 import { UserCommandController } from './presentation/command.controller';
 import { UserQueryController } from './presentation/query.controller';
 

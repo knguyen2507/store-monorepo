@@ -14,6 +14,8 @@ export class UserModel extends BaseModel {
   @Expose()
   password: string;
   @Expose()
+  roleId: string;
+  @Expose()
   role: RoleModel;
   @Expose()
   created: Date;

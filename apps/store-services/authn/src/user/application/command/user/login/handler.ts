@@ -2,7 +2,7 @@ import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UserInterface, UtilityImplement } from '@store-monorepo/utility';
 import { Login } from '.';
-import { UserRepositoryImplement } from '../../../../infrastructure/repository';
+import { UserRepositoryImplement } from '../../../../infrastructure/repository/user';
 
 @CommandHandler(Login)
 export class LoginHandler implements ICommandHandler<Login, any> {

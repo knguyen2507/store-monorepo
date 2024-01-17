@@ -17,7 +17,8 @@ pnpm nx g @nx/nest:application <appName> --directory=apps/<appName>
 Tạo 1 lib mới
 
 ```
-nx g @nx/angular:library <libName> --directory=libs/<libName>
+nx g @nx/angular:library <libName> --directory=libs/template/<libName>
+nx g @nx/nest:library <libName> --directory=libs/service/<libName>
 ```
 
 ## Sử dụng Prisma

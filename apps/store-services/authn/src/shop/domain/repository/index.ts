@@ -1,9 +1,8 @@
-import { UserModel } from '../model/users';
+import { ShopModel } from '../model/shops';
 
-export interface UserRepository {
-  save: (data: UserModel) => Promise<UserModel>;
-  getById: (id: string) => Promise<UserModel>;
-  getByUsername: (username: string) => Promise<UserModel>;
+export interface ShopRepository {
+  save: (data: ShopModel) => Promise<ShopModel>;
+  getById: (id: string) => Promise<ShopModel>;
   remove: (id: string | string[]) => Promise<void>;
-  update: (data: UserModel) => Promise<UserModel>;
+  update: (data: ShopModel) => Promise<ShopModel>;
 }

@@ -32,6 +32,7 @@ async function bootstrap() {
       `Store ${GLOBAL_PREFIX} API | Environment ${environment.NODE_ENV}`
     )
     .setVersion('0.1')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(

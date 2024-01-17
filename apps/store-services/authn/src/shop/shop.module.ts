@@ -1,41 +1,36 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
-import { CreateUserHandler } from './application/command/user/create/handler';
-import { LoginHandler } from './application/command/user/login/handler';
-import { LogoutHandler } from './application/command/user/logout/handler';
-import { UpdatePasswordHandler } from './application/command/user/update/password/handler';
-import { FindUserByIdHandler } from './application/query/user/detail/handler';
-import { FindUserHandler } from './application/query/user/find/handler';
-import { GetTotalUserHandler } from './application/query/user/get-total/handler';
-import { VerifyAccessTokenHandler } from './application/query/user/verify-token/handler';
-import { UserFactory } from './infrastructure/factory/user';
-import { UserQueryImplement } from './infrastructure/query';
-import { UserRepositoryImplement } from './infrastructure/repository';
-import { UserCommandController } from './presentation/command.controller';
-import { UserQueryController } from './presentation/query.controller';
+import { PermissionFactory } from '../user/infrastructure/factory/permission';
+import { RoleFactory } from '../user/infrastructure/factory/role';
+import { PermissionRepositoryImplement } from '../user/infrastructure/repository/permission';
+import { RoleRepositoryImplement } from '../user/infrastructure/repository/role';
+import { CreateShopHandler } from './application/command/shop/create/handler';
+import { UpdateShopHandler } from './application/command/shop/update/handler';
+import { FindShopByIdHandler } from './application/query/shop/detail/handler';
+import { FindShopHandler } from './application/query/shop/find/handler';
+import { ShopFactory } from './infrastructure/factory/shop';
+import { ShopQueryImplement } from './infrastructure/query';
+import { ShopRepositoryImplement } from './infrastructure/repository';
+import { ShopCommandController } from './presentation/command.controller';
+import { ShopQueryController } from './presentation/query.controller';
 
-const infrastructure = [UserQueryImplement, UserRepositoryImplement];
-
-const commands = [
-  CreateUserHandler,
-  LoginHandler,
-  UpdatePasswordHandler,
-  LogoutHandler,
+const infrastructure = [
+  ShopQueryImplement,
+  ShopRepositoryImplement,
+  RoleRepositoryImplement,
+  PermissionRepositoryImplement,
 ];
 
-const queries = [
-  FindUserByIdHandler,
-  FindUserHandler,
-  GetTotalUserHandler,
-  VerifyAccessTokenHandler,
-];
+const commands = [CreateShopHandler, UpdateShopHandler];
 
-const domain = [UserFactory];
+const queries = [FindShopByIdHandler, FindShopHandler];
+
+const domain = [ShopFactory, RoleFactory, PermissionFactory];
 
 @Module({
   imports: [CqrsModule, AuthnPrismaModule],
-  controllers: [UserQueryController, UserCommandController],
+  controllers: [ShopQueryController, ShopCommandController],
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })
 export class ShopModule {}

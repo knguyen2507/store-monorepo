@@ -1,11 +1,13 @@
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { VerifyAccessToken } from '.';
-import { UserQueryImplement } from '../../../../infrastructure/query';
+import { UserQueryImplement } from '../../../../infrastructure/query/user';
 import { VerifyAccessTokenResult } from './result';
 
 @QueryHandler(VerifyAccessToken)
-export class VerifyAccessTokenHandler implements IQueryHandler<VerifyAccessToken, VerifyAccessTokenResult> {
+export class VerifyAccessTokenHandler
+  implements IQueryHandler<VerifyAccessToken, VerifyAccessTokenResult>
+{
   @Inject()
   private readonly user: UserQueryImplement;
 

@@ -2,7 +2,7 @@ import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UtilityImplement } from '@store-monorepo/utility';
 import { UpdatePassword } from '.';
-import { UserRepositoryImplement } from '../../../../../infrastructure/repository';
+import { UserRepositoryImplement } from '../../../../../infrastructure/repository/user';
 
 @CommandHandler(UpdatePassword)
 export class UpdatePasswordHandler

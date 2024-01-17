@@ -20,6 +20,16 @@
     },
     "generate-shop": {
       "command": "prisma generate --schema=libs/service/prisma/src/shop/schema/schema.prisma"
+    },
+    "data-migration": {
+      "executor": "nx:run-commands",
+      "configurations": {
+        "add-authn-data-initial": {
+          "commands": [
+            "ts-node libs/service/prisma/src/authn/migrations/initial-authn-data/data-migration.ts"
+          ]
+        }
+      }
     }
   }
 }

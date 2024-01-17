@@ -1,34 +1,22 @@
-import { Inject, UnauthorizedException } from '@nestjs/common';
-import { PrismaService } from '@store-monorepo/service/prisma';
-import { UserInterface, UtilityImplement } from '@store-monorepo/utility';
-import { plainToClass, plainToInstance } from 'class-transformer';
-import { FindUserById } from '../../application/query/user/detail';
-import { FindUserByIdResult } from '../../application/query/user/detail/result';
-import { FindUser } from '../../application/query/user/find';
+import { Inject } from '@nestjs/common';
+import { AuthnPrismaService } from '@store-monorepo/service/prisma';
+import { plainToClass } from 'class-transformer';
+import { FindShopById } from '../../application/query/shop/detail';
+import { FindShopByIdResult } from '../../application/query/shop/detail/result';
 import {
-  FindUserResult,
-  FindUserResultItem,
-} from '../../application/query/user/find/result';
-import { GetTotalUserResult } from '../../application/query/user/get-total/result';
-import { VerifyAccessTokenResult } from '../../application/query/user/verify-token/result';
-import { UserQuery } from '../../domain/query';
+  FindShopResult,
+  FindShopResultItem,
+} from '../../application/query/shop/find/result';
+import { ShopQuery } from '../../domain/query';
 
-export class UserQueryImplement implements UserQuery {
+export class ShopQueryImplement implements ShopQuery {
   @Inject()
-  private readonly prisma: PrismaService;
-  @Inject()
-  private readonly util: UtilityImplement;
+  private readonly prisma: AuthnPrismaService;
 
-  async find(query: FindUser): Promise<FindUserResult> {
-    const { offset, limit } = query.data;
-    const [users, total] = await Promise.all([
-      this.prisma.users.findMany({
-        skip: Number(offset),
-        take: Number(limit),
+  async find(): Promise<FindShopResult> {
+    const [shops, total] = await Promise.all([
+      this.prisma.shop.findMany({
         orderBy: [
-          {
-            created: 'desc',
-          },
           {
             id: 'asc',
           },
@@ -38,8 +26,8 @@ export class UserQueryImplement implements UserQuery {
     ]);
 
     return {
-      items: users.map((i) => {
-        return plainToClass(FindUserResultItem, i, {
+      items: shops.map((i) => {
+        return plainToClass(FindShopResultItem, i, {
           excludeExtraneousValues: true,
         });
       }),
@@ -47,67 +35,13 @@ export class UserQueryImplement implements UserQuery {
     };
   }
 
-  async findById(query: FindUserById): Promise<FindUserByIdResult> {
-    const user = await this.prisma.users.findUnique({
+  async findById(query: FindShopById): Promise<FindShopByIdResult> {
+    const shop = await this.prisma.shop.findUnique({
       where: { id: query.data.id },
     });
 
-    return plainToClass(FindUserByIdResult, user, {
+    return plainToClass(FindShopByIdResult, shop, {
       excludeExtraneousValues: true,
     });
   }
-
-  async getTotal(): Promise<GetTotalUserResult> {
-    const total = await this.prisma.users.count();
-
-    return plainToClass(
-      GetTotalUserResult,
-      { total },
-      { excludeExtraneousValues: true }
-    );
-  }
-
-  getDataByToken: (query: {
-    token: string;
-    user: UserInterface;
-  }) => Promise<VerifyAccessTokenResult> = async (query) => {
-    const { token, user } = query;
-    // check token in black list
-    const BlackListed = await this.util.getRedisKey(`blacklist:${token}`);
-    if (BlackListed) throw new UnauthorizedException('Token Expired');
-
-    const payload = this.util.verifyAccessToken(token); // verify access token
-    let accessToken = '';
-    let refreshToken = '';
-
-    if (payload) {
-      accessToken = token; // access token is valid
-    } else {
-      // check refresh token in db
-      refreshToken = await this.util.getRedisKey(token);
-      if (!refreshToken) throw new UnauthorizedException('Token Expired');
-
-      // verify refresh token
-      const data = this.util.verifyRefreshToken(refreshToken);
-      if (!data) {
-        // access token, refresh token invalid
-        await this.util.deleteRefreshToken(token);
-        throw new UnauthorizedException('Token Expired');
-      }
-
-      // sign new access token
-      accessToken = this.util.generateAccessToken(data);
-    }
-
-    return plainToInstance(
-      VerifyAccessTokenResult,
-      {
-        user,
-        accessToken,
-      },
-      {
-        excludeExtraneousValues: true,
-      }
-    );
-  };
 }

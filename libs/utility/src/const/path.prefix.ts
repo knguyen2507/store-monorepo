@@ -4,6 +4,23 @@ export const pathPrefixSwagger = {
 };
 
 // --------------------------------------------
+// Shop
+export const pathPrefixShop = {
+  swagger: 'shop',
+  controller: 'shop',
+};
+
+export const pathPrefixQueryShop = {
+  findShops: 'find',
+  findShopById: 'detail',
+};
+
+export const pathPrefixCommandShop = {
+  createShop: 'create-shop',
+  updateShop: 'update-shop',
+};
+
+// --------------------------------------------
 // User
 export const pathPrefixUser = {
   swagger: 'user',

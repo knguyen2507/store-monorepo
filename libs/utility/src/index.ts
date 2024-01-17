@@ -5,7 +5,6 @@ export * from './const/rmq.const';
 export * from './dto';
 export * from './interface/message.interface';
 export * from './interface/request.interface';
-export * from './interface/store.interface';
 export * from './interface/user.interface';
 export * from './module/utility.module';
 export * from './type';

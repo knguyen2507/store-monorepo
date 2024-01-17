@@ -1,4 +1,4 @@
-import { Users } from '@prisma/client/store';
+import { Users } from '@prisma/client/authn';
 import { UserModel } from '../../../domain/model/users';
 import { BaseFactory } from '../base';
 
