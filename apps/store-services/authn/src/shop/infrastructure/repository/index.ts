@@ -22,6 +22,13 @@ export class ShopRepositoryImplement implements ShopRepository {
     return this.factory.createShopModel(shop);
   }
 
+  async getByPermissionId(id: string): Promise<ShopModel> {
+    const shop = await this.prisma.shops.findFirst({
+      where: { profile: { some: { permissionId: { equals: id } } } },
+    });
+    return this.factory.createShopModel(shop);
+  }
+
   async remove(id: string | string[]): Promise<void> {
     const data = Array.isArray(id) ? id : [id];
     await this.prisma.shops.deleteMany({ where: { id: { in: data } } });

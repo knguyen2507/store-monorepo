@@ -42,6 +42,22 @@ export const pathPrefixCommandUser = {
 };
 
 // --------------------------------------------
+// Role
+export const pathPrefixRole = {
+  swagger: 'role',
+  controller: 'role',
+};
+
+export const pathPrefixQueryRole = {
+  findRoles: 'find',
+  findRoleById: 'detail',
+};
+
+export const pathPrefixCommandRole = {
+  createRole: 'create-role',
+};
+
+// --------------------------------------------
 // Product
 export const pathPrefixProduct = {
   swagger: 'product',

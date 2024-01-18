@@ -6,6 +6,7 @@ import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
 import { RmqModule } from '@store-monorepo/service/rabbitmq';
 import { RedisModule } from '@store-monorepo/service/redis';
 import { UtilityModule } from '@store-monorepo/utility';
+import { RoleModule } from './role/role.module';
 import { ShopModule } from './shop/shop.module';
 import { UserModule } from './user/user.module';
 
@@ -20,6 +21,7 @@ import { UserModule } from './user/user.module';
     ShopModule,
     RmqModule,
     CaslModule,
+    RoleModule,
   ],
   controllers: [],
   providers: [],

@@ -5,11 +5,11 @@ export class ProfileModel extends BaseModel {
   @Expose()
   id: string;
   @Expose()
-  roleId: string;
+  roleId?: string;
   @Expose()
-  permissionId: string;
+  permissionId?: string;
   @Expose()
-  shopId: string;
+  shopId?: string;
   @Expose()
-  userId: string;
+  userId?: string;
 }

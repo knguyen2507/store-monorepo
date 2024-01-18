@@ -14,6 +14,7 @@ export * from './product/find.by.code.dto';
 export * from './product/find.by.ids.dto';
 export * from './product/find.dto';
 export * from './product/find.similar.dto';
+export * from './role/create.dto';
 export * from './shop/create.dto';
 export * from './shop/find.by.id.dto';
 export * from './shop/update.dto';
