@@ -1,8 +1,8 @@
 export {
   ActionEnum,
-  Permission,
-  Role,
-  Shop,
+  Permissions,
+  Roles,
+  Shops,
   StatusEnum,
   Users,
 } from '@prisma/client/authn';

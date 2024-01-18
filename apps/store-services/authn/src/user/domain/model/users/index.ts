@@ -1,6 +1,5 @@
 import { Expose } from 'class-transformer';
 import { BaseModel } from '../base';
-import { RoleModel } from '../roles';
 
 export class UserModel extends BaseModel {
   @Expose()
@@ -14,11 +13,9 @@ export class UserModel extends BaseModel {
   @Expose()
   password: string;
   @Expose()
-  roleId: string;
-  @Expose()
-  role: RoleModel;
-  @Expose()
   created: Date;
+  @Expose()
+  isSuperAdmin: boolean;
 
   update(data: Partial<this>) {
     this.password = data.password ? data.password : this.password;

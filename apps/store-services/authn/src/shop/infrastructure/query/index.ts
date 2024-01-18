@@ -15,7 +15,7 @@ export class ShopQueryImplement implements ShopQuery {
 
   async find(): Promise<FindShopResult> {
     const [shops, total] = await Promise.all([
-      this.prisma.shop.findMany({
+      this.prisma.shops.findMany({
         orderBy: [
           {
             id: 'asc',
@@ -36,7 +36,7 @@ export class ShopQueryImplement implements ShopQuery {
   }
 
   async findById(query: FindShopById): Promise<FindShopByIdResult> {
-    const shop = await this.prisma.shop.findUnique({
+    const shop = await this.prisma.shops.findUnique({
       where: { id: query.data.id },
     });
 

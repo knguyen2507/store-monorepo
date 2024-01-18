@@ -11,14 +11,12 @@ export class ShopRepositoryImplement implements ShopRepository {
   private readonly prisma: AuthnPrismaService;
 
   async save(data: ShopModel): Promise<ShopModel> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { permission, ...model } = data;
-    const saved = await this.prisma.shop.create({ data: model });
+    const saved = await this.prisma.shops.create({ data });
     return this.factory.createShopModel(saved);
   }
 
   async getById(id: string): Promise<ShopModel> {
-    const shop = await this.prisma.shop.findUnique({
+    const shop = await this.prisma.shops.findUnique({
       where: { id },
     });
     return this.factory.createShopModel(shop);
@@ -26,16 +24,13 @@ export class ShopRepositoryImplement implements ShopRepository {
 
   async remove(id: string | string[]): Promise<void> {
     const data = Array.isArray(id) ? id : [id];
-    await this.prisma.shop.deleteMany({ where: { id: { in: data } } });
+    await this.prisma.shops.deleteMany({ where: { id: { in: data } } });
   }
 
   async update(data: ShopModel): Promise<ShopModel> {
-    const { id, permission, ...model } = data;
-    const ids = permission.map((p) => {
-      return { id: p.id };
-    });
-    const updated = await this.prisma.shop.update({
-      data: { ...model, permission: { connect: ids } },
+    const { id, ...model } = data;
+    const updated = await this.prisma.shops.update({
+      data: model,
       where: { id },
     });
     return this.factory.createShopModel(updated);

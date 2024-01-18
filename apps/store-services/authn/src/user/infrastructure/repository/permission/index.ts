@@ -11,16 +11,14 @@ export class PermissionRepositoryImplement implements PermissionRepository {
   private readonly prisma: AuthnPrismaService;
 
   async save(data: PermissionModel): Promise<PermissionModel> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { role, shop, ...user } = data;
-    const saved = await this.prisma.permission.create({
-      data: user,
+    const saved = await this.prisma.permissions.create({
+      data,
     });
     return this.factory.createPermissionModel(saved);
   }
 
   async getById(id: string): Promise<PermissionModel> {
-    const permission = await this.prisma.permission.findUnique({
+    const permission = await this.prisma.permissions.findUnique({
       where: { id },
     });
     return this.factory.createPermissionModel(permission);
@@ -28,13 +26,12 @@ export class PermissionRepositoryImplement implements PermissionRepository {
 
   async remove(id: string | string[]): Promise<void> {
     const data = Array.isArray(id) ? id : [id];
-    await this.prisma.permission.deleteMany({ where: { id: { in: data } } });
+    await this.prisma.permissions.deleteMany({ where: { id: { in: data } } });
   }
 
   async update(data: PermissionModel): Promise<PermissionModel> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, role, shop, ...model } = data;
-    const updated = await this.prisma.permission.update({
+    const { id, ...model } = data;
+    const updated = await this.prisma.permissions.update({
       data: model,
       where: { id },
     });

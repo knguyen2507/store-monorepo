@@ -1,9 +1,9 @@
-import { Shop } from '@prisma/client/authn';
+import { Shops } from '@prisma/client/authn';
 import { ShopModel } from '../../../domain/model/shops';
 import { BaseFactory } from '../base';
 
 export class ShopFactory extends BaseFactory {
-  createShopModel(user: Shop | null) {
+  createShopModel(user: Shops | null) {
     if (!user) return null;
 
     const entity = this.createModel(ShopModel, {
@@ -13,7 +13,7 @@ export class ShopFactory extends BaseFactory {
     return entity;
   }
 
-  createShopModels(users: Shop[] | null) {
+  createShopModels(users: Shops[] | null) {
     if (!users) return null;
 
     return users.map((a) => this.createShopModel(a));

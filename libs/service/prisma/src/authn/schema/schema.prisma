@@ -12,48 +12,57 @@ datasource db {
 }
 
 model Users {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   phone        String
   username     String
   password     String
   created      DateTime?
-  role         Role?     @relation(fields: [roleId], references: [id])
-  roleId       String?   @db.ObjectId
-  isSuperAdmin Boolean?  @default(false)
+  profile      Profiles[]
+  isSuperAdmin Boolean?   @default(false)
 
   @@map("users")
 }
 
-model Shop {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  address    String
-  permission Permission[]
+model Shops {
+  id      String     @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  address String
+  profile Profiles[]
 
   @@map("shops")
 }
 
-model Role {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  permission Permission[]
-  user       Users[]
+model Roles {
+  id      String     @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  profile Profiles[]
 
   @@map("roles")
 }
 
-model Permission {
-  id     String     @id @default(auto()) @map("_id") @db.ObjectId
-  name   String
-  status StatusEnum
-  action ActionEnum
-  shop   Shop       @relation(fields: [shopId], references: [id])
-  role   Role       @relation(fields: [roleId], references: [id])
-  roleId String     @db.ObjectId
-  shopId String     @db.ObjectId
+model Permissions {
+  id      String     @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  status  StatusEnum
+  action  ActionEnum
+  profile Profiles[]
 
   @@map("permissions")
+}
+
+model Profiles {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  role         Roles?       @relation(fields: [roleId], references: [id])
+  roleId       String?      @db.ObjectId
+  permission   Permissions? @relation(fields: [permissionId], references: [id])
+  permissionId String?      @db.ObjectId
+  shop         Shops?       @relation(fields: [shopId], references: [id])
+  shopId       String?      @db.ObjectId
+  user         Users?       @relation(fields: [userId], references: [id])
+  userId       String?      @db.ObjectId
+
+  @@map("profiles")
 }
 
 enum StatusEnum {

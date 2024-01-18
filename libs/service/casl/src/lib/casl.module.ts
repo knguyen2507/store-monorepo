@@ -1,18 +1,18 @@
 import { Inject, Module, OnModuleInit } from '@nestjs/common';
 import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
-import { SeedUserService } from './seed/seed.user.service';
+import { SeedAuthnService } from './seed/seed.authn.service';
 
 @Module({
   imports: [AuthnPrismaModule],
   controllers: [],
-  providers: [SeedUserService],
+  providers: [SeedAuthnService],
   exports: [],
 })
 export class CaslModule implements OnModuleInit {
   constructor(
-    @Inject(SeedUserService) private seedUserService: SeedUserService
+    @Inject(SeedAuthnService) private seedAuthnService: SeedAuthnService
   ) {}
   async onModuleInit() {
-    await this.seedUserService.seed();
+    await this.seedAuthnService.seed();
   }
 }

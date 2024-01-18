@@ -11,10 +11,8 @@ export class UserRepositoryImplement implements UserRepository {
   private readonly prisma: AuthnPrismaService;
 
   async save(data: UserModel): Promise<UserModel> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { role, ...user } = data;
     const saved = await this.prisma.users.create({
-      data: user,
+      data,
     });
     return this.factory.createUserModel(saved);
   }
@@ -33,14 +31,20 @@ export class UserRepositoryImplement implements UserRepository {
     return this.factory.createUserModel(user);
   }
 
+  async getSuperAdmin(): Promise<UserModel[]> {
+    const users = await this.prisma.users.findMany({
+      where: { isSuperAdmin: true },
+    });
+    return this.factory.createUserModels(users);
+  }
+
   async remove(id: string | string[]): Promise<void> {
     const data = Array.isArray(id) ? id : [id];
     await this.prisma.users.deleteMany({ where: { id: { in: data } } });
   }
 
   async update(data: UserModel): Promise<UserModel> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, role, ...model } = data;
+    const { id, ...model } = data;
     const updated = await this.prisma.users.update({
       data: model,
       where: { id },

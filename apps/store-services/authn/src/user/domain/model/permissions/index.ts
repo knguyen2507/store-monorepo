@@ -1,7 +1,5 @@
 import { Expose } from 'class-transformer';
-import { ShopModel } from '../../../../shop/domain/model/shops';
 import { BaseModel } from '../base';
-import { RoleModel } from '../roles';
 
 export enum StatusEnum {
   ACTIVE = 'ACTIVE',
@@ -24,12 +22,4 @@ export class PermissionModel extends BaseModel {
   status: StatusEnum;
   @Expose()
   action: ActionEnum;
-  @Expose()
-  roleId: string;
-  @Expose()
-  role: RoleModel;
-  @Expose()
-  shopId: string;
-  @Expose()
-  shop: ShopModel;
 }

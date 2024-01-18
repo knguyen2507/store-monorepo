@@ -1,9 +1,9 @@
-import { Role } from '@prisma/client/authn';
+import { Roles } from '@prisma/client/authn';
 import { RoleModel } from '../../../domain/model/roles';
 import { BaseFactory } from '../base';
 
 export class RoleFactory extends BaseFactory {
-  createRoleModel(role: Role | null) {
+  createRoleModel(role: Roles | null) {
     if (!role) return null;
 
     const entity = this.createModel(RoleModel, {
@@ -13,7 +13,7 @@ export class RoleFactory extends BaseFactory {
     return entity;
   }
 
-  createRoleModels(roles: Role[] | null) {
+  createRoleModels(roles: Roles[] | null) {
     if (!roles) return null;
 
     return roles.map((a) => this.createRoleModel(a));

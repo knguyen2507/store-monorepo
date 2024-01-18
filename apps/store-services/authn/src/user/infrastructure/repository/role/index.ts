@@ -11,40 +11,35 @@ export class RoleRepositoryImplement implements RoleRepository {
   private readonly prisma: AuthnPrismaService;
 
   async save(data: RoleModel): Promise<RoleModel> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { permission, user, ...role } = data;
-    const saved = await this.prisma.role.create({
-      data: role,
+    const saved = await this.prisma.roles.create({
+      data,
     });
     return this.factory.createRoleModel(saved);
   }
 
   async getById(id: string): Promise<RoleModel> {
-    const user = await this.prisma.users.findUnique({
+    const role = await this.prisma.roles.findUnique({
       where: { id },
     });
-    return this.factory.createRoleModel(user);
+    return this.factory.createRoleModel(role);
+  }
+
+  async getByUserId(id: string): Promise<RoleModel> {
+    const role = await this.prisma.roles.findFirst({
+      where: { profile: { some: { userId: { equals: id } } } },
+    });
+    return this.factory.createRoleModel(role);
   }
 
   async remove(id: string | string[]): Promise<void> {
     const data = Array.isArray(id) ? id : [id];
-    await this.prisma.users.deleteMany({ where: { id: { in: data } } });
+    await this.prisma.roles.deleteMany({ where: { id: { in: data } } });
   }
 
   async update(data: RoleModel): Promise<RoleModel> {
-    const { id, permission, user, ...model } = data;
-    const permissionIds = permission.map((p) => {
-      return { id: p.id };
-    });
-    const userIds = user.map((u) => {
-      return { id: u.id };
-    });
-    const updated = await this.prisma.role.update({
-      data: {
-        ...model,
-        permission: { connect: permissionIds },
-        user: { connect: userIds },
-      },
+    const { id, ...model } = data;
+    const updated = await this.prisma.roles.update({
+      data: model,
       where: { id },
     });
     return this.factory.createRoleModel(updated);

@@ -1,6 +1,6 @@
 // Swagger
 export const pathPrefixSwagger = {
-  setup: 'api/docs',
+  setup: 'docs',
 };
 
 // --------------------------------------------
