@@ -1,5 +1,6 @@
 export * from './const/constant';
 export * from './const/environment';
+export * from './const/initial';
 export * from './const/path.prefix';
 export * from './const/rmq.const';
 export * from './dto';

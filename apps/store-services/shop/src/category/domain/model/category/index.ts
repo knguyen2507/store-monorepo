@@ -6,12 +6,6 @@ export type PIC = {
   at: Date;
 };
 
-export type Shop = {
-  id: string;
-  name: string;
-  address: string;
-};
-
 export class CategoryModel {
   @Expose()
   id: string;
@@ -25,6 +19,4 @@ export class CategoryModel {
   created: PIC;
   @Expose()
   updated: PIC[];
-  @Expose()
-  shop: Shop[];
 }

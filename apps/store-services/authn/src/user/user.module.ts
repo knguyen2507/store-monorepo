@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
+import { RmqModule } from '@store-monorepo/service/rabbitmq';
 import { CreateRoleHandler } from './application/command/role/create/handler';
 import { CreateShopHandler } from './application/command/shop/create/handler';
 import { UpdateShopHandler } from './application/command/shop/update/handler';
@@ -90,7 +91,7 @@ const controllers = [
 ];
 
 @Module({
-  imports: [CqrsModule, AuthnPrismaModule],
+  imports: [CqrsModule, AuthnPrismaModule, RmqModule],
   controllers: controllers,
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })

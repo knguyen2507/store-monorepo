@@ -33,7 +33,7 @@ export class CreateProductHandler
     };
     const upload = [];
     let thumbnailLink: any;
-    let shopInfor: Shop[] = [];
+    let shopInfo: Shop[] = [];
 
     try {
       const payload: RmqMessage = {
@@ -42,12 +42,13 @@ export class CreateProductHandler
           ids: shop,
         },
       };
-      shopInfor = await this.amqpService.request<any>({
+      const rmqData = await this.amqpService.request<any>({
         exchange: RMQ.EXCHANGE,
         routingKey: RMQ.RK_AUHTN_QRY_GET_SHOP_INFORMATION,
         payload,
         timeout: 10000,
       });
+      shopInfo = rmqData.items;
     } catch (error) {
       throw new InternalServerErrorException();
     }
@@ -86,7 +87,7 @@ export class CreateProductHandler
       id,
       created,
       updated: [],
-      shop: shopInfor,
+      shop: shopInfo,
     });
 
     await this.product.save(model);

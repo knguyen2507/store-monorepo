@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CloudinaryModule } from '@store-monorepo/service/cloudinary';
-import { PrismaModule } from '@store-monorepo/service/prisma';
+import { ShopPrismaModule } from '@store-monorepo/service/prisma';
 import { RedisModule } from '@store-monorepo/service/redis';
 import { CreateProductHandler } from './application/command/product/create/handler';
 import { DeleteProductHandler } from './application/command/product/delete/handler';
@@ -37,7 +37,7 @@ const queries = [
 const domain = [ProductFactory];
 
 @Module({
-  imports: [CqrsModule, PrismaModule, CloudinaryModule, RedisModule],
+  imports: [CqrsModule, ShopPrismaModule, CloudinaryModule, RedisModule],
   controllers: [ProductQueryController, ProductCommandController],
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })

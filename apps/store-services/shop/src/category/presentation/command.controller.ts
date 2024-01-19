@@ -46,7 +46,6 @@ export class CategoryCommandController {
         thumbnailLink: image,
         categoryCode: body.categoryCode,
         user: request.user,
-        shop: body.shop,
       },
     };
     const command = new CreateCategory(msg);

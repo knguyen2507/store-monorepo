@@ -17,6 +17,7 @@
     "@angular/platform-server": "~17.0.0",
     "@angular/router": "~17.0.0",
     "@angular/ssr": "~17.0.0",
+    "@faker-js/faker": "^8.3.1",
     "@golevelup/nestjs-rabbitmq": "^4.1.0",
     "@nestjs/cache-manager": "^2.2.0",
     "@nestjs/common": "^10.0.2",

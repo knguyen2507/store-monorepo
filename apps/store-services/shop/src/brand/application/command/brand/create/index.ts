@@ -6,7 +6,6 @@ export class CreateBrand extends BaseCommand {
     readonly name: string;
     readonly thumbnailLink: FileUpload;
     readonly brandCode: string;
-    readonly shop: string[];
     readonly user: UserInterface;
   };
 

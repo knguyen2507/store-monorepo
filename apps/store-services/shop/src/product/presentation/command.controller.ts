@@ -33,7 +33,7 @@ export class ProductCommandController {
     readonly commandBus: CommandBus
   ) {}
 
-  @Post(pathPrefixCommandProduct.deleteProduct)
+  @Post(pathPrefixCommandProduct.createProduct)
   @UseInterceptors(AnyFilesInterceptor())
   @ApiConsumes('multipart/form-data')
   async CreateProduct(

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CloudinaryModule } from '@store-monorepo/service/cloudinary';
-import { PrismaModule } from '@store-monorepo/service/prisma';
+import { ShopPrismaModule } from '@store-monorepo/service/prisma';
 import { RedisModule } from '@store-monorepo/service/redis';
 import { CreateCategoryHandler } from './application/command/category/create/handler';
 import { FindCategoryByIdHandler } from './application/query/category/detail/handler';
@@ -28,7 +28,7 @@ const queries = [
 const domain = [CategoryFactory];
 
 @Module({
-  imports: [CqrsModule, PrismaModule, RedisModule, CloudinaryModule],
+  imports: [CqrsModule, ShopPrismaModule, RedisModule, CloudinaryModule],
   controllers: [CategoryQueryController, CategoryCommandController],
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })

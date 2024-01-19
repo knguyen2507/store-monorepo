@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { FileUpload } from '@store-monorepo/utility';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateCategoryResquestDTO {
   @ApiProperty({ type: String, example: 'Test Category 1' })
@@ -15,9 +15,4 @@ export class CreateCategoryResquestDTO {
   @IsString()
   @IsNotEmpty()
   readonly categoryCode!: string;
-
-  @ApiProperty({ type: [String] })
-  @IsArray()
-  @IsNotEmpty()
-  readonly shop!: string[];
 }

@@ -4,7 +4,12 @@ import {
   AuthnPrismaService,
   StatusEnum,
 } from '@store-monorepo/service/prisma';
-import { UtilityImplement } from '@store-monorepo/utility';
+import {
+  InitialRole,
+  InitialShop,
+  InitialUser,
+  UtilityImplement,
+} from '@store-monorepo/utility';
 
 @Injectable()
 export class SeedAuthnService {
@@ -15,9 +20,6 @@ export class SeedAuthnService {
 
   seed = async () => {
     let operations: any[] = [];
-    const id1 = '6502d51ac4841b15cd7756a1';
-    const id2 = '6502d51ac4841b15cd7756a2';
-    const id3 = '6502d51ac4841b15cd7756a3';
 
     const [users, roles, shops, permissions] = await Promise.all([
       this.prisma.users.findMany(),
@@ -30,11 +32,7 @@ export class SeedAuthnService {
       operations = [
         ...operations,
         this.prisma.roles.create({
-          data: {
-            id: id1,
-            name: 'Super Admin 1',
-            isSuperAdmin: true,
-          },
+          data: InitialRole,
         }),
       ];
     }
@@ -43,11 +41,7 @@ export class SeedAuthnService {
       operations = [
         ...operations,
         this.prisma.shops.create({
-          data: {
-            id: id2,
-            name: 'Cửa hàng Nguyên Phát',
-            address: 'QL.19B, Thuận Đức, Nhơn Mỹ, An Nhơn, Bình Định',
-          },
+          data: InitialShop,
         }),
       ];
     }
@@ -56,14 +50,7 @@ export class SeedAuthnService {
       operations = [
         ...operations,
         this.prisma.users.create({
-          data: {
-            id: id3,
-            name: 'Super Admin 1',
-            phone: '0987654321',
-            username: 'superadmin001',
-            password:
-              '$2a$10$UM5he8DexZKyBXhr6RHw3.GyVH5avuqRlRnbScmT5aLAG4iQkeLle', // 123456
-          },
+          data: InitialUser,
         }),
       ];
     }
@@ -77,12 +64,12 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Create Permission`,
             action: ActionEnum.CREATE,
             status: StatusEnum.ACTIVE,
-            shopId: id2,
+            shopId: InitialShop.id,
             profile: {
               create: {
                 id: this.util.generateId(),
-                roleId: id1,
-                userId: id3,
+                roleId: InitialRole.id,
+                userId: InitialUser.id,
               },
             },
           },
@@ -93,12 +80,12 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Update Permission`,
             action: ActionEnum.UPDATE,
             status: StatusEnum.ACTIVE,
-            shopId: id2,
+            shopId: InitialShop.id,
             profile: {
               create: {
                 id: this.util.generateId(),
-                roleId: id1,
-                userId: id3,
+                roleId: InitialRole.id,
+                userId: InitialUser.id,
               },
             },
           },
@@ -109,12 +96,12 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Read Permission`,
             action: ActionEnum.READ,
             status: StatusEnum.ACTIVE,
-            shopId: id2,
+            shopId: InitialShop.id,
             profile: {
               create: {
                 id: this.util.generateId(),
-                roleId: id1,
-                userId: id3,
+                roleId: InitialRole.id,
+                userId: InitialUser.id,
               },
             },
           },
@@ -125,12 +112,12 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Delete Permission`,
             action: ActionEnum.DELETE,
             status: StatusEnum.ACTIVE,
-            shopId: id2,
+            shopId: InitialShop.id,
             profile: {
               create: {
                 id: this.util.generateId(),
-                roleId: id1,
-                userId: id3,
+                roleId: InitialRole.id,
+                userId: InitialUser.id,
               },
             },
           },

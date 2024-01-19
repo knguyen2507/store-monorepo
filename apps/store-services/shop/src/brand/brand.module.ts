@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CloudinaryModule } from '@store-monorepo/service/cloudinary';
-import { PrismaModule } from '@store-monorepo/service/prisma';
+import { ShopPrismaModule } from '@store-monorepo/service/prisma';
 import { RedisModule } from '@store-monorepo/service/redis';
 import { CreateBrandHandler } from './application/command/brand/create/handler';
 import { FindBrandByIdHandler } from './application/query/brand/detail/handler';
@@ -28,7 +28,7 @@ const queries = [
 const domain = [BrandFactory];
 
 @Module({
-  imports: [CqrsModule, PrismaModule, CloudinaryModule, RedisModule],
+  imports: [CqrsModule, ShopPrismaModule, CloudinaryModule, RedisModule],
   controllers: [BrandQueryController, BrandCommandController],
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })

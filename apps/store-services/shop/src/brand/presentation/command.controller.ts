@@ -41,7 +41,6 @@ export class BrandCommandController {
         name: body.name,
         thumbnailLink: image,
         brandCode: body.brandCode,
-        shop: body.shop,
         user: request.user,
       },
     };

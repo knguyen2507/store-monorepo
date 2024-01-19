@@ -7,7 +7,6 @@ export class CreateCategory extends BaseCommand {
     readonly thumbnailLink: FileUpload;
     readonly categoryCode: string;
     readonly user: UserInterface;
-    readonly shop: string[];
   };
 
   constructor(data: CreateCategory) {

@@ -19,7 +19,6 @@ model Brands {
   created       PIC?
   updated       PIC[]
   product       Products[]
-  shop          Shop[]
 
   @@map("brands")
 }
@@ -32,7 +31,6 @@ model Categories {
   created       PIC?
   updated       PIC[]
   product       Products[]
-  shop          Shop[]
 
   @@map("categories")
 }
