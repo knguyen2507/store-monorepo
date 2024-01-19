@@ -26,6 +26,8 @@ nx g @nx/nest:library <libName> --directory=libs/service/<libName>
 Generate Prisma Client
 
 ```
+pnpm nx run prisma:generate-authn
+pnpm nx run prisma:generate-shop
 pnpm nx run prisma:generate-all
 ```
 
@@ -49,12 +51,39 @@ Chạy tất cả app
 pnpm nx run-many -t serve --all
 ```
 
+## Chạy Chương Trình
+
+Chạy file docker-compose.yml trong thư mục **script**/store-docker để tạo Docker Images
+
+```
+docker compose up -d
+```
+
+Tạo file package.json
+
+```
+pnpm i
+```
+
+Generate prisma
+
+```
+pnpm nx run prisma:generate-all
+```
+
+Chạy app
+
+```
+pnpm nx run-many -t serve -p authn shop store-template
+```
+
 ## LocalHost
 
 Api Documentation
 
 ```
-http://localhost:3000/api/docs
+http://localhost:3000/msx-authn/docs
+http://localhost:3000/msx-shop/docs
 ```
 
 Website cửa hàng
