@@ -14,8 +14,6 @@ export class UserModel extends BaseModel {
   password: string;
   @Expose()
   created: Date;
-  @Expose()
-  isSuperAdmin: boolean;
 
   update(data: Partial<this>) {
     this.password = data.password ? data.password : this.password;

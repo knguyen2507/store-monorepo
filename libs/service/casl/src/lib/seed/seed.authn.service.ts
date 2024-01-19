@@ -33,6 +33,7 @@ export class SeedAuthnService {
           data: {
             id: id1,
             name: 'Super Admin 1',
+            isSuperAdmin: true,
           },
         }),
       ];
@@ -62,7 +63,6 @@ export class SeedAuthnService {
             username: 'superadmin001',
             password:
               '$2a$10$UM5he8DexZKyBXhr6RHw3.GyVH5avuqRlRnbScmT5aLAG4iQkeLle', // 123456
-            isSuperAdmin: true,
           },
         }),
       ];
@@ -77,11 +77,11 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Create Permission`,
             action: ActionEnum.CREATE,
             status: StatusEnum.ACTIVE,
+            shopId: id2,
             profile: {
               create: {
                 id: this.util.generateId(),
                 roleId: id1,
-                shopId: id2,
                 userId: id3,
               },
             },
@@ -93,11 +93,11 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Update Permission`,
             action: ActionEnum.UPDATE,
             status: StatusEnum.ACTIVE,
+            shopId: id2,
             profile: {
               create: {
                 id: this.util.generateId(),
                 roleId: id1,
-                shopId: id2,
                 userId: id3,
               },
             },
@@ -109,11 +109,11 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Read Permission`,
             action: ActionEnum.READ,
             status: StatusEnum.ACTIVE,
+            shopId: id2,
             profile: {
               create: {
                 id: this.util.generateId(),
                 roleId: id1,
-                shopId: id2,
                 userId: id3,
               },
             },
@@ -125,11 +125,11 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Delete Permission`,
             action: ActionEnum.DELETE,
             status: StatusEnum.ACTIVE,
+            shopId: id2,
             profile: {
               create: {
                 id: this.util.generateId(),
                 roleId: id1,
-                shopId: id2,
                 userId: id3,
               },
             },

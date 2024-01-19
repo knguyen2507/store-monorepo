@@ -10,7 +10,7 @@ import { HttpService } from './http.service';
 export class AuthenticationService {
   constructor(private httpService: HttpService) {}
 
-  private apiUrl = environment.urlApi;
+  private apiUrl = `${environment.urlApi}/msx-authn`;
 
   SwitchToLoginPage() {
     window.location.href = `${environment.host}/dang-nhap`;

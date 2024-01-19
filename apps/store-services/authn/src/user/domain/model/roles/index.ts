@@ -6,4 +6,6 @@ export class RoleModel extends BaseModel {
   id: string;
   @Expose()
   name: string;
+  @Expose()
+  isSuperAdmin: boolean;
 }

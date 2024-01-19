@@ -31,6 +31,13 @@ export class RoleRepositoryImplement implements RoleRepository {
     return this.factory.createRoleModel(role);
   }
 
+  async getSuperAdmin(): Promise<RoleModel[]> {
+    const roles = await this.prisma.roles.findMany({
+      where: { isSuperAdmin: true },
+    });
+    return this.factory.createRoleModels(roles);
+  }
+
   async remove(id: string | string[]): Promise<void> {
     const data = Array.isArray(id) ? id : [id];
     await this.prisma.roles.deleteMany({ where: { id: { in: data } } });

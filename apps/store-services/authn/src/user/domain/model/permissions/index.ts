@@ -22,4 +22,6 @@ export class PermissionModel extends BaseModel {
   status: StatusEnum;
   @Expose()
   action: ActionEnum;
+  @Expose()
+  shopId: string;
 }

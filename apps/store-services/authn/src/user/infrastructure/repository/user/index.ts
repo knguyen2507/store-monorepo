@@ -31,9 +31,9 @@ export class UserRepositoryImplement implements UserRepository {
     return this.factory.createUserModel(user);
   }
 
-  async getSuperAdmin(): Promise<UserModel[]> {
+  async getByRoleId(id: string): Promise<UserModel[]> {
     const users = await this.prisma.users.findMany({
-      where: { isSuperAdmin: true },
+      where: { profile: { some: { role: { id: { equals: id } } } } },
     });
     return this.factory.createUserModels(users);
   }

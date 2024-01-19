@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateRoleRequestDTO {
   @ApiProperty({ type: String, example: 'test 1' })
@@ -11,4 +11,9 @@ export class CreateRoleRequestDTO {
   @IsArray()
   @IsNotEmpty({ each: true })
   readonly permissions!: string[];
+
+  @ApiProperty({ type: Boolean, example: false })
+  @IsBoolean()
+  @IsNotEmpty()
+  readonly isSuperAdmin!: boolean;
 }

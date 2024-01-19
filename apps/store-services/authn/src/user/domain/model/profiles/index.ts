@@ -9,7 +9,13 @@ export class ProfileModel extends BaseModel {
   @Expose()
   permissionId?: string;
   @Expose()
-  shopId?: string;
-  @Expose()
   userId?: string;
+
+  update(data: Partial<this>) {
+    this.roleId = data.roleId ? data.roleId : this.roleId;
+    this.permissionId = data.permissionId
+      ? data.permissionId
+      : this.permissionId;
+    this.userId = data.userId ? data.userId : this.userId;
+  }
 }

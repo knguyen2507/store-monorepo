@@ -58,6 +58,17 @@ export const pathPrefixCommandRole = {
 };
 
 // --------------------------------------------
+// Permission
+export const pathPrefixPermission = {
+  swagger: 'permission',
+  controller: 'permission',
+};
+
+export const pathPrefixQueryPermission = {
+  findPermissions: 'find',
+};
+
+// --------------------------------------------
 // Product
 export const pathPrefixProduct = {
   swagger: 'product',
