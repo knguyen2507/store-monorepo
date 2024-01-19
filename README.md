@@ -53,7 +53,7 @@ pnpm nx run-many -t serve --all
 
 ## Chạy Chương Trình
 
-Chạy file docker-compose.yml trong thư mục **script**/store-docker để tạo Docker Images
+Chạy file docker-compose.yml trong thư mục script/store-docker để tạo Docker Images
 
 ```
 docker compose up -d
