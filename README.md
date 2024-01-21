@@ -51,7 +51,7 @@ Chạy tất cả app
 pnpm nx run-many -t serve --all
 ```
 
-## Chạy Chương Trình Trên Local
+## Chạy chương trình trên Local
 
 Chạy file docker-compose.yml trong thư mục script/store-docker để tạo Docker Images
 
@@ -77,7 +77,7 @@ Chạy app
 pnpm nx run-many -t serve -p authn shop store-template
 ```
 
-## LocalHost
+## Localhost
 
 Api Documentation
 

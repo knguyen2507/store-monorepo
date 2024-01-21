@@ -64,14 +64,8 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Create Permission`,
             action: ActionEnum.CREATE,
             status: StatusEnum.ACTIVE,
-            shopId: InitialShop.id,
-            profile: {
-              create: {
-                id: this.util.generateId(),
-                roleId: InitialRole.id,
-                userId: InitialUser.id,
-              },
-            },
+            shop: { connect: { id: InitialShop.id } },
+            role: { connect: { id: InitialRole.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -80,14 +74,8 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Update Permission`,
             action: ActionEnum.UPDATE,
             status: StatusEnum.ACTIVE,
-            shopId: InitialShop.id,
-            profile: {
-              create: {
-                id: this.util.generateId(),
-                roleId: InitialRole.id,
-                userId: InitialUser.id,
-              },
-            },
+            shop: { connect: { id: InitialShop.id } },
+            role: { connect: { id: InitialRole.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -96,14 +84,8 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Read Permission`,
             action: ActionEnum.READ,
             status: StatusEnum.ACTIVE,
-            shopId: InitialShop.id,
-            profile: {
-              create: {
-                id: this.util.generateId(),
-                roleId: InitialRole.id,
-                userId: InitialUser.id,
-              },
-            },
+            shop: { connect: { id: InitialShop.id } },
+            role: { connect: { id: InitialRole.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -112,14 +94,8 @@ export class SeedAuthnService {
             name: `Cửa hàng Nguyên Phát Delete Permission`,
             action: ActionEnum.DELETE,
             status: StatusEnum.ACTIVE,
-            shopId: InitialShop.id,
-            profile: {
-              create: {
-                id: this.util.generateId(),
-                roleId: InitialRole.id,
-                userId: InitialUser.id,
-              },
-            },
+            shop: { connect: { id: InitialShop.id } },
+            role: { connect: { id: InitialRole.id } },
           },
         }),
       ];

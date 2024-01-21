@@ -8,4 +8,6 @@ export class RoleModel extends BaseModel {
   name: string;
   @Expose()
   isSuperAdmin: boolean;
+  @Expose()
+  permissionId: string[];
 }

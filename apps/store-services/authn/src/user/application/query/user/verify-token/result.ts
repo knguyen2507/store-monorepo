@@ -1,7 +1,7 @@
 import { IQueryResult } from '@nestjs/cqrs';
 import { Expose } from 'class-transformer';
 
-export class UserInforResult implements IQueryResult {
+export class UserDataResult implements IQueryResult {
   @Expose()
   readonly id: string;
   @Expose()
@@ -14,7 +14,7 @@ export class UserInforResult implements IQueryResult {
 
 export class VerifyAccessTokenResult implements IQueryResult {
   @Expose()
-  readonly user: Readonly<UserInforResult>;
+  readonly user: Readonly<UserDataResult>;
   @Expose()
   readonly accessToken: string;
 }

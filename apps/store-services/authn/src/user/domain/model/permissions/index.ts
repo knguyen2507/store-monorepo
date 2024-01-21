@@ -24,4 +24,6 @@ export class PermissionModel extends BaseModel {
   action: ActionEnum;
   @Expose()
   shopId: string;
+  @Expose()
+  roleId: string[];
 }

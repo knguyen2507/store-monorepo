@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@store-monorepo/service/casl": ["libs/service/casl/src/index.ts"],
       "@store-monorepo/service/cloudinary": [
         "libs/service/cloudinary/src/index.ts"
       ],
@@ -37,7 +38,7 @@
       ],
       "@store-monorepo/template/store": ["libs/template/store/src/index.ts"],
       "@store-monorepo/utility": ["libs/utility/src/index.ts"],
-      "@store-monorepo/service/casl": ["libs/service/casl/src/index.ts"]
+      "@store-monorepo/service/cerbos": ["libs/service/cerbos/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

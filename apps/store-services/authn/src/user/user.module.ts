@@ -16,19 +16,17 @@ import { FindShopHandler } from './application/query/shop/find/handler';
 import { FindUserByIdHandler } from './application/query/user/detail/handler';
 import { FindUserHandler } from './application/query/user/find/handler';
 import { GetTotalUserHandler } from './application/query/user/get-total/handler';
+import { GetUserInfoHandler } from './application/query/user/get-user-info/handler';
 import { VerifyAccessTokenHandler } from './application/query/user/verify-token/handler';
 import { PermissionFactory } from './infrastructure/factory/permission';
-import { ProfileFactory } from './infrastructure/factory/profile';
 import { RoleFactory } from './infrastructure/factory/role';
 import { ShopFactory } from './infrastructure/factory/shop';
 import { UserFactory } from './infrastructure/factory/user';
 import { PermissionQueryImplement } from './infrastructure/query/permission';
-import { ProfileQueryImplement } from './infrastructure/query/profile';
 import { RoleQueryImplement } from './infrastructure/query/role';
 import { ShopQueryImplement } from './infrastructure/query/shop';
 import { UserQueryImplement } from './infrastructure/query/user';
 import { PermissionRepositoryImplement } from './infrastructure/repository/permission';
-import { ProfileRepositoryImplement } from './infrastructure/repository/profile';
 import { RoleRepositoryImplement } from './infrastructure/repository/role';
 import { ShopRepositoryImplement } from './infrastructure/repository/shop';
 import { UserRepositoryImplement } from './infrastructure/repository/user';
@@ -46,8 +44,6 @@ const infrastructure = [
   RoleRepositoryImplement,
   PermissionQueryImplement,
   PermissionRepositoryImplement,
-  ProfileQueryImplement,
-  ProfileRepositoryImplement,
   ShopQueryImplement,
   ShopRepositoryImplement,
 ];
@@ -71,15 +67,10 @@ const queries = [
   FindShopByIdHandler,
   FindRoleHandler,
   FindRoleByIdHandler,
+  GetUserInfoHandler,
 ];
 
-const domain = [
-  UserFactory,
-  RoleFactory,
-  ShopFactory,
-  ProfileFactory,
-  PermissionFactory,
-];
+const domain = [UserFactory, RoleFactory, ShopFactory, PermissionFactory];
 
 const controllers = [
   UserQueryController,

@@ -10,6 +10,13 @@ import {
   FindUserResultItem,
 } from '../../../application/query/user/find/result';
 import { GetTotalUserResult } from '../../../application/query/user/get-total/result';
+import { GetUserInfo } from '../../../application/query/user/get-user-info';
+import {
+  GetUserInfoResult,
+  PermissionDataResult,
+  RoleDataResult,
+  ShopDataResult,
+} from '../../../application/query/user/get-user-info/result';
 import { VerifyAccessTokenResult } from '../../../application/query/user/verify-token/result';
 import { UserQuery } from '../../../domain/query/user';
 
@@ -63,6 +70,58 @@ export class UserQueryImplement implements UserQuery {
     return plainToClass(
       GetTotalUserResult,
       { total },
+      { excludeExtraneousValues: true }
+    );
+  }
+
+  async getInfo(query: GetUserInfo): Promise<GetUserInfoResult> {
+    const user = await this.prisma.users.findUnique({
+      where: { id: query.data.id },
+      include: {
+        role: { include: { permission: { include: { shop: true } } } },
+      },
+    });
+
+    const role = plainToClass(
+      RoleDataResult,
+      {
+        id: user.role.id,
+        name: user.role.name,
+        isSuperAdmin: user.role.isSuperAdmin,
+      },
+      { excludeExtraneousValues: true }
+    );
+
+    const permission = user.role.permission.map((item) => {
+      const shop = plainToClass(
+        ShopDataResult,
+        { id: item.shop.id, name: item.shop.name, address: item.shop.address },
+        { excludeExtraneousValues: true }
+      );
+      return plainToClass(
+        PermissionDataResult,
+        {
+          id: item.id,
+          name: item.name,
+          status: item.status,
+          action: item.action,
+          shop,
+        },
+        { excludeExtraneousValues: true }
+      );
+    });
+
+    return plainToClass(
+      GetUserInfoResult,
+      {
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
+        username: user.username,
+        created: user.created,
+        role,
+        permission,
+      },
       { excludeExtraneousValues: true }
     );
   }

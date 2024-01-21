@@ -6,7 +6,7 @@ export const InitialRole = {
   isSuperAdmin: true,
 };
 export const InitialShop = {
-  id: '6502d51ac4841b15cd7756a1',
+  id: '6502d51ac4841b15cd7756a2',
   name: 'Cửa hàng Nguyên Phát',
   address: 'QL.19B, Thuận Đức, Nhơn Mỹ, An Nhơn, Bình Định',
 };
@@ -16,6 +16,8 @@ export const InitialUser = {
   phone: '0987654321',
   username: 'superadmin001',
   password: '$2a$10$UM5he8DexZKyBXhr6RHw3.GyVH5avuqRlRnbScmT5aLAG4iQkeLle', // 123456
+  created: moment().toDate(),
+  roleId: InitialRole.id,
 };
 
 export const InitialBrand = [

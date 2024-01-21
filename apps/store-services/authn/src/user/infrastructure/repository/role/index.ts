@@ -26,7 +26,7 @@ export class RoleRepositoryImplement implements RoleRepository {
 
   async getByUserId(id: string): Promise<RoleModel> {
     const role = await this.prisma.roles.findFirst({
-      where: { profile: { some: { userId: { equals: id } } } },
+      where: { user: { some: { id } } },
     });
     return this.factory.createRoleModel(role);
   }

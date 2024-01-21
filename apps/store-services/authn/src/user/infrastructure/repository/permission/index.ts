@@ -11,8 +11,16 @@ export class PermissionRepositoryImplement implements PermissionRepository {
   private readonly prisma: AuthnPrismaService;
 
   async save(data: PermissionModel): Promise<PermissionModel> {
+    const { shopId, roleId, ...model } = data;
+    const ids = roleId.map((role) => {
+      return { id: role };
+    });
     const saved = await this.prisma.permissions.create({
-      data,
+      data: {
+        ...model,
+        shop: { connect: { id: shopId } },
+        role: { connect: ids },
+      },
     });
     return this.factory.createPermissionModel(saved);
   }

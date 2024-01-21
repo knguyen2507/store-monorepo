@@ -24,7 +24,7 @@ export class ShopQueryImplement implements ShopQuery {
           },
         ],
       }),
-      this.prisma.users.count(),
+      this.prisma.shops.count(),
     ]);
 
     return {

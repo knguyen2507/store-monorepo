@@ -32,6 +32,7 @@ export const pathPrefixQueryUser = {
   findUserById: 'detail',
   getTotalUser: 'get-total-user',
   verifyAccessToken: 'verify-access-token',
+  getUserInfo: 'get-user-info',
 };
 
 export const pathPrefixCommandUser = {

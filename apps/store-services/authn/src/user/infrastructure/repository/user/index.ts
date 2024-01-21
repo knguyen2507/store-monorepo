@@ -33,7 +33,7 @@ export class UserRepositoryImplement implements UserRepository {
 
   async getByRoleId(id: string): Promise<UserModel[]> {
     const users = await this.prisma.users.findMany({
-      where: { profile: { some: { role: { id: { equals: id } } } } },
+      where: { role: { id: { equals: id } } },
     });
     return this.factory.createUserModels(users);
   }

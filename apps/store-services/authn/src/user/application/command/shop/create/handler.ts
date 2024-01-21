@@ -4,13 +4,10 @@ import { ActionEnum, StatusEnum } from '@prisma/client/authn';
 import { UtilityImplement } from '@store-monorepo/utility';
 import { CreateShop } from '.';
 import { PermissionFactory } from '../../../../infrastructure/factory/permission';
-import { ProfileFactory } from '../../../../infrastructure/factory/profile';
 import { ShopFactory } from '../../../../infrastructure/factory/shop';
 import { PermissionRepositoryImplement } from '../../../../infrastructure/repository/permission';
-import { ProfileRepositoryImplement } from '../../../../infrastructure/repository/profile';
 import { RoleRepositoryImplement } from '../../../../infrastructure/repository/role';
 import { ShopRepositoryImplement } from '../../../../infrastructure/repository/shop';
-import { UserRepositoryImplement } from '../../../../infrastructure/repository/user';
 
 @CommandHandler(CreateShop)
 export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
@@ -20,17 +17,11 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
   @Inject()
   private readonly permissionFactory: PermissionFactory;
   @Inject()
-  private readonly profileFactory: ProfileFactory;
-  @Inject()
   private readonly shop: ShopRepositoryImplement;
   @Inject()
   private readonly permission: PermissionRepositoryImplement;
   @Inject()
-  private readonly user: UserRepositoryImplement;
-  @Inject()
   private readonly role: RoleRepositoryImplement;
-  @Inject()
-  private readonly profile: ProfileRepositoryImplement;
 
   async execute(command: CreateShop): Promise<void> {
     const [id, id1, id2, id3, id4] = [
@@ -40,12 +31,17 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
       this.util.generateId(),
       this.util.generateId(),
     ];
+    // get roles are Super Admin
+    const roles = await this.role.getSuperAdmin();
+    const roleId = roles.map((role) => role.id);
 
+    // create new shop
     const modelShop = this.shopfactory.createShopModel({
       ...command.data,
       id,
     });
 
+    // create permissions for new shop
     const [
       modelCreatePermission,
       modelUpdatePermission,
@@ -58,6 +54,7 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
         action: ActionEnum.CREATE,
         status: StatusEnum.ACTIVE,
         shopId: id,
+        roleId: roleId, // set permission to Super Admin
       }),
       this.permissionFactory.createPermissionModel({
         id: id2,
@@ -65,6 +62,7 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
         action: ActionEnum.UPDATE,
         status: StatusEnum.ACTIVE,
         shopId: id,
+        roleId: roleId, // set permission to Super Admin
       }),
       this.permissionFactory.createPermissionModel({
         id: id3,
@@ -72,6 +70,7 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
         action: ActionEnum.READ,
         status: StatusEnum.ACTIVE,
         shopId: id,
+        roleId: roleId, // set permission to Super Admin
       }),
       this.permissionFactory.createPermissionModel({
         id: id4,
@@ -79,47 +78,9 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
         action: ActionEnum.DELETE,
         status: StatusEnum.ACTIVE,
         shopId: id,
+        roleId: roleId, // set permission to Super Admin
       }),
     ];
-
-    const roles = await this.role.getSuperAdmin();
-    const operations: any[] = [];
-
-    for (const role of roles) {
-      const users = await this.user.getByRoleId(role.id);
-      for (const user of users) {
-        const [profile1, profile2, profile3, profile4] = [
-          this.profileFactory.createProfileModel({
-            id: this.util.generateId(),
-            userId: user.id,
-            permissionId: id1,
-            roleId: role.id,
-          }),
-          this.profileFactory.createProfileModel({
-            id: this.util.generateId(),
-            userId: user.id,
-            permissionId: id2,
-            roleId: role.id,
-          }),
-          this.profileFactory.createProfileModel({
-            id: this.util.generateId(),
-            userId: user.id,
-            permissionId: id3,
-            roleId: role.id,
-          }),
-          this.profileFactory.createProfileModel({
-            id: this.util.generateId(),
-            userId: user.id,
-            permissionId: id4,
-            roleId: role.id,
-          }),
-        ];
-        operations.push(this.profile.save(profile1));
-        operations.push(this.profile.save(profile2));
-        operations.push(this.profile.save(profile3));
-        operations.push(this.profile.save(profile4));
-      }
-    }
 
     await this.shop.save(modelShop);
     await Promise.all([
@@ -128,6 +89,5 @@ export class CreateShopHandler implements ICommandHandler<CreateShop, void> {
       this.permission.save(modelReadPermission),
       this.permission.save(modelDeletePermission),
     ]);
-    await Promise.all(operations);
   }
 }

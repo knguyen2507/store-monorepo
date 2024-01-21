@@ -4,7 +4,6 @@ import { UtilityImplement } from '@store-monorepo/utility';
 import moment from 'moment';
 import { CreateUser } from '.';
 import { UserFactory } from '../../../../infrastructure/factory/user';
-import { ProfileRepositoryImplement } from '../../../../infrastructure/repository/profile';
 import { UserRepositoryImplement } from '../../../../infrastructure/repository/user';
 
 @CommandHandler(CreateUser)
@@ -14,18 +13,17 @@ export class CreateUserHandler implements ICommandHandler<CreateUser, void> {
   private readonly factory: UserFactory;
   @Inject()
   private readonly user: UserRepositoryImplement;
-  @Inject()
-  private readonly profile: ProfileRepositoryImplement;
 
   async execute(command: CreateUser): Promise<void> {
     const created = moment().toDate();
-    const { password, roleId, ...data } = command.data;
+    const { password, ...data } = command.data;
 
     const [id, hashPwd] = [
       this.util.generateId(),
       this.util.passwordHash(password),
     ];
 
+    // create new user
     const model = await this.factory.createUserModel({
       ...data,
       password: hashPwd,
@@ -33,9 +31,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUser, void> {
       id,
     });
 
-    const profiles = await this.profile.getByRoleId(roleId);
-
     await this.user.save(model);
-    await this.profile.updateUserId(id, profiles);
   }
 }

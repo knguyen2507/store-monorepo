@@ -16,7 +16,7 @@ export class RoleQueryImplement implements RoleQuery {
 
   async find(): Promise<FindRoleResult> {
     const roles = await this.prisma.roles.findMany({
-      include: { profile: { include: { permission: true } } },
+      include: { permission: true },
       orderBy: [
         {
           id: 'asc',
@@ -25,14 +25,14 @@ export class RoleQueryImplement implements RoleQuery {
     });
 
     const items = roles.map((i) => {
-      const permission = i.profile.map((profile) => {
+      const permission = i.permission.map((p) => {
         return plainToClass(
           FindPermissionByIdResult,
           {
-            id: profile.permission.id,
-            name: profile.permission.name,
-            status: profile.permission.status,
-            action: profile.permission.action,
+            id: p.id,
+            name: p.name,
+            status: p.status,
+            action: p.action,
           },
           {
             excludeExtraneousValues: true,
