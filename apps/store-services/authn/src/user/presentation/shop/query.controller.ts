@@ -2,7 +2,7 @@ import { Nack, RabbitRPC } from '@golevelup/nestjs-rabbitmq';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   FindShopByIdRequestDTO,
   RMQ,
@@ -18,7 +18,7 @@ import { GetShopInfo } from '../../application/query/shop/get-info';
 
 @ApiTags(pathPrefixShop.swagger)
 @Controller(pathPrefixShop.controller)
-@UseGuards(AuthGuard)
+@UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class ShopQueryController {
   constructor(

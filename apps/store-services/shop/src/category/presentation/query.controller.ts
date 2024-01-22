@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   FindCategoryByCodeRequestDTO,
   FindCategoryByIdRequestDTO,
@@ -57,7 +57,7 @@ export class CategoryQueryController {
   }
 
   @Get(pathPrefixQueryCategory.getTotalCategory)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async GetTotalCategory(): Promise<any> {
     const msg = {

@@ -24,11 +24,13 @@ export class CaslModule implements OnModuleInit {
   constructor(
     @Inject(SeedAuthnService) private seedAuthnService: SeedAuthnService,
     @Inject(SeedShopService) private seedShopService: SeedShopService,
-    @Inject(SeedProductService) private seedProductService: SeedProductService
+    @Inject(SeedProductService) private seedProductService: SeedProductService,
+    @Inject(SeedPolicyService) private seedPolicyService: SeedPolicyService
   ) {}
   async onModuleInit() {
     await this.seedAuthnService.seed();
     await this.seedShopService.seed();
+    await this.seedPolicyService.seed();
     await this.seedProductService.seed();
   }
 }

@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   CreateUserRequestDTO,
   LoginRequestDTO,
@@ -31,7 +31,7 @@ export class UserCommandController {
   ) {}
 
   @Post(pathPrefixCommandUser.createUser)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async CreateUser(@Body() body: CreateUserRequestDTO): Promise<void> {
     const payload: RmqMessage = {
@@ -61,7 +61,7 @@ export class UserCommandController {
   }
 
   @Post(pathPrefixCommandUser.updatePassword)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async UpdatePassword(
     @Body() body: UpdatePasswordRequestDTO,
@@ -80,7 +80,7 @@ export class UserCommandController {
   }
 
   @Post(pathPrefixCommandUser.logout)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async Logout(@Req() request: RequestWithUser): Promise<any> {
     const payload: RmqMessage = {

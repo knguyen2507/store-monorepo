@@ -92,24 +92,58 @@ export class UserQueryImplement implements UserQuery {
       { excludeExtraneousValues: true }
     );
 
-    const permission = user.role.permission.map((item) => {
-      const shop = plainToClass(
-        ShopDataResult,
-        { id: item.shop.id, name: item.shop.name, address: item.shop.address },
-        { excludeExtraneousValues: true }
-      );
-      return plainToClass(
-        PermissionDataResult,
-        {
-          id: item.id,
-          name: item.name,
-          status: item.status,
-          action: item.action,
-          shop,
-        },
-        { excludeExtraneousValues: true }
-      );
-    });
+    let permission: PermissionDataResult[];
+
+    if (user.role.isSuperAdmin) {
+      const data = await this.prisma.permissions.findMany({
+        include: { shop: true },
+      });
+      permission = data.map((item) => {
+        const shop = plainToClass(
+          ShopDataResult,
+          {
+            id: item.shop.id,
+            name: item.shop.name,
+            address: item.shop.address,
+          },
+          { excludeExtraneousValues: true }
+        );
+        return plainToClass(
+          PermissionDataResult,
+          {
+            id: item.id,
+            name: item.name,
+            status: item.status,
+            action: item.action,
+            shop,
+          },
+          { excludeExtraneousValues: true }
+        );
+      });
+    } else {
+      permission = user.role.permission.map((item) => {
+        const shop = plainToClass(
+          ShopDataResult,
+          {
+            id: item.shop.id,
+            name: item.shop.name,
+            address: item.shop.address,
+          },
+          { excludeExtraneousValues: true }
+        );
+        return plainToClass(
+          PermissionDataResult,
+          {
+            id: item.id,
+            name: item.name,
+            status: item.status,
+            action: item.action,
+            shop,
+          },
+          { excludeExtraneousValues: true }
+        );
+      });
+    }
 
     return plainToClass(
       GetUserInfoResult,

@@ -1,5 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { AuthnPrismaService } from '@store-monorepo/service/prisma';
+import { UserResult } from '@store-monorepo/utility';
+import { plainToClass } from 'class-transformer';
 import { UserModel } from '../../../domain/model/users';
 import { UserRepository } from '../../../domain/repository/user';
 import { UserFactory } from '../../factory/user';
@@ -24,11 +26,24 @@ export class UserRepositoryImplement implements UserRepository {
     return this.factory.createUserModel(user);
   }
 
-  async getByUsername(username: string): Promise<UserModel> {
+  async getByUsername(username: string): Promise<UserResult> {
     const user = await this.prisma.users.findFirst({
       where: { username },
+      include: { role: true },
     });
-    return this.factory.createUserModel(user);
+    return plainToClass(
+      UserResult,
+      {
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
+        username: user.username,
+        password: user.password,
+        roleId: user.roleId,
+        isSuperAdmin: user.role.isSuperAdmin,
+      },
+      { excludeExtraneousValues: true }
+    );
   }
 
   async getByRoleId(id: string): Promise<UserModel[]> {

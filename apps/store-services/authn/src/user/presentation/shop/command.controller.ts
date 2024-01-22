@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   CreateShopRequestDTO,
   UpdateShopRequestDTO,
@@ -14,7 +14,7 @@ import { UpdateShop } from '../../application/command/shop/update';
 
 @ApiTags(pathPrefixShop.swagger)
 @Controller(pathPrefixShop.controller)
-@UseGuards(AuthGuard)
+@UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class ShopCommandController {
   constructor(

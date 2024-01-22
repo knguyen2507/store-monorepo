@@ -21,12 +21,18 @@ export class LoginHandler implements ICommandHandler<Login, any> {
             name: user.name,
             phone: user.phone,
             username: user.username,
+            password: null,
+            roleId: user.roleId,
+            isSuperAdmin: user.isSuperAdmin,
           } as UserInterface),
           this.util.generateRefreshToken({
             id: user.id,
             name: user.name,
             phone: user.phone,
             username: user.username,
+            password: null,
+            roleId: user.roleId,
+            isSuperAdmin: user.isSuperAdmin,
           } as UserInterface),
         ];
         await this.util.setRefreshToken(accessToken, refreshToken);

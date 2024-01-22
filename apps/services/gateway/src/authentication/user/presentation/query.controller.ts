@@ -1,7 +1,7 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   FindUserRequestDTO,
   RMQ,
@@ -21,7 +21,7 @@ export class UserQueryController {
   ) {}
 
   @Get(pathPrefixQueryUser.findUsers)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async FindUsers(@Query() query: FindUserRequestDTO): Promise<any> {
     const payload: RmqMessage = {
@@ -37,7 +37,7 @@ export class UserQueryController {
   }
 
   @Get(pathPrefixQueryUser.findUserById)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async FindUserById(@Req() request: RequestWithUser): Promise<any> {
     const payload: RmqMessage = {
@@ -53,7 +53,7 @@ export class UserQueryController {
   }
 
   @Get(pathPrefixQueryUser.getTotalUser)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async GetTotalUser(): Promise<any> {
     const payload: RmqMessage = {
@@ -69,7 +69,7 @@ export class UserQueryController {
   }
 
   @Get(pathPrefixQueryUser.verifyAccessToken)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async VerifyAccessToken(@Req() request: RequestWithUser): Promise<any> {
     const payload: RmqMessage = {

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
+import { CerbosModule } from '@store-monorepo/service/cerbos';
 import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
 import { RmqModule } from '@store-monorepo/service/rabbitmq';
 import { CreateRoleHandler } from './application/command/role/create/handler';
@@ -30,6 +31,7 @@ import { PermissionRepositoryImplement } from './infrastructure/repository/permi
 import { RoleRepositoryImplement } from './infrastructure/repository/role';
 import { ShopRepositoryImplement } from './infrastructure/repository/shop';
 import { UserRepositoryImplement } from './infrastructure/repository/user';
+import { PolicyService } from './infrastructure/services/policy.service';
 import { RoleCommandController } from './presentation/role/command.controller';
 import { RoleQueryController } from './presentation/role/query.controller';
 import { ShopCommandController } from './presentation/shop/command.controller';
@@ -46,6 +48,7 @@ const infrastructure = [
   PermissionRepositoryImplement,
   ShopQueryImplement,
   ShopRepositoryImplement,
+  PolicyService,
 ];
 
 const commands = [
@@ -82,7 +85,7 @@ const controllers = [
 ];
 
 @Module({
-  imports: [CqrsModule, AuthnPrismaModule, RmqModule],
+  imports: [CqrsModule, AuthnPrismaModule, RmqModule, CerbosModule],
   controllers: controllers,
   providers: [...infrastructure, ...commands, ...queries, ...domain],
 })

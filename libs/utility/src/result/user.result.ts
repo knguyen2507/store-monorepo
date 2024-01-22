@@ -1,18 +1,18 @@
-import { IsString } from 'class-validator';
+import { Expose } from 'class-transformer';
 
-export class UserInterface {
-  @IsString()
+export class UserResult {
+  @Expose()
   readonly id!: string;
-  @IsString()
+  @Expose()
   readonly name!: string;
-  @IsString()
+  @Expose()
   readonly phone!: string;
-  @IsString()
+  @Expose()
   readonly username!: string;
-  @IsString()
+  @Expose()
   readonly password!: string;
-  @IsString()
+  @Expose()
   readonly roleId!: string;
-  @IsString()
+  @Expose()
   readonly isSuperAdmin!: boolean;
 }

@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   UtilityImplement,
   pathPrefixQueryRole,
@@ -11,7 +11,7 @@ import { FindRole } from '../../application/query/role/find';
 
 @ApiTags(pathPrefixRole.swagger)
 @Controller(pathPrefixRole.controller)
-@UseGuards(AuthGuard)
+@UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class RoleQueryController {
   constructor(

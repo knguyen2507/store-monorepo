@@ -10,7 +10,7 @@ import {
 import { CommandBus } from '@nestjs/cqrs';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   CreateCategoryResquestDTO,
   FileUpload,
@@ -23,7 +23,7 @@ import { CreateCategory } from '../application/command/category/create';
 
 @ApiTags(pathPrefixCategory.swagger)
 @Controller(pathPrefixCategory.controller)
-@UseGuards(AuthGuard)
+@UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class CategoryCommandController {
   constructor(

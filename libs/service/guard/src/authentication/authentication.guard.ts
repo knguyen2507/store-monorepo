@@ -9,7 +9,7 @@ import { UtilityImplement } from '@store-monorepo/utility';
 import { Request } from 'express';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthnGuard implements CanActivate {
   constructor(private readonly util: UtilityImplement) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

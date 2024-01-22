@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   FindBrandByCodeRequestDTO,
   FindBrandByIdRequestDTO,
@@ -56,7 +56,7 @@ export class BrandQueryController {
   }
 
   @Get(pathPrefixQueryBrand.getTotalBrand)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async GetTotalBrand(): Promise<any> {
     const msg = {

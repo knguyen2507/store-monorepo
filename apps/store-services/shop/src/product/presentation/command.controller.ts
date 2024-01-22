@@ -10,7 +10,7 @@ import {
 import { CommandBus } from '@nestjs/cqrs';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   CreateProductResquestDTO,
   DeleteProductResquestDTO,
@@ -25,7 +25,7 @@ import { DeleteProduct } from '../application/command/product/delete';
 
 @ApiTags(pathPrefixProduct.swagger)
 @Controller(pathPrefixProduct.controller)
-@UseGuards(AuthGuard)
+@UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class ProductCommandController {
   constructor(

@@ -1,2 +1,3 @@
 export * from './authentication/authentication.guard';
-export * from './authentication/guard.module';
+export * from './authorization/authorization.guard';
+export * from './lib/guard.module';

@@ -1,9 +1,10 @@
 import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard, AuthoGuard } from '@store-monorepo/service/guard';
 import {
   FindUserRequestDTO,
+  GuardDecorator,
   RequestWithUser,
   UtilityImplement,
   pathPrefixQueryUser,
@@ -22,7 +23,7 @@ import { VerifyAccessTokenResult } from '../../application/query/user/verify-tok
 
 @ApiTags(pathPrefixUser.swagger)
 @Controller(pathPrefixUser.controller)
-@UseGuards(AuthGuard)
+@UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class UserQueryController {
   constructor(
@@ -31,6 +32,8 @@ export class UserQueryController {
   ) {}
 
   @Get(pathPrefixQueryUser.findUsers)
+  @GuardDecorator({ action: 'READ', resource: 'user' })
+  @UseGuards(AuthoGuard)
   async FindUsers(@Query() query: FindUserRequestDTO): Promise<FindUserResult> {
     const msg = {
       messageId: this.util.generateId(),
@@ -41,6 +44,8 @@ export class UserQueryController {
   }
 
   @Get(pathPrefixQueryUser.findUserById)
+  @GuardDecorator({ action: 'READ', resource: 'user' })
+  @UseGuards(AuthoGuard)
   async FindUserById(
     @Req() request: RequestWithUser
   ): Promise<FindUserByIdResult> {
@@ -53,6 +58,8 @@ export class UserQueryController {
   }
 
   @Get(pathPrefixQueryUser.getTotalUser)
+  @GuardDecorator({ action: 'READ', resource: 'user' })
+  @UseGuards(AuthoGuard)
   async GetTotalUser(): Promise<GetTotalUserResult> {
     const msg = {
       messageId: this.util.generateId(),
@@ -75,6 +82,8 @@ export class UserQueryController {
   }
 
   @Get(pathPrefixQueryUser.getUserInfo)
+  @GuardDecorator({ action: 'READ', resource: 'user' })
+  @UseGuards(AuthoGuard)
   async GetUserInfo(
     @Req() request: RequestWithUser
   ): Promise<GetUserInfoResult> {

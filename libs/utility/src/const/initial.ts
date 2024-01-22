@@ -14,7 +14,7 @@ export const InitialUser = {
   id: '6502d51ac4841b15cd7756a3',
   name: 'Super Admin 1',
   phone: '0987654321',
-  username: 'superadmin001',
+  username: 'sa001',
   password: '$2a$10$UM5he8DexZKyBXhr6RHw3.GyVH5avuqRlRnbScmT5aLAG4iQkeLle', // 123456
   created: moment().toDate(),
   roleId: InitialRole.id,

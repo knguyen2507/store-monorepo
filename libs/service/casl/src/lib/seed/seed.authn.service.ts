@@ -10,13 +10,11 @@ import {
   InitialUser,
   UtilityImplement,
 } from '@store-monorepo/utility';
-import { SeedPolicyService } from './seed.policy.service';
 
 @Injectable()
 export class SeedAuthnService {
   constructor(
     @Inject(AuthnPrismaService) private prisma: AuthnPrismaService,
-    @Inject(SeedPolicyService) private seedPolicyService: SeedPolicyService,
     private readonly util: UtilityImplement
   ) {}
 
@@ -31,7 +29,6 @@ export class SeedAuthnService {
     ]);
 
     if (roles.length === 0) {
-      await this.seedPolicyService.seed();
       operations = [
         ...operations,
         this.prisma.roles.create({
@@ -68,7 +65,6 @@ export class SeedAuthnService {
             action: ActionEnum.CREATE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop.id } },
-            role: { connect: { id: InitialRole.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -78,7 +74,6 @@ export class SeedAuthnService {
             action: ActionEnum.UPDATE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop.id } },
-            role: { connect: { id: InitialRole.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -88,7 +83,6 @@ export class SeedAuthnService {
             action: ActionEnum.READ,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop.id } },
-            role: { connect: { id: InitialRole.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -98,7 +92,6 @@ export class SeedAuthnService {
             action: ActionEnum.DELETE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop.id } },
-            role: { connect: { id: InitialRole.id } },
           },
         }),
       ];

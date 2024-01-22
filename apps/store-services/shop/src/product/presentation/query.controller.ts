@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   FindProductByAdminRequestDTO,
   FindProductByBrandRequestDTO,
@@ -32,7 +32,7 @@ export class ProductQueryController {
   ) {}
 
   @Get(pathPrefixQueryProduct.findProductListByAdmin)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async FindProductListByAdmin(
     @Query() query: FindProductByAdminRequestDTO
@@ -116,7 +116,7 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.getTotalProduct)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async GetTotalProduct(): Promise<any> {
     const msg = {

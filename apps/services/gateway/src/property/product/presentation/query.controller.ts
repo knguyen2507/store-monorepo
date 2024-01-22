@@ -1,7 +1,7 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
   FindProductByAdminRequestDTO,
   FindProductByBrandRequestDTO,
@@ -136,7 +136,7 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.getTotalProduct)
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthnGuard)
   @ApiBearerAuth()
   async GetTotalProduct(): Promise<any> {
     const payload: RmqMessage = {

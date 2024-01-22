@@ -4,6 +4,7 @@ import { UtilityImplement } from '@store-monorepo/utility';
 import { CreateRole } from '.';
 import { RoleFactory } from '../../../../infrastructure/factory/role';
 import { RoleRepositoryImplement } from '../../../../infrastructure/repository/role';
+import { PolicyService } from '../../../../infrastructure/services/policy.service';
 
 @CommandHandler(CreateRole)
 export class CreateRoleHandler implements ICommandHandler<CreateRole, void> {
@@ -12,6 +13,8 @@ export class CreateRoleHandler implements ICommandHandler<CreateRole, void> {
   private readonly roleFactory: RoleFactory;
   @Inject()
   private readonly role: RoleRepositoryImplement;
+  @Inject()
+  private readonly policyService: PolicyService;
 
   async execute(command: CreateRole): Promise<void> {
     const { name, permissions, isSuperAdmin } = command.data;
@@ -26,5 +29,7 @@ export class CreateRoleHandler implements ICommandHandler<CreateRole, void> {
     });
 
     await this.role.save(model);
+    // Add Policy Query User
+    await this.policyService.AddPrincipalPolicy(model);
   }
 }
