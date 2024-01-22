@@ -1,0 +1,24 @@
+---
+server:
+  grpcListenAddr: ':3593'
+  httpListenAddr: ':3592'
+  adminAPI:
+    enabled: true
+    adminCredentials:
+      username: cerbos
+      passwordHash: JDJ5JDEwJE5HYnk4cTY3VTE1bFV1NlR2bmp3ME9QOXdXQXFROGtBb2lWREdEY2xXbzR6WnoxYWtSNWNDCgo=
+
+storage:
+  driver: 'postgres'
+  postgres:
+    url: 'postgresql://admin:abc12345@host.docker.internal:5432/admin?sslmode=disable&search_path=cerbos'
+    connPool:
+      maxLifeTime: 5m
+      maxIdleTime: 3m
+      maxOpen: 10
+      maxIdle: 5
+# storage:
+#   driver: 'disk'
+#   disk:
+#     directory: /policies
+#     watchForChanges: true

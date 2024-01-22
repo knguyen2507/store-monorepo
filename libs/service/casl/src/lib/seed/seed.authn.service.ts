@@ -10,11 +10,13 @@ import {
   InitialUser,
   UtilityImplement,
 } from '@store-monorepo/utility';
+import { SeedPolicyService } from './seed.policy.service';
 
 @Injectable()
 export class SeedAuthnService {
   constructor(
     @Inject(AuthnPrismaService) private prisma: AuthnPrismaService,
+    @Inject(SeedPolicyService) private seedPolicyService: SeedPolicyService,
     private readonly util: UtilityImplement
   ) {}
 
@@ -29,6 +31,7 @@ export class SeedAuthnService {
     ]);
 
     if (roles.length === 0) {
+      await this.seedPolicyService.seed();
       operations = [
         ...operations,
         this.prisma.roles.create({

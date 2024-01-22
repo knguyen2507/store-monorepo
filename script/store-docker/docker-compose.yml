@@ -6,7 +6,7 @@ networks:
 
 volumes:
   mongodb-data:
-  postgresdb-data:
+  postgres-data:
   redis-data:
   rabbitmq-data:
   traefik-data:
@@ -37,7 +37,8 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - postgresdb-data:/var/lib/postgresql/data
+      - ./cerbos/cerbos.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - postgres-data:/var/lib/postgresql/data
     environment:
       - TZ=Asia/Ho_Chi_Minh
       - POSTGRES_USER=admin
@@ -104,3 +105,13 @@ services:
       - traefik.http.routers.traefik-public-http.service=api@internal
       - traefik.http.routers.traefik-public-http.middlewares=admin-auth
       - traefik.http.services.traefik-public.loadbalancer.server.port=8080
+
+  store-cerbos:
+    container_name: store-cerbos
+    image: ghcr.io/cerbos/cerbos:latest
+    command: ['server', '--config=/config/config.yaml']
+    volumes:
+      - ./cerbos/config:/config
+    ports:
+      - 3592:3592
+      - 3593:3593
