@@ -1,7 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { Inject, Injectable } from '@nestjs/common';
 import { ShopPrismaService } from '@store-monorepo/service/prisma';
-import { InitialUser } from '@store-monorepo/utility';
+import {
+  InitialShop1,
+  InitialShop2,
+  InitialUser1,
+} from '@store-monorepo/utility';
 import { ObjectId } from 'bson';
 import moment from 'moment';
 
@@ -19,7 +23,7 @@ export class SeedProductService {
       ]);
 
       const InitialProduct = [];
-      for (let i = 1; i <= 100; i++) {
+      for (let i = 1; i <= 400; i++) {
         const thumbnailLink = {
           id: new ObjectId().toString(),
           name: faker.animal.fish(),
@@ -52,6 +56,18 @@ export class SeedProductService {
 
         const brand = faker.helpers.arrayElement(brands);
         const category = faker.helpers.arrayElement(categories);
+        const shops = [
+          {
+            id: InitialShop1.id,
+            name: InitialShop1.name,
+            address: InitialShop1.address,
+          },
+          {
+            id: InitialShop2.id,
+            name: InitialShop2.name,
+            address: InitialShop2.address,
+          },
+        ];
 
         InitialProduct.push(
           this.prisma.products.create({
@@ -66,10 +82,11 @@ export class SeedProductService {
               description,
               images,
               created: {
-                id: InitialUser.id,
-                username: InitialUser.username,
+                id: InitialUser1.id,
+                username: InitialUser1.username,
                 at: moment().toDate(),
               },
+              shop: faker.helpers.arrayElement(shops),
             },
           })
         );

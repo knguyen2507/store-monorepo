@@ -37,4 +37,6 @@ export const RMQ = {
 
   // -------------------------------------------------------------------
   RK_AUHTN_QRY_GET_SHOP_INFORMATION: 'authn.qry.get.shop.information',
+  // -------------------------------------------------------------------
+  RK_AUTHN_CMD_SHOP_PERMISSION: 'authn.cmd.shop.permission',
 };

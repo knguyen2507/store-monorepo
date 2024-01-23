@@ -1,10 +1,10 @@
 import { Global, Module } from '@nestjs/common';
-import { CerbosModule } from '@store-monorepo/service/cerbos';
+import { RmqModule } from '@store-monorepo/service/rabbitmq';
 import { UtilityModule } from '@store-monorepo/utility';
 
 @Global()
 @Module({
-  imports: [UtilityModule, CerbosModule],
+  imports: [UtilityModule, RmqModule],
   controllers: [],
   providers: [],
   exports: [],

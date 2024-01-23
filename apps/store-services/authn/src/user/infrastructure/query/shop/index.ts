@@ -3,6 +3,7 @@ import { AuthnPrismaService } from '@store-monorepo/service/prisma';
 import { plainToClass } from 'class-transformer';
 import { FindShopById } from '../../../application/query/shop/detail';
 import { FindShopByIdResult } from '../../../application/query/shop/detail/result';
+import { FindShop } from '../../../application/query/shop/find';
 import {
   FindShopResult,
   FindShopResultItem,
@@ -15,16 +16,18 @@ export class ShopQueryImplement implements ShopQuery {
   @Inject()
   private readonly prisma: AuthnPrismaService;
 
-  async find(): Promise<FindShopResult> {
+  async find(query: FindShop): Promise<FindShopResult> {
+    const conditions = [{ id: { in: query.data.ids } }];
     const [shops, total] = await Promise.all([
       this.prisma.shops.findMany({
+        where: { AND: conditions },
         orderBy: [
           {
             id: 'asc',
           },
         ],
       }),
-      this.prisma.shops.count(),
+      this.prisma.shops.count({ where: { AND: conditions } }),
     ]);
 
     return {

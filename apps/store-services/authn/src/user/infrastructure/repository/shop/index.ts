@@ -15,11 +15,23 @@ export class ShopRepositoryImplement implements ShopRepository {
     return this.factory.createShopModel(saved);
   }
 
+  async getAll(): Promise<ShopModel[]> {
+    const shops = await this.prisma.shops.findMany();
+    return this.factory.createShopModels(shops);
+  }
+
   async getById(id: string): Promise<ShopModel> {
     const shop = await this.prisma.shops.findUnique({
       where: { id },
     });
     return this.factory.createShopModel(shop);
+  }
+
+  async getByRoleId(id: string): Promise<ShopModel[]> {
+    const shops = await this.prisma.shops.findMany({
+      where: { permissions: { some: { roleId: { equals: [id] } } } },
+    });
+    return this.factory.createShopModels(shops);
   }
 
   async remove(id: string | string[]): Promise<void> {

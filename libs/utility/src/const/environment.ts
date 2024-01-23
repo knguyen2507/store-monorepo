@@ -85,18 +85,6 @@ class EnvironmentVariables {
   @IsNumber()
   readonly RMQ_PORT: number = Number(process.env['RMQ_PORT']);
 
-  @IsString()
-  readonly CERBOS_HOST: string = process.env['CERBOS_HOST'] as string;
-
-  @IsString()
-  readonly CERBOS_PORT: string = process.env['CERBOS_PORT'] as string;
-
-  @IsString()
-  readonly CERBOS_USERNAME: string = process.env['CERBOS_USERNAME'] as string;
-
-  @IsString()
-  readonly CERBOS_PASSWORD: string = process.env['CERBOS_PASSWORD'] as string;
-
   constructor() {
     const error = validateSync(this);
     if (!error.length) return;

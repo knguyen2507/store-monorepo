@@ -6,7 +6,7 @@ networks:
 
 volumes:
   mongodb-data:
-  postgres-data:
+  # postgres-data:
   redis-data:
   rabbitmq-data:
   traefik-data:
@@ -30,21 +30,21 @@ services:
     networks:
       - gateway-network
 
-  store-postgres:
-    image: postgres:15.2
-    restart: always
-    container_name: store-postgres
-    ports:
-      - 5432:5432
-    volumes:
-      - ./cerbos/cerbos.sql:/docker-entrypoint-initdb.d/initdb.sql
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      - TZ=Asia/Ho_Chi_Minh
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=abc12345
-    networks:
-      - gateway-network
+  # store-postgres:
+  #   image: postgres:15.2
+  #   restart: always
+  #   container_name: store-postgres
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./cerbos/cerbos.sql:/docker-entrypoint-initdb.d/initdb.sql
+  #     - postgres-data:/var/lib/postgresql/data
+  #   environment:
+  #     - TZ=Asia/Ho_Chi_Minh
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=abc12345
+  #   networks:
+  #     - gateway-network
 
   store-redis:
     image: redis:7.0.12
@@ -106,12 +106,12 @@ services:
       - traefik.http.routers.traefik-public-http.middlewares=admin-auth
       - traefik.http.services.traefik-public.loadbalancer.server.port=8080
 
-  store-cerbos:
-    container_name: store-cerbos
-    image: ghcr.io/cerbos/cerbos:latest
-    command: ['server', '--config=/config/config.yaml']
-    volumes:
-      - ./cerbos/config:/config
-    ports:
-      - 3592:3592
-      - 3593:3593
+  # store-cerbos:
+  #   container_name: store-cerbos
+  #   image: ghcr.io/cerbos/cerbos:latest
+  #   command: ['server', '--config=/config/config.yaml']
+  #   volumes:
+  #     - ./cerbos/config:/config
+  #   ports:
+  #     - 3592:3592
+  #     - 3593:3593

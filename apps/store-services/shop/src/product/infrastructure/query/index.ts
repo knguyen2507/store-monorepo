@@ -84,12 +84,12 @@ export class ProductQueryImplement implements ProductQuery {
   async findByAdmin(
     query: FindProductByAdmin
   ): Promise<FindProductByAdminResult> {
-    const { offset, limit } = query.data;
-    const condition = [];
+    const { offset, limit, shopIds } = query.data;
+    const conditions = [{ shop: { some: { id: { in: shopIds } } } }];
 
     const [products, total] = await Promise.all([
       this.prisma.products.findMany({
-        where: { AND: condition },
+        where: { AND: conditions },
         include: { brand: true, category: true },
         skip: Number(offset),
         take: Number(limit),
@@ -102,7 +102,7 @@ export class ProductQueryImplement implements ProductQuery {
           },
         ],
       }),
-      this.prisma.products.count({ where: { AND: condition } }),
+      this.prisma.products.count({ where: { AND: conditions } }),
     ]);
 
     const items = products.map((i) => {

@@ -37,8 +37,7 @@
         "libs/template/shop-template/src/index.ts"
       ],
       "@store-monorepo/template/store": ["libs/template/store/src/index.ts"],
-      "@store-monorepo/utility": ["libs/utility/src/index.ts"],
-      "@store-monorepo/service/cerbos": ["libs/service/cerbos/src/index.ts"]
+      "@store-monorepo/utility": ["libs/utility/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

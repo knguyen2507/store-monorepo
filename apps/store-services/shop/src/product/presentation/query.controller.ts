@@ -1,7 +1,7 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthnGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard, AuthoShopGuard } from '@store-monorepo/service/guard';
 import {
   FindProductByAdminRequestDTO,
   FindProductByBrandRequestDTO,
@@ -10,6 +10,7 @@ import {
   FindProductByIdsRequestDTO,
   FindProductRequestDTO,
   FindProductSimilarRequestDTO,
+  RequestWithUser,
   UtilityImplement,
   pathPrefixProduct,
   pathPrefixQueryProduct,
@@ -32,14 +33,15 @@ export class ProductQueryController {
   ) {}
 
   @Get(pathPrefixQueryProduct.findProductListByAdmin)
-  @UseGuards(AuthnGuard)
+  @UseGuards(AuthnGuard, AuthoShopGuard)
   @ApiBearerAuth()
   async FindProductListByAdmin(
-    @Query() query: FindProductByAdminRequestDTO
+    @Query() query: FindProductByAdminRequestDTO,
+    @Req() request: RequestWithUser
   ): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
-      data: query,
+      data: { ...query, shopIds: request.shopIds },
     };
     const product = new FindProductByAdmin(msg);
     return await this.queryBus.execute(product);

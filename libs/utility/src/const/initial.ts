@@ -1,23 +1,42 @@
 import moment from 'moment';
 
-export const InitialRole = {
+export const InitialRole1 = {
   id: '6502d51ac4841b15cd7756a1',
   name: 'Super Admin 1',
   isSuperAdmin: true,
 };
-export const InitialShop = {
+export const InitialRole2 = {
+  id: '6502d51ac4841b15cd7756b1',
+  name: 'Admin Test 1',
+  isSuperAdmin: false,
+};
+export const InitialShop1 = {
   id: '6502d51ac4841b15cd7756a2',
   name: 'Cửa hàng Nguyên Phát',
   address: 'QL.19B, Thuận Đức, Nhơn Mỹ, An Nhơn, Bình Định',
 };
-export const InitialUser = {
+export const InitialShop2 = {
+  id: '6502d51ac4841b15cd7756b2',
+  name: 'Shop Test 1',
+  address: 'Address 123',
+};
+export const InitialUser1 = {
   id: '6502d51ac4841b15cd7756a3',
   name: 'Super Admin 1',
   phone: '0987654321',
   username: 'sa001',
   password: '$2a$10$UM5he8DexZKyBXhr6RHw3.GyVH5avuqRlRnbScmT5aLAG4iQkeLle', // 123456
   created: moment().toDate(),
-  roleId: InitialRole.id,
+  roleId: InitialRole1.id,
+};
+export const InitialUser2 = {
+  id: '6502d51ac4841b15cd7756b3',
+  name: 'Test User 1',
+  phone: '0164738274',
+  username: 'test001',
+  password: '$2a$10$UM5he8DexZKyBXhr6RHw3.GyVH5avuqRlRnbScmT5aLAG4iQkeLle', // 123456
+  created: moment().toDate(),
+  roleId: InitialRole2.id,
 };
 
 export const InitialBrand = [
@@ -28,8 +47,8 @@ export const InitialBrand = [
     thumbnailLink:
       'https://cdn.iconscout.com/icon/free/png-256/free-samsung-226432.png?f=webp',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -41,8 +60,8 @@ export const InitialBrand = [
     thumbnailLink:
       'https://cdn.iconscout.com/icon/free/png-256/free-toshiba-226434.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -54,8 +73,8 @@ export const InitialBrand = [
     thumbnailLink:
       'https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/lg-512.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -66,8 +85,8 @@ export const InitialBrand = [
     brandCode: 'mutoshi',
     thumbnailLink: 'https://mutosi.com/images/logo-2022.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -79,8 +98,8 @@ export const InitialBrand = [
     thumbnailLink:
       'https://upload.wikimedia.org/wikipedia/vi/e/ed/Logo_cong_ty_sunhouse.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -91,8 +110,8 @@ export const InitialBrand = [
     brandCode: 'khac',
     thumbnailLink: 'https://static.thenounproject.com/png/2821166-200.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -107,8 +126,8 @@ export const InitialCategory = [
     thumbnailLink:
       'https://i.pinimg.com/originals/9e/d8/61/9ed86194c90b60ad5ce0e14fdb1b97d5.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -120,8 +139,8 @@ export const InitialCategory = [
     thumbnailLink:
       'https://static.vecteezy.com/system/resources/previews/018/777/993/original/refrigerator-logo-icon-vector.jpg',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -133,8 +152,8 @@ export const InitialCategory = [
     thumbnailLink:
       'https://static.vecteezy.com/system/resources/previews/009/458/554/original/washing-machine-icon-logo-design-template-vector.jpg',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -146,8 +165,8 @@ export const InitialCategory = [
     thumbnailLink:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTd_05i_Vhj92vyv1ie2HGhoP1mj2QwKauug&usqp=CAU',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -159,8 +178,8 @@ export const InitialCategory = [
     thumbnailLink:
       'https://i.pinimg.com/736x/7c/3e/ff/7c3eff5ee208ca917337fa2a1d8f7a71.jpg',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],
@@ -171,8 +190,8 @@ export const InitialCategory = [
     categoryCode: 'khac',
     thumbnailLink: 'https://static.thenounproject.com/png/2821166-200.png',
     created: {
-      id: InitialUser.id,
-      username: InitialUser.username,
+      id: InitialUser1.id,
+      username: InitialUser1.username,
       at: moment().toDate(),
     },
     updated: [],

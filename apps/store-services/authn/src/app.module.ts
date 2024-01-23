@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { CaslModule } from '@store-monorepo/service/casl';
-import { CerbosModule } from '@store-monorepo/service/cerbos';
 import { CloudinaryModule } from '@store-monorepo/service/cloudinary';
 import { GuardModule } from '@store-monorepo/service/guard';
 import { AuthnPrismaModule } from '@store-monorepo/service/prisma';
@@ -19,7 +18,6 @@ import { UserModule } from './user/user.module';
     UserModule,
     RmqModule,
     CaslModule,
-    CerbosModule,
   ],
   controllers: [],
   providers: [],

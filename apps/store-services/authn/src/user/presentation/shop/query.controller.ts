@@ -1,11 +1,12 @@
 import { Nack, RabbitRPC } from '@golevelup/nestjs-rabbitmq';
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthnGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard, AuthoShopGuard } from '@store-monorepo/service/guard';
 import {
   FindShopByIdRequestDTO,
   RMQ,
+  RequestWithUser,
   RmqMessage,
   UtilityImplement,
   environment,
@@ -27,10 +28,11 @@ export class ShopQueryController {
   ) {}
 
   @Get(pathPrefixQueryShop.findShops)
-  async FindShops(): Promise<any> {
+  @UseGuards(AuthoShopGuard)
+  async FindShops(@Req() request: RequestWithUser): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
-      data: null,
+      data: { ids: request.shopIds },
     };
     const query = new FindShop(msg);
     return await this.queryBus.execute(query);

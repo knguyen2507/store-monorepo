@@ -11,7 +11,7 @@ export class FindShopHandler
   @Inject()
   private readonly shop: ShopQueryImplement;
 
-  async execute(): Promise<FindShopResult> {
-    return await this.shop.find();
+  async execute(query: FindShop): Promise<FindShopResult> {
+    return await this.shop.find(query);
   }
 }
