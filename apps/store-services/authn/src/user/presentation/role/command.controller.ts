@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthnGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard, AuthoSAGuard } from '@store-monorepo/service/guard';
 import {
   CreateRoleRequestDTO,
   UtilityImplement,
@@ -12,7 +12,7 @@ import { CreateRole } from '../../application/command/role/create';
 
 @ApiTags(pathPrefixRole.swagger)
 @Controller(pathPrefixRole.controller)
-@UseGuards(AuthnGuard)
+@UseGuards(AuthnGuard, AuthoSAGuard)
 @ApiBearerAuth()
 export class RoleCommandController {
   constructor(

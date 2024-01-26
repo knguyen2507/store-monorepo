@@ -5,6 +5,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,9 +25,15 @@ import { AgGridModule } from 'ag-grid-angular';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ListItemComponent } from './components/list-item/list-item.component';
-import { PaginatorAdminComponent } from './components/paginator-admin/paginator.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
+import {
+  AgGridCustomDateFilterComponent,
+  AgGridCustomSetFilterComponent,
+  AgGridCustomTextFilterComponent,
+  ListItemComponent,
+  PaginatorAdminComponent,
+  PaginatorComponent,
+  TemplateRendererComponent,
+} from './components';
 
 const matModules = [
   MatToolbarModule,
@@ -37,10 +47,14 @@ const matModules = [
   MatSelectModule,
   MatPaginatorModule,
   MatCardModule,
-  FlexLayoutModule,
+  MatCheckboxModule,
+  MatSlideToggleModule,
+  MatDatepickerModule,
+  MatDialogModule,
 ];
 
 const modules = [
+  FlexLayoutModule,
   CommonModule,
   BrowserModule,
   BrowserAnimationsModule,
@@ -58,6 +72,10 @@ const components = [
   PaginatorComponent,
   ListItemComponent,
   PaginatorAdminComponent,
+  AgGridCustomTextFilterComponent,
+  AgGridCustomSetFilterComponent,
+  AgGridCustomDateFilterComponent,
+  TemplateRendererComponent,
 ];
 
 @NgModule({

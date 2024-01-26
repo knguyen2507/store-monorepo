@@ -1,0 +1,22 @@
+<div fxLayout="column" fxLayoutGap="15px" class="customDateFilter">
+  <div class="rangePicker">
+    <mat-slide-toggle [(ngModel)]="range">{{ range ? 'Chọn khoảng thời gian' : 'Chọn thời gian' }}</mat-slide-toggle>
+  </div>
+  <div class="calendarWrapper">
+    <mat-calendar *ngIf="range" [(selected)]="pickerRange" (selectedChange)="onSelectedChange($event)"></mat-calendar>
+    <mat-calendar *ngIf="!range" [(selected)]="picker" (selectedChange)="onSelectedChange($event)"></mat-calendar>
+  </div>
+  <div class="selectedDate">
+    <ng-container *ngIf="range">
+      {{ fromDate ? fromDate.format('DD/MM/YYYY') + ' - ' : undefined }}
+      {{ toDate ? toDate.format('DD/MM/YYYY') : undefined }}
+    </ng-container>
+    <ng-container *ngIf="!range">
+      {{ picker ? picker.format('DD/MM/YYYY') : undefined }}
+    </ng-container>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" class="actionWrapper">
+    <button mat-stroked-button color="warn" (click)="onClear()">Hủy bỏ</button>
+    <button mat-stroked-button color="accent" (click)="onApply()">Áp dụng</button>
+  </div>
+</div>

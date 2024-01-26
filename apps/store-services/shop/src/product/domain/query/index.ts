@@ -12,6 +12,7 @@ import { FindProductByIdsResult } from '../../application/query/product/find-by-
 import { FindProductSimilar } from '../../application/query/product/find-similar';
 import { FindProductSimilarResult } from '../../application/query/product/find-similar/result';
 import { FindProductResult } from '../../application/query/product/find/result';
+import { GetTotalProduct } from '../../application/query/product/get-total';
 import { GetTotalProductResult } from '../../application/query/product/get-total/result';
 
 export interface ProductQuery {
@@ -19,8 +20,10 @@ export interface ProductQuery {
   findByAdmin: (query: FindProductByAdmin) => Promise<FindProductByAdminResult>;
   findByCode: (query: FindProductByCode) => Promise<FindProductByCodeResult>;
   findByBrand: (query: FindProductByBrand) => Promise<FindProductByBrandResult>;
-  findByCategory: (query: FindProductByCategory) => Promise<FindProductByCategoryResult>;
-  getTotal: () => Promise<GetTotalProductResult>;
+  findByCategory: (
+    query: FindProductByCategory
+  ) => Promise<FindProductByCategoryResult>;
+  getTotal: (query: GetTotalProduct) => Promise<GetTotalProductResult>;
   findByIds: (query: FindProductByIds) => Promise<FindProductByIdsResult>;
   findSimilar: (query: FindProductSimilar) => Promise<FindProductSimilarResult>;
 }

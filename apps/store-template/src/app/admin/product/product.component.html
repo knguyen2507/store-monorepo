@@ -3,25 +3,6 @@
     <h1 class="header-text">Quản Lý Sản Phẩm</h1>
   </div>
   <div class="body">
-    <div fxFlex="grow" fxLayout="column">
-      <div fxFlex="grow">
-        <ag-grid-angular
-          fxFill
-          class="ag-theme-material"
-          [rowData]="this.data"
-          [columnDefs]="this.colDefs"
-          [gridOptions]="this.gridOptions"
-        >
-        </ag-grid-angular>
-      </div>
-      <div>
-        <app-paginator-admin
-          [total]="this.total"
-          (paginatorChanged)="onPaginatorChanged()"
-          [sizeOptions]="this.sizeOptions"
-          [size]="this.size"
-        ></app-paginator-admin>
-      </div>
-    </div>
+    <app-admin-product-list fxFill #listProduct></app-admin-product-list>
   </div>
 </div>

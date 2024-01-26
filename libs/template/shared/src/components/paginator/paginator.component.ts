@@ -12,7 +12,6 @@ import { Store } from '@ngrx/store';
 import * as AppStore from '@store-monorepo/template/store';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss'],

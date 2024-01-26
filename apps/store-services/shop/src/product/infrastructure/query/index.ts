@@ -33,6 +33,7 @@ import {
   FindProductResult,
   FindProductResultItem,
 } from '../../application/query/product/find/result';
+import { GetTotalProduct } from '../../application/query/product/get-total';
 import { GetTotalProductResult } from '../../application/query/product/get-total/result';
 import { ProductQuery } from '../../domain/query';
 
@@ -225,8 +226,11 @@ export class ProductQueryImplement implements ProductQuery {
     };
   }
 
-  async getTotal(): Promise<GetTotalProductResult> {
-    const total = await this.prisma.products.count();
+  async getTotal(query: GetTotalProduct): Promise<GetTotalProductResult> {
+    const conditions = [{ shop: { some: { id: { in: query.data.shopIds } } } }];
+    const total = await this.prisma.products.count({
+      where: { AND: conditions },
+    });
 
     return plainToClass(
       GetTotalProductResult,

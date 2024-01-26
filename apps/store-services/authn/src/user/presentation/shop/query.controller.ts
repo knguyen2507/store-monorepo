@@ -39,6 +39,7 @@ export class ShopQueryController {
   }
 
   @Get(pathPrefixQueryShop.findShopById)
+  @UseGuards(AuthoShopGuard)
   async FindShopById(@Query() query: FindShopByIdRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),

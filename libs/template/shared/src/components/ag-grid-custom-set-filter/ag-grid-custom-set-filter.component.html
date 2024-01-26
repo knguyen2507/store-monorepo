@@ -1,0 +1,35 @@
+<div fxLayout="column" fxLayoutGap="15px" class="customSetFilter">
+  <div class="searchWrapper">
+    <div class="fieldWrapper column">
+      <div class="inputWrapper">
+        <input
+          class="input"
+          [type]="valueType"
+          id="search"
+          placeholder="Tìm kiếm..."
+          [(ngModel)]="filterText"
+          (keyup.enter)="onFilterChanged()"
+          [disabled]="this.searchDisabled"
+        />
+      </div>
+    </div>
+  </div>
+  <mat-checkbox
+    color="primary"
+    [(ngModel)]="allSelect"
+    (change)="onAllSelectChange()"
+    name="allSelect"
+    ngDefaultControl
+    >{{ allSelect ? 'Bỏ chọn tất cả' : 'Chọn tất cả' }}</mat-checkbox
+  >
+  <mat-selection-list #selection [(ngModel)]="selectedIds" (selectionChange)="onSelectionChange()">
+    <mat-list-option *ngFor="let item of filteredList" [value]="item.id">
+      {{ item.label }}
+    </mat-list-option>
+  </mat-selection-list>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px" class="actionWrapper">
+    <button mat-stroked-button color="warn" (click)="onClear()">Hủy bỏ</button>
+    <button mat-stroked-button color="accent" (click)="onApply()">Áp dụng</button>
+  </div>
+</div>

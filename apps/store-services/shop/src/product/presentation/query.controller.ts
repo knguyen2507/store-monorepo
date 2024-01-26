@@ -118,12 +118,12 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.getTotalProduct)
-  @UseGuards(AuthnGuard)
+  @UseGuards(AuthnGuard, AuthoShopGuard)
   @ApiBearerAuth()
-  async GetTotalProduct(): Promise<any> {
+  async GetTotalProduct(@Req() request: RequestWithUser): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
-      data: null,
+      data: { shopIds: request.shopIds },
     };
     const query = new GetTotalProduct(msg);
     return await this.queryBus.execute(query);

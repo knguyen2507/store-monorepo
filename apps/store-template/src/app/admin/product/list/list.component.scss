@@ -1,0 +1,16 @@
+.list {
+  min-height: calc(100vh - 300px);
+}
+
+.btnGroup {
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    margin-left: 5px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

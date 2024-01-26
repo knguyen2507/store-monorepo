@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthnGuard } from '@store-monorepo/service/guard';
+import { AuthnGuard, AuthoSAGuard } from '@store-monorepo/service/guard';
 import {
   CreateUserRequestDTO,
   LoginRequestDTO,
@@ -33,7 +33,7 @@ export class UserCommandController {
   ) {}
 
   @Post(pathPrefixCommandUser.createUser)
-  @UseGuards(AuthnGuard)
+  @UseGuards(AuthnGuard, AuthoSAGuard)
   @ApiBearerAuth()
   async CreateUser(@Body() body: CreateUserRequestDTO): Promise<void> {
     const msg = {

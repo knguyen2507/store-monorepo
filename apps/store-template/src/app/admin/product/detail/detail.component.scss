@@ -1,0 +1,26 @@
+.closeWrapper {
+  text-align: center;
+  margin-bottom: 20px;
+  .closeBtn {
+    background-color: #ffffff;
+  }
+}
+
+.dialog {
+  background-color: #ffffff;
+  border-radius: 8px;
+  .header {
+    border-bottom: rgba($color: #000000, $alpha: 0.1) thin solid;
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 28px;
+      color: #cf3030;
+      text-transform: uppercase;
+    }
+  }
+}

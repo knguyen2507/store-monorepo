@@ -5,12 +5,13 @@ import { ProductQueryImplement } from '../../../../infrastructure/query';
 import { GetTotalProductResult } from './result';
 
 @QueryHandler(GetTotalProduct)
-export class GetTotalProductHandler implements IQueryHandler<GetTotalProduct, GetTotalProductResult> {
+export class GetTotalProductHandler
+  implements IQueryHandler<GetTotalProduct, GetTotalProductResult>
+{
   @Inject()
   private readonly Product: ProductQueryImplement;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async execute(query: GetTotalProduct): Promise<GetTotalProductResult> {
-    return await this.Product.getTotal();
+    return await this.Product.getTotal(query);
   }
 }

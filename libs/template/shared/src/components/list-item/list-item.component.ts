@@ -4,7 +4,6 @@ import { environment } from '@store-monorepo/template/environment';
 import * as AppStore from '@store-monorepo/template/store';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-list-item',
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
