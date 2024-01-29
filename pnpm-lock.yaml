@@ -95,6 +95,9 @@ dependencies:
   '@types/bcrypt':
     specifier: ^5.0.2
     version: 5.0.2
+  '@types/cache-manager-ioredis':
+    specifier: ^2.0.6
+    version: 2.0.6
   '@types/multer':
     specifier: ^1.4.11
     version: 1.4.11
@@ -6477,6 +6480,17 @@ packages:
     dependencies:
       '@types/node': 18.16.9
 
+  /@types/cache-manager-ioredis@2.0.6:
+    resolution: {integrity: sha512-MNJLj/I8hqXQEv+erzrJE2vnZIMbkgbZspaJDwWKk8b4smFkxSLnvienBrILxw7O/xZKtPcIW0Ml7RBXTseJGQ==}
+    dependencies:
+      '@types/cache-manager': 4.0.6
+      '@types/ioredis': 4.28.10
+    dev: false
+
+  /@types/cache-manager@4.0.6:
+    resolution: {integrity: sha512-8qL93MF05/xrzFm/LSPtzNEOE1eQF3VwGHAcQEylgp5hDSTe41jtFwbSYAPfyYcVa28y1vYSjIt0c1fLLUiC/Q==}
+    dev: false
+
   /@types/connect-history-api-fallback@1.5.4:
     resolution: {integrity: sha512-n6Cr2xS1h4uAulPRdlw6Jl6s1oG8KrVilPN2yUITEs+K48EzMJJ3W1xy8K5eWuFvjp3R74AOIGSmp2UfBJ8HFw==}
     dependencies:
@@ -6539,6 +6553,12 @@ packages:
     resolution: {integrity: sha512-SSrD0c1OQzlFX7pGu1eXxSEjemej64aaNPRhhVYUGqXh0BtldAAx37MG8btcumvpgKyZp1F5Gn3JkktdxiFv6w==}
     dependencies:
       '@types/node': 18.16.9
+
+  /@types/ioredis@4.28.10:
+    resolution: {integrity: sha512-69LyhUgrXdgcNDv7ogs1qXZomnfOEnSmrmMFqKgt1XMJxmoOSG/u3wYy13yACIfKuMJ8IhKgHafDO3sx19zVQQ==}
+    dependencies:
+      '@types/node': 18.16.9
+    dev: false
 
   /@types/istanbul-lib-coverage@2.0.6:
     resolution: {integrity: sha512-2QF/t/auWm0lsy8XtKVPG19v3sSOQlJe/YHZgfjb/KBBHOGSV+J2q/S671rcq9uTBrLAXmZpqJiaQbMT+zNU1w==}

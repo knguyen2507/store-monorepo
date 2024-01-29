@@ -33,12 +33,16 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this.userStore.dispatch(AppStore.UserStore.UserActions.loadTotalUser());
-    this.userStore
-      .select(AppStore.UserStore.UserSelectors.selectTotalUser)
-      .subscribe((data) => {
-        this.totalUser = data.totalUser;
-      });
+    if (localStorage.getItem('permission') === 'true') {
+      this.userStore.dispatch(AppStore.UserStore.UserActions.loadTotalUser());
+      this.userStore
+        .select(AppStore.UserStore.UserSelectors.selectTotalUser)
+        .subscribe((data) => {
+          this.totalUser = data.totalUser;
+        });
+    } else {
+      this.totalUser = 0;
+    }
 
     this.productStore.dispatch(
       AppStore.ProductStore.ProductActions.loadTotalProduct()

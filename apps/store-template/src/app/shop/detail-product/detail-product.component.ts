@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { DesObject } from '@store-monorepo/template/shared';
 import * as AppStore from '@store-monorepo/template/store';
 import { GalleryItem, ImageItem } from 'ng-gallery';
-
-interface DesObject {
-  key: string;
-  value: string;
-}
 
 @Component({
   selector: 'app-detail-product',

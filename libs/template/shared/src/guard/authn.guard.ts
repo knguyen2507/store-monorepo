@@ -6,6 +6,9 @@ import { AuthenticationService } from '../services/authentication.service';
 
 export const authnGuard: CanActivateFn = async (): Promise<boolean> => {
   if (environment.guard) return true;
+  const saveLocalStorageData = (key: string, token: boolean) => {
+    localStorage.setItem(key, String(token));
+  };
   const saveLocalStorageTokens = (token: string) => {
     localStorage.setItem('accessToken', token);
   };
@@ -20,6 +23,7 @@ export const authnGuard: CanActivateFn = async (): Promise<boolean> => {
   if (token) {
     try {
       const data = await lastValueFrom(service.getDataByAccessToken());
+      saveLocalStorageData('permission', data.user.isSuperAdmin);
       if (token !== data.accessToken) saveLocalStorageTokens(data.accessToken);
       return true;
     } catch (error) {

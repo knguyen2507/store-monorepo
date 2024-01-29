@@ -9,6 +9,7 @@ import { FindProductByCodeHandler } from './application/query/product/detail/han
 import { FindProductByAdminHandler } from './application/query/product/find-by-admin/handler';
 import { FindProductByBrandHandler } from './application/query/product/find-by-brand/handler';
 import { FindProductByCategoryHandler } from './application/query/product/find-by-category/handler';
+import { FindProductByIdHandler } from './application/query/product/find-by-id/handler';
 import { FindProductByIdsHandler } from './application/query/product/find-by-ids/handler';
 import { FindProductSimilarHandler } from './application/query/product/find-similar/handler';
 import { FindProductHandler } from './application/query/product/find/handler';
@@ -32,6 +33,7 @@ const queries = [
   FindProductByAdminHandler,
   FindProductByIdsHandler,
   FindProductSimilarHandler,
+  FindProductByIdHandler,
 ];
 
 const domain = [ProductFactory];

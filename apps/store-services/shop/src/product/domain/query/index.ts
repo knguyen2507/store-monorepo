@@ -7,6 +7,8 @@ import { FindProductByBrand } from '../../application/query/product/find-by-bran
 import { FindProductByBrandResult } from '../../application/query/product/find-by-brand/result';
 import { FindProductByCategory } from '../../application/query/product/find-by-category';
 import { FindProductByCategoryResult } from '../../application/query/product/find-by-category/result';
+import { FindProductById } from '../../application/query/product/find-by-id';
+import { FindProductByIdResult } from '../../application/query/product/find-by-id/result';
 import { FindProductByIds } from '../../application/query/product/find-by-ids';
 import { FindProductByIdsResult } from '../../application/query/product/find-by-ids/result';
 import { FindProductSimilar } from '../../application/query/product/find-similar';
@@ -19,6 +21,7 @@ export interface ProductQuery {
   find: (query: FindProduct) => Promise<FindProductResult>;
   findByAdmin: (query: FindProductByAdmin) => Promise<FindProductByAdminResult>;
   findByCode: (query: FindProductByCode) => Promise<FindProductByCodeResult>;
+  findById: (query: FindProductById) => Promise<FindProductByIdResult>;
   findByBrand: (query: FindProductByBrand) => Promise<FindProductByBrandResult>;
   findByCategory: (
     query: FindProductByCategory

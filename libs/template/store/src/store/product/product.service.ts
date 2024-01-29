@@ -53,6 +53,15 @@ export class ProductService {
     );
   }
 
+  findProductById(id: string) {
+    return this.httpService.get<ProductDetailModel>(
+      `${this.apiUrl}/product/find-by-id`,
+      {
+        id,
+      }
+    );
+  }
+
   findProductListByBrand(
     pagi?: { offset: number; limit: number },
     brandCode?: string

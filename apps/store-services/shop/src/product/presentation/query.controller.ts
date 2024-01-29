@@ -7,6 +7,7 @@ import {
   FindProductByBrandRequestDTO,
   FindProductByCategoryRequestDTO,
   FindProductByCodeRequestDTO,
+  FindProductByIdRequestDTO,
   FindProductByIdsRequestDTO,
   FindProductRequestDTO,
   FindProductSimilarRequestDTO,
@@ -20,6 +21,7 @@ import { FindProduct } from '../application/query/product/find';
 import { FindProductByAdmin } from '../application/query/product/find-by-admin';
 import { FindProductByBrand } from '../application/query/product/find-by-brand';
 import { FindProductByCategory } from '../application/query/product/find-by-category';
+import { FindProductById } from '../application/query/product/find-by-id';
 import { FindProductByIds } from '../application/query/product/find-by-ids';
 import { FindProductSimilar } from '../application/query/product/find-similar';
 import { GetTotalProduct } from '../application/query/product/get-total';
@@ -66,6 +68,18 @@ export class ProductQueryController {
       data: query,
     };
     const product = new FindProductByCode(msg);
+    return await this.queryBus.execute(product);
+  }
+
+  @Get(pathPrefixQueryProduct.findProductById)
+  async FindProductById(
+    @Query() query: FindProductByIdRequestDTO
+  ): Promise<any> {
+    const msg = {
+      messageId: this.util.generateId(),
+      data: query,
+    };
+    const product = new FindProductById(msg);
     return await this.queryBus.execute(product);
   }
 

@@ -19,6 +19,8 @@ import {
   FindProductByCategoryResult,
   FindProductByCategoryResultItem,
 } from '../../application/query/product/find-by-category/result';
+import { FindProductById } from '../../application/query/product/find-by-id';
+import { FindProductByIdResult } from '../../application/query/product/find-by-id/result';
 import { FindProductByIds } from '../../application/query/product/find-by-ids';
 import {
   FindProductByIdsResult,
@@ -141,6 +143,26 @@ export class ProductQueryImplement implements ProductQuery {
     };
 
     return plainToClass(FindProductByCodeResult, data, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  async findById(query: FindProductById): Promise<FindProductByIdResult> {
+    const product = await this.prisma.products.findUnique({
+      where: { id: query.data.id },
+      include: {
+        category: true,
+        brand: true,
+      },
+    });
+
+    const data = {
+      ...product,
+      category: product.category.name,
+      brand: product.brand.name,
+    };
+
+    return plainToClass(FindProductByIdResult, data, {
       excludeExtraneousValues: true,
     });
   }

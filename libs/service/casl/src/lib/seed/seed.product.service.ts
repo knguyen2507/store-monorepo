@@ -47,10 +47,10 @@ export class SeedProductService {
           i === 0
             ? (description += `${faker.animal.bird()}:${faker.lorem.paragraphs({
                 min: 1,
-                max: 3,
+                max: 1,
               })}`)
             : (description += `*done*${faker.animal.bird()}:${faker.lorem.paragraphs(
-                { min: 1, max: 3 }
+                { min: 1, max: 1 }
               )}`);
         }
 

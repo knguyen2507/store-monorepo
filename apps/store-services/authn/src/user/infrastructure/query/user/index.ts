@@ -195,7 +195,11 @@ export class UserQueryImplement implements UserQuery {
     return plainToInstance(
       VerifyAccessTokenResult,
       {
-        user,
+        user: {
+          ...user,
+          id: null,
+          roleId: null,
+        },
         accessToken,
       },
       {

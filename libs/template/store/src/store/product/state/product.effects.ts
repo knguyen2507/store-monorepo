@@ -8,7 +8,11 @@ import { ProductState } from './product.reducers';
 
 @Injectable()
 export class ProductEffects {
-  constructor(private action$: Actions, private productService: ProductService, private store: Store<ProductState>) {}
+  constructor(
+    private action$: Actions,
+    private productService: ProductService,
+    private store: Store<ProductState>
+  ) {}
 
   getProductList$ = createEffect(
     () => {
@@ -21,17 +25,22 @@ export class ProductEffects {
                 offset: data.offset,
                 limit: data.limit,
               },
-              data.searchName,
+              data.searchName
             )
             .pipe(
               map((res) => {
-                return this.store.dispatch(ProductActions.saveProductList({ items: res.items, total: res.total }));
-              }),
+                return this.store.dispatch(
+                  ProductActions.saveProductList({
+                    items: res.items,
+                    total: res.total,
+                  })
+                );
+              })
             );
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
   );
 
   getProductListByAdmin$ = createEffect(
@@ -47,14 +56,17 @@ export class ProductEffects {
             .pipe(
               map((res) => {
                 return this.store.dispatch(
-                  ProductActions.saveProductListByAdmin({ items: res.items, total: res.total }),
+                  ProductActions.saveProductListByAdmin({
+                    items: res.items,
+                    total: res.total,
+                  })
                 );
-              }),
+              })
             );
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
   );
 
   getProductDetail$ = createEffect(
@@ -64,13 +76,33 @@ export class ProductEffects {
         mergeMap((data) => {
           return this.productService.findProductDetail(data.productCode).pipe(
             map((res) => {
-              return this.store.dispatch(ProductActions.saveProductDetail({ item: res }));
-            }),
+              return this.store.dispatch(
+                ProductActions.saveProductDetail({ item: res })
+              );
+            })
           );
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
+  );
+
+  getProductById$ = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(ProductActions.loadProductById),
+        mergeMap((data) => {
+          return this.productService.findProductById(data.id).pipe(
+            map((res) => {
+              return this.store.dispatch(
+                ProductActions.saveProductById({ item: res })
+              );
+            })
+          );
+        })
+      );
+    },
+    { dispatch: false }
   );
 
   getProductListByBrand$ = createEffect(
@@ -84,19 +116,22 @@ export class ProductEffects {
                 offset: data.offset,
                 limit: data.limit,
               },
-              data.brandCode,
+              data.brandCode
             )
             .pipe(
               map((res) => {
                 return this.store.dispatch(
-                  ProductActions.saveProductListByBrand({ items: res.items, total: res.total }),
+                  ProductActions.saveProductListByBrand({
+                    items: res.items,
+                    total: res.total,
+                  })
                 );
-              }),
+              })
             );
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
   );
 
   getProductListByCategory$ = createEffect(
@@ -110,34 +145,39 @@ export class ProductEffects {
                 offset: data.offset,
                 limit: data.limit,
               },
-              data.categoryCode,
+              data.categoryCode
             )
             .pipe(
               map((res) => {
                 return this.store.dispatch(
-                  ProductActions.saveProductListByCategory({ items: res.items, total: res.total }),
+                  ProductActions.saveProductListByCategory({
+                    items: res.items,
+                    total: res.total,
+                  })
                 );
-              }),
+              })
             );
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
   );
 
   getTotalProduct$ = createEffect(
     () => {
       return this.action$.pipe(
         ofType(ProductActions.loadTotalProduct),
-        mergeMap((data) => {
+        mergeMap(() => {
           return this.productService.getTotalProduct().pipe(
             map((res) => {
-              return this.store.dispatch(ProductActions.saveTotalProduct({ total: res.total }));
-            }),
+              return this.store.dispatch(
+                ProductActions.saveTotalProduct({ total: res.total })
+              );
+            })
           );
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
   );
 }

@@ -11,6 +11,7 @@ export * from './product/find.by.admin.dto';
 export * from './product/find.by.brand.dto';
 export * from './product/find.by.category.dto';
 export * from './product/find.by.code.dto';
+export * from './product/find.by.id.dto';
 export * from './product/find.by.ids.dto';
 export * from './product/find.dto';
 export * from './product/find.similar.dto';

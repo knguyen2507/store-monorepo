@@ -155,13 +155,16 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  detailRow(data: any, e: Event) {
+  detailRow(data: AppStore.ProductStore.ProductModel, e: Event) {
     e.stopPropagation();
     this.dialog
       .open(ProductDetailComponent, {
         disableClose: true,
         minWidth: '80vw',
         panelClass: 'custom-dialog-style',
+        data: {
+          productId: data.id,
+        },
       })
       .afterClosed()
       .subscribe(() => {});

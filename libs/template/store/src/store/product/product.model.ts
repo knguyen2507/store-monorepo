@@ -14,11 +14,6 @@ export class ProductModel {
   createdBy: string | null | undefined;
   updatedAt: Date | null | undefined;
   updatedBy: string | null | undefined;
-
-  // constructor(item: Partial<ProductModel>) {
-  //   super();
-  //   Object.assign(this, item);
-  // }
 }
 
 export class ProductDetailModel {

@@ -80,6 +80,7 @@ export const pathPrefixQueryProduct = {
   findProductListByAdmin: 'admin/find',
   findProducts: 'find',
   findProductByCode: 'detail',
+  findProductById: 'find-by-id',
   findProductByBrand: 'find-by-brand',
   findProductByCategory: 'find-by-category',
   findProductByIds: 'find-by-ids',

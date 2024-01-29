@@ -127,6 +127,8 @@ export class HttpService {
       err.error?.message.length > 0
     ) {
       Notiflix.Notify.failure(err.error.message.toString());
+    } else if (err.status === 403) {
+      Notiflix.Notify.failure('Bạn không có quyền truy cập');
     } else {
       Notiflix.Notify.failure('Thao tác không thành công. Vui lòng thử lại');
     }

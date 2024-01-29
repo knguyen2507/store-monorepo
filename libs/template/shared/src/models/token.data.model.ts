@@ -4,6 +4,7 @@ export class TokenDataModel {
     username: string;
     name: string;
     phone: string;
+    isSuperAdmin: boolean;
   };
   accessToken!: string;
 }
