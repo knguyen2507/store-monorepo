@@ -1,7 +1,9 @@
 <div class="dialog">
   <div class="header">
     <div class="title">Chi tiết sản phẩm</div>
-    <button mat-dialog-close mat-stroked-button color="warn">Thoát</button>
+    <button mat-dialog-close mat-stroked-button color="warn" (click)="reset()">
+      Thoát
+    </button>
   </div>
   <mat-dialog-content>
     <form

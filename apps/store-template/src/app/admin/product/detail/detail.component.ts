@@ -19,7 +19,8 @@ export class ProductDetailComponent implements OnInit {
   images: any[] = [];
   productImages!: GalleryItem[];
   desciptions: DesObject[] = [];
-  item!: Partial<AppStore.ProductStore.ProductDetailModel>;
+  item: Partial<AppStore.ProductStore.ProductDetailModel> =
+    AppStore.ProductStore.ProductReducers.initialProductDetail;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -60,5 +61,11 @@ export class ProductDetailComponent implements OnInit {
       });
     }
     return data;
+  }
+
+  reset() {
+    this.store.dispatch(
+      AppStore.ProductStore.ProductActions.resetProductById()
+    );
   }
 }

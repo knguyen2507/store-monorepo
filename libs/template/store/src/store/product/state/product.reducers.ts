@@ -31,6 +31,10 @@ export const initialProductDetail = {
   brand: null,
   description: null,
   images: [],
+  createdAt: null,
+  createdBy: null,
+  updatedAt: null,
+  updatedBy: null,
 };
 
 export const initialProduct: ProductState = {
