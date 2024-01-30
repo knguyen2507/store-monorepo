@@ -5,3 +5,4 @@ export * from './ag-grid-template-renderer/template-renderer.component';
 export * from './list-item/list-item.component';
 export * from './paginator-admin/paginator.component';
 export * from './paginator/paginator.component';
+export * from './upload-album/upload-album.component';

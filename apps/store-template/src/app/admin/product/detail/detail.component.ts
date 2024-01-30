@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { DesObject } from '@store-monorepo/template/shared';
 import * as AppStore from '@store-monorepo/template/store';
-import { GalleryItem, ImageItem } from 'ng-gallery';
+import { GalleryItem } from 'ng-gallery';
 
 @Component({
   selector: 'app-admin-product-detail',
@@ -17,6 +17,7 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   images: any[] = [];
+  listImages: any[] = [];
   productImages!: GalleryItem[];
   desciptions: DesObject[] = [];
   item: Partial<AppStore.ProductStore.ProductDetailModel> =
@@ -40,10 +41,6 @@ export class ProductDetailComponent implements OnInit {
         this.item = data;
 
         this.images = data.images ? data.images : [];
-        if (data.images)
-          this.productImages = data.images.map((item) => {
-            return new ImageItem({ src: item.url, thumb: item.url });
-          });
         this.desciptions = data.description
           ? [...this.desciptions, ...this.handleDescription(data.description)]
           : [...this.desciptions];
@@ -67,5 +64,9 @@ export class ProductDetailComponent implements OnInit {
     this.store.dispatch(
       AppStore.ProductStore.ProductActions.resetProductById()
     );
+  }
+
+  getListImages(images: any[]) {
+    this.listImages = images;
   }
 }

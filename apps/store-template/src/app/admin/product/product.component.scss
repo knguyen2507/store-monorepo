@@ -4,7 +4,7 @@
   .header {
     width: 100%;
     text-align: center;
-    padding: 70px 0;
+    padding: 50px 0;
 
     .header-text {
       text-transform: uppercase;
@@ -13,8 +13,18 @@
     }
   }
 
+  .createBtn {
+    float: right;
+    margin-bottom: 8px;
+    margin-right: 10px;
+
+    button {
+      height: 30px;
+    }
+  }
+
   .body {
-    min-height: calc(100vh - 300px);
+    min-height: calc(100vh - 348px);
     margin-left: 10px;
   }
 }

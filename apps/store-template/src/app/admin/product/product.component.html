@@ -2,6 +2,11 @@
   <div class="header">
     <h1 class="header-text">Quản Lý Sản Phẩm</h1>
   </div>
+  <div class="createBtn">
+    <button mat-flat-button color="primary" (click)="openCreateDialog()">
+      Tạo mới
+    </button>
+  </div>
   <div class="body">
     <app-admin-product-list fxFill #listProduct></app-admin-product-list>
   </div>

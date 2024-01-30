@@ -1,0 +1,140 @@
+<div class="fieldWrapper column" style="height: 500px">
+  <div fxLayout="row" style="margin-bottom: 20px">
+    <div fxFlex="80">
+      <label class="label">
+        {{ this.title }}
+        <span *ngIf="this.required">(</span>
+        <span *ngIf="this.required" class="star">*</span>
+        <span *ngIf="this.required">)</span>
+      </label>
+    </div>
+    <div fxFlex="20">
+      <input style="display: none" type="file" (change)="onImageSelected($event)" multiple #imageInput />
+      <button mat-stroked-button type="button" color="warn" (click)="imageInput.click()">
+        <mat-icon>add_photo_alternate</mat-icon>
+        Chọn ảnh
+      </button>
+    </div>
+  </div>
+  <div fxLayout="row">
+    <div fxFlex="75" class="containerMainImage">
+      <div class="inputImage" *ngIf="this.images.length === 0">
+        <div>Hình ảnh sản phẩm</div>
+      </div>
+      <div class="avtImage {{ this.hide }}">
+        <lightgallery #mainImage [settings]="settings1" [onBeforeSlide]="onBeforeSlide1" [onInit]="onInit1">
+          <div *ngFor="let image of this.images; let i = index">
+            <a
+              class="{{ image.showDetail }}"
+              data-src="image.src ? image.src : ''"
+              data-sub-html="image.subHtml ? image.subHtml : ''"
+            >
+              <img class="mainImage" [src]="image.src" />
+            </a>
+          </div>
+        </lightgallery>
+      </div>
+    </div>
+    <!-- ---------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------- -->
+    <!-- ---------------------------------------------------------------------- -->
+    <div fxFlex="25" class="containerListImages">
+      <div fxLayout="column" class="listImages {{ this.hide }}">
+        <button
+          mat-icon-button
+          type="button"
+          color="black"
+          class="small-icon-button"
+          style="margin-bottom: 5px"
+          (click)="this.prevImages()"
+        >
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <div fxLayout="row">
+          <lightgallery #listImages id="lg" [settings]="settings0" [onBeforeSlide]="onBeforeSlide0" [onInit]="onInit0">
+            <div *ngFor="let image of this.images; let i = index">
+              <a
+                class="elementImage {{ checkShow(image) }}"
+                data-src="image.src ? image.src : ''"
+                data-sub-html="image.subHtml ? image.subHtml : ''"
+              >
+                <img class="image" (mouseover)="this.changeShowImage(i)" [src]="image?.src" />
+              </a>
+            </div>
+          </lightgallery>
+          <div fxLayout="column">
+            <div fxLayout="column" class="action {{ this.checkAction(0) }}">
+              <button
+                mat-icon-button
+                type="button"
+                [color]="this.checkAvt(0) ? 'primary' : 'black'"
+                class="small-icon-button"
+                matTooltip="Chọn hình đại diện"
+                (click)="this.changeAvtImage(0)"
+              >
+                <mat-icon>star_border</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                color="black"
+                class="small-icon-button"
+                matTooltip="Xóa hình ảnh"
+                (click)="this.removeImage(0)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+            <div fxLayout="column" class="action {{ this.checkAction(1) }}">
+              <button
+                mat-icon-button
+                type="button"
+                [color]="this.checkAvt(1) ? 'primary' : 'black'"
+                class="small-icon-button"
+                matTooltip="Chọn hình đại diện"
+                (click)="this.changeAvtImage(1)"
+              >
+                <mat-icon>star_border</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                color="black"
+                class="small-icon-button"
+                matTooltip="Xóa hình ảnh"
+                (click)="this.removeImage(1)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+            <div fxLayout="column" class="action {{ this.checkAction(2) }}">
+              <button
+                mat-icon-button
+                type="button"
+                [color]="this.checkAvt(2) ? 'primary' : 'black'"
+                class="small-icon-button"
+                matTooltip="Chọn hình đại diện"
+                (click)="this.changeAvtImage(2)"
+              >
+                <mat-icon>star_border</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                color="black"
+                class="small-icon-button"
+                matTooltip="Xóa hình ảnh"
+                (click)="this.removeImage(2)"
+              >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button mat-icon-button type="button" color="black" class="small-icon-button" (click)="this.nextImages()">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

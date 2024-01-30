@@ -22,6 +22,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AgGridModule } from 'ag-grid-angular';
+import { LightgalleryModule } from 'lightgallery/angular';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -33,6 +34,7 @@ import {
   PaginatorAdminComponent,
   PaginatorComponent,
   TemplateRendererComponent,
+  UploadAlbumComponent,
 } from './components';
 
 const matModules = [
@@ -66,6 +68,7 @@ const modules = [
   LightboxModule,
   ReactiveFormsModule,
   AgGridModule,
+  LightgalleryModule,
 ];
 
 const components = [
@@ -76,6 +79,7 @@ const components = [
   AgGridCustomSetFilterComponent,
   AgGridCustomDateFilterComponent,
   TemplateRendererComponent,
+  UploadAlbumComponent,
 ];
 
 @NgModule({

@@ -1,9 +1,10 @@
 <div class="dialog">
   <div class="header">
-    <div class="title">Chi tiết sản phẩm</div>
-    <button mat-dialog-close mat-stroked-button color="warn" (click)="reset()">
-      Thoát
-    </button>
+    <div class="title">Tạo mới sản phẩm</div>
+    <div class="btnGroup">
+      <button mat-flat-button color="primary" (click)="submit()">Tạo</button>
+      <button mat-dialog-close mat-stroked-button color="warn">Thoát</button>
+    </div>
   </div>
   <mat-dialog-content>
     <form
@@ -11,6 +12,7 @@
       class="invidualForm"
       fxLayout="column"
       fxLayoutGap="24px"
+      [formGroup]="productForm"
     >
       <!-- Form Meta data -->
       <div class="formData">
@@ -29,7 +31,7 @@
                 class="input isDisabled"
                 type="text"
                 id="id"
-                [value]="this.item.id"
+                [value]=""
                 disabled
               />
             </div>
@@ -44,11 +46,10 @@
             <label class="label" for="id">Code</label>
             <div class="inputWrapper">
               <input
-                class="input isDisabled"
+                class="input"
                 type="text"
-                id="id"
-                [value]="this.item.productCode"
-                disabled
+                id="productCode"
+                formControlName="productCode"
               />
             </div>
           </div>
@@ -64,8 +65,8 @@
               <input
                 class="input isDisabled"
                 type="text"
-                id="id"
-                [value]="this.item.createdAt"
+                id="createdAt"
+                [value]=""
                 disabled
               />
             </div>
@@ -86,11 +87,10 @@
               <label class="label" for="id">Tên Sản Phẩm</label>
               <div class="inputWrapper">
                 <input
-                  class="input isDisabled"
+                  class="input"
                   type="text"
                   id="name"
-                  [value]="this.item.name"
-                  disabled
+                  formControlName="name"
                 />
               </div>
             </div>
@@ -98,11 +98,10 @@
               <label class="label" for="id">Giá Bán</label>
               <div class="inputWrapper">
                 <input
-                  class="input isDisabled"
+                  class="input"
                   type="text"
                   id="price"
-                  [value]="this.item.price"
-                  disabled
+                  formControlName="price"
                 />
               </div>
             </div>
@@ -110,11 +109,10 @@
               <label class="label" for="id">Tồn Kho</label>
               <div class="inputWrapper">
                 <input
-                  class="input isDisabled"
+                  class="input"
                   type="text"
                   id="qty"
-                  [value]="this.item.qty"
-                  disabled
+                  formControlName="qty"
                 />
               </div>
             </div>
@@ -122,11 +120,10 @@
               <label class="label" for="id">Nhãn Hàng</label>
               <div class="inputWrapper">
                 <input
-                  class="input isDisabled"
+                  class="input"
                   type="text"
                   id="brand"
-                  [value]="this.item.brand"
-                  disabled
+                  formControlName="brand"
                 />
               </div>
             </div>
@@ -134,11 +131,10 @@
               <label class="label" for="id">Danh Mục</label>
               <div class="inputWrapper">
                 <input
-                  class="input isDisabled"
+                  class="input"
                   type="text"
                   id="category"
-                  [value]="this.item.category"
-                  disabled
+                  formControlName="category"
                 />
               </div>
             </div>
@@ -146,8 +142,11 @@
           <div class="imgForm">
             <app-upload-album
               [title]="'Hình ảnh sản phẩm'"
+              [required]="true"
               [productImages]="this.images"
+              (avt)="this.getAvatar($event)"
               (listImages)="this.getListImages($event)"
+              (imagesUpdated)="this.getImagesUpdate($event)"
             ></app-upload-album>
           </div>
         </div>

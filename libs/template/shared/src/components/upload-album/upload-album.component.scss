@@ -1,0 +1,90 @@
+.containerMainImage {
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .inputImage {
+    display: flex;
+    width: 420px;
+    height: 425px;
+    margin: 5px;
+    padding: 100px;
+    align-items: center;
+    justify-content: center;
+    border-style: dashed;
+    border-color: #646464;
+    border-radius: 20px;
+    border-width: 1px;
+  }
+  .avtImage {
+    display: flex;
+    width: 420px;
+    height: 425px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    border-style: dotted;
+    border-color: #646464;
+    border-radius: 20px;
+    border-width: 1px;
+    &.hideList {
+      display: none;
+    }
+    .hide {
+      display: none !important;
+    }
+    .mainImage {
+      max-width: 415px;
+      max-height: 410px;
+    }
+  }
+}
+.containerListImages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .listImages {
+    background-color: rgba(183, 183, 183, 0.25);
+    height: 400px;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: groove;
+    border-color: #9b9b9b;
+    border-radius: 5px;
+    border-width: 1px;
+    &.hideList {
+      display: none !important;
+    }
+    .elementImage {
+      width: 95px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // position: relative;
+      height: 95px;
+      background-color: white;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      &.hide {
+        display: none !important;
+      }
+      .image {
+        max-width: 95px;
+        max-height: 95px;
+      }
+    }
+    .action {
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 95px;
+      margin-bottom: 10px;
+      &.hide {
+        display: none !important;
+      }
+    }
+  }
+}
