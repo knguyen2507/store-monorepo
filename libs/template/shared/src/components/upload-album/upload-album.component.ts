@@ -19,12 +19,9 @@ import { AlertService } from '../../services';
   styleUrls: ['./upload-album.component.scss'],
 })
 export class UploadAlbumComponent implements OnChanges, AfterViewChecked {
-  // Số hình ảnh được hiển thị: chỉ nhận 3 (chưa code thêm :>);
+  // Số hình ảnh được hiển thị: 2;
   @Input()
   numShowedImages!: number;
-  // 'row' nếu danh sách hình ảnh nằm bên phải ảnh chi tiết
-  // 'column' nếu danh sách hình ảnh nằm dưới ảnh chi tiết
-  // Hiện tại truyền mặc định là 'row' (chưa code thêm :>)
   @Input()
   directionComponent!: string;
   // Tiêu đề
@@ -78,22 +75,20 @@ export class UploadAlbumComponent implements OnChanges, AfterViewChecked {
   ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
       if (changes['productImages'].currentValue) {
-        changes['productImages'].currentValue.forEach(
-          (i: { id: any; url: any; name: any; isMain: any; compressUrl: any }) => {
-            if (i.isMain) {
-              this.avt.emit(i.name);
-            }
-            this.images.push({
-              id: i.id,
-              src: i.url,
-              thumb: i.compressUrl,
-              subHtml: i.name,
-              show: this.images.length < 3 ? '' : 'hide',
-              showDetail: this.images.length === 0 ? '' : 'hide',
-              isAvt: i.isMain,
-            });
-          },
-        );
+        changes['productImages'].currentValue.forEach((i: { id: any; url: any; name: any; isMain: any }) => {
+          if (i.isMain) {
+            this.avt.emit(i.name);
+          }
+          this.images.push({
+            id: i.id,
+            src: i.url,
+            thumb: i.url,
+            subHtml: i.name,
+            show: this.images.length < 2 ? '' : 'hide',
+            showDetail: this.images.length === 0 ? '' : 'hide',
+            isAvt: i.isMain,
+          });
+        });
         if (this.images.length > 0) {
           this.hide = '';
         }
@@ -129,7 +124,7 @@ export class UploadAlbumComponent implements OnChanges, AfterViewChecked {
             thumb: event.target.result,
             file: e.target.files[i],
             subHtml: e.target.files[i].name,
-            show: this.images.length < 3 ? '' : 'hide',
+            show: this.images.length < 2 ? '' : 'hide',
             showDetail: this.images.length === 0 ? '' : 'hide',
             isAvt: this.images.length === 0 ? true : false,
           });
@@ -186,77 +181,51 @@ export class UploadAlbumComponent implements OnChanges, AfterViewChecked {
     this.images.forEach((item) => {
       item.isAvt = false;
     });
-    const idx = this.images.findIndex((item) => item.show === '');
-    this.images[idx + i].isAvt = true;
-    this.avt.emit(this.images[idx + i].subHtml);
+    this.images[i].isAvt = true;
+    this.avt.emit(this.images[i].subHtml);
   }
 
   prevImages() {
     const idx = this.images.findIndex((item) => item.show === '');
     if (idx === 0) return;
     this.images[idx - 1].show = '';
-    this.images[idx + 2].show = 'hide';
+    this.images[idx + 1].show = 'hide';
   }
 
   nextImages() {
     const idx = this.images.findIndex((item) => item.show === '');
-    if (idx + 3 >= this.images.length) return;
+    if (idx + 2 >= this.images.length) return;
     this.images[idx].show = 'hide';
-    this.images[idx + 3].show = '';
+    this.images[idx + 2].show = '';
   }
 
   removeImage(i: number) {
     const idx = this.images.findIndex((item) => item.show === '');
-    if (this.images[idx + i].isAvt) {
+    if (this.images[i].isAvt) {
       Notiflix.Notify.failure('Không thể xóa hình đại diện');
       return;
     }
-    const text = this.images[idx + i].subHtml;
+    const text = this.images[i].subHtml;
     this.alertService.fireHardDelete({ text });
     const sub = this.alertService.hardDeleteConfirm$.subscribe((confirm) => {
       if (confirm) {
-        if (this.images[idx + i].showDetail === '') {
-          if (idx + i === this.images.length - 1) {
-            this.images[idx + i - 1].showDetail = '';
+        if (this.images[i].showDetail === '') {
+          if (i === this.images.length - 1) {
+            this.images[i - 1].showDetail = '';
           } else {
-            this.images[idx + i + 1].showDetail = '';
+            this.images[i + 1].showDetail = '';
           }
         }
 
-        if (this.images.length > 3) {
-          if (idx === this.images.length - 3) {
+        if (this.images.length > 2) {
+          if (idx === this.images.length - 2) {
             this.images[idx - 1].show = '';
           } else {
-            this.images[idx + 3].show = '';
+            this.images[idx + 2].show = '';
           }
         }
 
-        if (this.images[idx + i].id) this.imagesUpdate.push(this.images.splice(idx + i, 1)[0].id);
-        //
-        // ----------------------------------
-        //
-        // // const lastIdx = this.images.findIndex((item) => item.src === this.showImages[this.showImages.length - 1]);
-        // // if (this.images[idx + i].id) {
-        // //   this.uploadImagesService.deleteImageById(this.images[idx + i].id as number).subscribe();
-        // // }
-        // if (this.images[idx + i].showDetail === '') {
-        //   if (idx + i === this.images.length - 1) {
-        //     this.images[idx + i - 1].showDetail = '';
-        //   } else {
-        //     this.images[idx + i + 1].showDetail = '';
-        //   }
-        // }
-        // if (idx + i === this.images.length - 1) {
-        //   if (idx !== 0) {
-        //     this.images[idx - 1].show = '';
-        //   }
-        // } else {
-        //   if (this.images.length > 3) {
-        //     this.images[idx + 3].show = '';
-        //   }
-        // }
-        // // this.showImages.splice(this.showImages.indexOf(i), 1);
-        // this.images.splice(idx + i, 1);
+        if (this.images[i].id) this.imagesUpdate.push(this.images.splice(i, 1)[0].id);
         this.needRefresh = true;
         this.imagesUpdated.emit(this.imagesUpdate);
       }
