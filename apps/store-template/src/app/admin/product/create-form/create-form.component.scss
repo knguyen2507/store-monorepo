@@ -73,11 +73,39 @@
     padding: 20px;
     border: rgba($color: #e8e8e8, $alpha: 1) solid thin;
     border-radius: 8px;
+    height: 640px;
   }
 
   .descriptionForm {
+    .descriptionHeader {
+      display: flex;
+      justify-content: space-between;
+
+      .btnGroup {
+        button {
+          margin-left: 15px;
+        }
+      }
+    }
+
     .fieldWrapper {
       margin-bottom: 4px;
+
+      .inputKeyWrapper,
+      .inputValueWrapper {
+        position: relative;
+        flex-grow: 1;
+        .input {
+          display: block;
+          width: calc(100% - 50px);
+          text-align: left;
+          padding: 15px 20px;
+          font-size: 14px;
+          line-height: 22px;
+          border-radius: 8px;
+          border: rgba($color: #e8e8e8, $alpha: 1) solid thin;
+        }
+      }
     }
   }
 }

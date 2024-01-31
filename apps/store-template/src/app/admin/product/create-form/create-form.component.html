@@ -18,124 +18,59 @@
       <div class="formData">
         <h1>Thông Tin Sản Phẩm</h1>
         <div fxLayout="row wrap" fxLayoutGap="grid">
-          <div
-            fxFlex="33%"
-            fxFlex.lg="33%"
-            fxFlex.sm="100%"
-            fxFlex.lt-sm="100%"
-            class="fieldWrapper"
-          >
+          <div fxFlex="33%" fxFlex.lg="33%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
             <label class="label" for="id">ID</label>
             <div class="inputWrapper">
-              <input
-                class="input isDisabled"
-                type="text"
-                id="id"
-                [value]=""
-                disabled
-              />
+              <input class="input isDisabled" type="text" id="id" [value]="" disabled />
             </div>
           </div>
-          <div
-            fxFlex="33%"
-            fxFlex.lg="33%"
-            fxFlex.sm="100%"
-            fxFlex.lt-sm="100%"
-            class="fieldWrapper"
-          >
+          <div fxFlex="33%" fxFlex.lg="33%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
             <label class="label" for="id">Code</label>
             <div class="inputWrapper">
-              <input
-                class="input"
-                type="text"
-                id="productCode"
-                formControlName="productCode"
-              />
+              <input class="input" type="text" id="productCode" formControlName="productCode" />
             </div>
           </div>
-          <div
-            fxFlex="33%"
-            fxFlex.lg="33%"
-            fxFlex.sm="100%"
-            fxFlex.lt-sm="100%"
-            class="fieldWrapper"
-          >
+          <div fxFlex="33%" fxFlex.lg="33%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
             <label class="label" for="id">Ngày Tạo</label>
             <div class="inputWrapper">
-              <input
-                class="input isDisabled"
-                type="text"
-                id="createdAt"
-                [value]=""
-                disabled
-              />
+              <input class="input isDisabled" type="text" id="createdAt" [value]="" disabled />
             </div>
           </div>
         </div>
       </div>
       <!-- Form Detail -->
-      <div
-        fxLayout="row"
-        fxLayout.sm="column"
-        fxLayout.lt-sm="column"
-        fxLayoutGap="24px"
-      >
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxLayoutGap="24px">
         <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
           <div class="generalForm">
             <h1>Thông Tin Chi Tiết</h1>
             <div class="fieldWrapper">
               <label class="label" for="id">Tên Sản Phẩm</label>
               <div class="inputWrapper">
-                <input
-                  class="input"
-                  type="text"
-                  id="name"
-                  formControlName="name"
-                />
+                <input class="input" type="text" id="name" formControlName="name" />
               </div>
             </div>
             <div class="fieldWrapper">
               <label class="label" for="id">Giá Bán</label>
               <div class="inputWrapper">
-                <input
-                  class="input"
-                  type="text"
-                  id="price"
-                  formControlName="price"
-                />
+                <input class="input" type="text" id="price" formControlName="price" />
               </div>
             </div>
             <div class="fieldWrapper">
               <label class="label" for="id">Tồn Kho</label>
               <div class="inputWrapper">
-                <input
-                  class="input"
-                  type="text"
-                  id="qty"
-                  formControlName="qty"
-                />
+                <input class="input" type="text" id="qty" formControlName="qty" />
               </div>
             </div>
             <div class="fieldWrapper">
               <label class="label" for="id">Nhãn Hàng</label>
               <div class="inputWrapper">
-                <input
-                  class="input"
-                  type="text"
-                  id="brand"
-                  formControlName="brand"
-                />
+                <input class="input" type="text" id="brand" formControlName="brand" />
               </div>
             </div>
             <div class="fieldWrapper">
               <label class="label" for="id">Danh Mục</label>
               <div class="inputWrapper">
-                <input
-                  class="input"
-                  type="text"
-                  id="category"
-                  formControlName="category"
-                />
+                <input class="input" type="text" id="category" formControlName="category" />
               </div>
             </div>
           </div>
@@ -152,20 +87,28 @@
         </div>
         <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%">
           <div class="descriptionForm">
-            <h1>Mô Tả</h1>
+            <div class="descriptionHeader">
+              <h1>Mô Tả</h1>
+              <div class="btnGroup">
+                <button
+                  mat-icon-button
+                  type="button"
+                  color="dark"
+                  class="small-icon-button"
+                  matTooltip="Thêm mô tả"
+                  (click)="add_des()"
+                >
+                  <mat-icon>playlist_add</mat-icon>
+                </button>
+              </div>
+            </div>
             <div *ngFor="let des of this.desciptions">
-              <div class="fieldWrapper">
-                <label class="label" for="id">{{ des.key }}</label>
-                <div class="inputWrapper">
-                  <textarea
-                    class="input isDisabled"
-                    type="text"
-                    id="des.key"
-                    [value]="des.value"
-                    rows="5"
-                    disabled
-                  >
-                  </textarea>
+              <div class="fieldWrapper" fxLayout="row" fxLayout.lt-md="column">
+                <div class="inputKeyWrapper" fxFlex="25">
+                  <input class="input" type="text" id="name" [value]="des.key" placeholder="Mô Tả" />
+                </div>
+                <div class="inputValueWrapper" fxFlex="75">
+                  <input class="input" type="text" id="name" [value]="des.value" placeholder="Chi Tiết" />
                 </div>
               </div>
             </div>

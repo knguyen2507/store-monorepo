@@ -24,10 +24,7 @@ interface IProductForm {
   styleUrls: ['./create-form.component.scss'],
 })
 export class ProductCreateFormComponent implements OnInit {
-  constructor(
-    private store: Store<AppStore.ProductStore.ProductReducers.ProductState>,
-    private fb: FormBuilder
-  ) {}
+  constructor(private store: Store<AppStore.ProductStore.ProductReducers.ProductState>, private fb: FormBuilder) {}
 
   productForm!: FormGroup<IProductForm>;
   images: any[] = [];
@@ -36,8 +33,7 @@ export class ProductCreateFormComponent implements OnInit {
   avatar: any;
   productImages!: GalleryItem[];
   desciptions: DesObject[] = [];
-  item: Partial<AppStore.ProductStore.ProductDetailModel> =
-    AppStore.ProductStore.ProductReducers.initialProductDetail;
+  item: Partial<AppStore.ProductStore.ProductDetailModel> = AppStore.ProductStore.ProductReducers.initialProductDetail;
 
   ngOnInit(): void {
     this.setForm();
@@ -72,5 +68,10 @@ export class ProductCreateFormComponent implements OnInit {
 
   getImagesUpdate(images: any[]) {
     this.imagesUpdated = images;
+  }
+
+  add_des() {
+    this.desciptions.push({ key: `Mô Tả ${this.desciptions.length + 1}`, value: '' });
+    console.log(`desciptions:::`, this.desciptions);
   }
 }
