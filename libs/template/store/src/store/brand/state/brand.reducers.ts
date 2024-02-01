@@ -54,6 +54,13 @@ const brandReducer = createReducer(
       totalBrand: total,
     };
   }),
+  on(BrandActions.resetBrandList, (state: BrandState) => {
+    return {
+      ...state,
+      items: initialBrand.items,
+      total: initialBrand.total,
+    };
+  }),
 );
 
 export function brandReducers(state: BrandState | undefined, action: Action) {

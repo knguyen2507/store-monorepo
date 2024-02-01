@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { DesObject } from '@store-monorepo/template/shared';
 import * as AppStore from '@store-monorepo/template/store';
-import { GalleryItem } from 'ng-gallery';
+import { GalleryItem, ImageItem } from 'ng-gallery';
 
 @Component({
   selector: 'app-admin-product-detail',
@@ -13,15 +13,14 @@ import { GalleryItem } from 'ng-gallery';
 export class ProductDetailComponent implements OnInit {
   constructor(
     private store: Store<AppStore.ProductStore.ProductReducers.ProductState>,
-    @Inject(MAT_DIALOG_DATA) public data: { productId: string }
+    @Inject(MAT_DIALOG_DATA) public data: { productId: string },
   ) {}
 
   images: any[] = [];
   listImages: any[] = [];
   productImages!: GalleryItem[];
   desciptions: DesObject[] = [];
-  item: Partial<AppStore.ProductStore.ProductDetailModel> =
-    AppStore.ProductStore.ProductReducers.initialProductDetail;
+  item: Partial<AppStore.ProductStore.ProductDetailModel> = AppStore.ProductStore.ProductReducers.initialProductDetail;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -33,18 +32,20 @@ export class ProductDetailComponent implements OnInit {
     this.store.dispatch(
       AppStore.ProductStore.ProductActions.loadProductById({
         id: this.data.productId,
-      })
+      }),
     );
-    this.store
-      .select(AppStore.ProductStore.ProductSelectors.selectProductById)
-      .subscribe((data) => {
-        this.item = data;
+    this.store.select(AppStore.ProductStore.ProductSelectors.selectProductById).subscribe((data) => {
+      this.item = data;
 
-        this.images = data.images ? data.images : [];
-        this.desciptions = data.description
-          ? [...this.desciptions, ...this.handleDescription(data.description)]
-          : [...this.desciptions];
-      });
+      this.images = data.images ? data.images : [];
+      if (data.images)
+        this.productImages = data.images.map((item) => {
+          return new ImageItem({ src: item.url, thumb: item.url });
+        });
+      this.desciptions = data.description
+        ? [...this.desciptions, ...this.handleDescription(data.description)]
+        : [...this.desciptions];
+    });
   }
 
   handleDescription(description: string): DesObject[] {
@@ -61,9 +62,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   reset() {
-    this.store.dispatch(
-      AppStore.ProductStore.ProductActions.resetProductById()
-    );
+    this.store.dispatch(AppStore.ProductStore.ProductActions.resetProductById());
   }
 
   getListImages(images: any[]) {

@@ -9,6 +9,7 @@ const LOAD_CATEGORY_BY_CODE_ACTION = '[Category] Load Category By Code';
 const SAVE_CATEGORY_BY_CODE_ACTION = '[Category] Save Category By Code';
 const LOAD_TOTAL_CATEGORY_ACTION = '[Category] Load Total Category';
 const SAVE_TOTAL_CATEGORY_ACTION = '[Category] Save Total Category';
+const RESET_CATEGORY_LIST_ACTION = '[Category] Reset Category List';
 
 export const loadCategoryList = createAction(LOAD_CATEGORY_LIST_ACTION);
 export const saveCategoryList = createAction(
@@ -24,3 +25,5 @@ export const saveCategoryByCode = createAction(SAVE_CATEGORY_BY_CODE_ACTION, pro
 
 export const loadTotalCategory = createAction(LOAD_TOTAL_CATEGORY_ACTION);
 export const saveTotalCategory = createAction(SAVE_TOTAL_CATEGORY_ACTION, props<{ total: number }>());
+
+export const resetCategoryList = createAction(RESET_CATEGORY_LIST_ACTION);

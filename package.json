@@ -28,7 +28,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.2",
     "@nestjs/swagger": "^7.1.17",
-    "@ng-select/ng-select": "^12.0.4",
+    "@ng-select/ng-select": "10.0.4",
     "@ngrx/effects": "^17.0.1",
     "@ngrx/store": "^17.0.1",
     "@nrwl/angular": "^17.2.8",

@@ -59,6 +59,18 @@
           }
         }
       }
+
+      .ng-select {
+        &.custom {
+          flex-grow: 1;
+          ::ng-deep.ng-select-container {
+            height: 54px;
+            border-radius: 8px;
+            width: calc(100% - 10px);
+            border: rgba($color: #e8e8e8, $alpha: 1) solid thin;
+          }
+        }
+      }
     }
   }
 

@@ -54,6 +54,13 @@ const categoryReducer = createReducer(
       totalCategory: total,
     };
   }),
+  on(CategoryActions.resetCategoryList, (state: CategoryState) => {
+    return {
+      ...state,
+      items: initialCategory.items,
+      total: initialCategory.total,
+    };
+  }),
 );
 
 export function categoryReducers(state: CategoryState | undefined, action: Action) {

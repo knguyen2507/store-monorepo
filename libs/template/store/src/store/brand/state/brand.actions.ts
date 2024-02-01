@@ -9,6 +9,7 @@ const LOAD_BRAND_BY_CODE_ACTION = '[Brand] Load Brand By Code';
 const SAVE_BRAND_BY_CODE_ACTION = '[Brand] Save Brand By Code';
 const LOAD_TOTAL_BRAND_ACTION = '[Brand] Load Total Brand';
 const SAVE_TOTAL_BRAND_ACTION = '[Brand] Save Total Brand';
+const RESET_BRAND_LIST_ACTION = '[Brand] Reset Brand List';
 
 export const loadBrandList = createAction(LOAD_BRAND_LIST_ACTION);
 export const saveBrandList = createAction(SAVE_BRAND_LIST_ACTION, props<{ items: BrandModel[]; total: number }>());
@@ -21,3 +22,5 @@ export const saveBrandByCode = createAction(SAVE_BRAND_BY_CODE_ACTION, props<{ i
 
 export const loadTotalBrand = createAction(LOAD_TOTAL_BRAND_ACTION);
 export const saveTotalBrand = createAction(SAVE_TOTAL_BRAND_ACTION, props<{ total: number }>());
+
+export const resetBrandList = createAction(RESET_BRAND_LIST_ACTION);

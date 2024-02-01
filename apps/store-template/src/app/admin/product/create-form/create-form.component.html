@@ -63,15 +63,29 @@
             </div>
             <div class="fieldWrapper">
               <label class="label" for="id">Nhãn Hàng</label>
-              <div class="inputWrapper">
-                <input class="input" type="text" id="brand" formControlName="brand" />
-              </div>
+              <ng-select
+                class="custom"
+                [items]="brandSource"
+                bindLabel="label"
+                bindValue="id"
+                formControlName="brand"
+                [appendTo]="'body'"
+                placeholder="Chọn nhãn hàng"
+              >
+              </ng-select>
             </div>
             <div class="fieldWrapper">
               <label class="label" for="id">Danh Mục</label>
-              <div class="inputWrapper">
-                <input class="input" type="text" id="category" formControlName="category" />
-              </div>
+              <ng-select
+                class="custom"
+                [items]="categorySource"
+                bindLabel="label"
+                bindValue="id"
+                formControlName="category"
+                [appendTo]="'body'"
+                placeholder="Chọn danh mục"
+              >
+              </ng-select>
             </div>
           </div>
           <div class="imgForm">
@@ -81,7 +95,6 @@
               [productImages]="this.images"
               (avt)="this.getAvatar($event)"
               (listImages)="this.getListImages($event)"
-              (imagesUpdated)="this.getImagesUpdate($event)"
             ></app-upload-album>
           </div>
         </div>
@@ -102,13 +115,20 @@
                 </button>
               </div>
             </div>
-            <div *ngFor="let des of this.desciptions">
+            <div *ngFor="let des of this.description; let i = index">
               <div class="fieldWrapper" fxLayout="row" fxLayout.lt-md="column">
                 <div class="inputKeyWrapper" fxFlex="25">
                   <input class="input" type="text" id="name" [value]="des.key" placeholder="Mô Tả" />
                 </div>
                 <div class="inputValueWrapper" fxFlex="75">
-                  <input class="input" type="text" id="name" [value]="des.value" placeholder="Chi Tiết" />
+                  <input
+                    class="input"
+                    type="text"
+                    id="name"
+                    [value]="des.value"
+                    (keyup)="onKey(i, $event)"
+                    placeholder="Chi Tiết"
+                  />
                 </div>
               </div>
             </div>
