@@ -4,10 +4,7 @@ import { plainToClass } from 'class-transformer';
 import { FindShopById } from '../../../application/query/shop/detail';
 import { FindShopByIdResult } from '../../../application/query/shop/detail/result';
 import { FindShop } from '../../../application/query/shop/find';
-import {
-  FindShopResult,
-  FindShopResultItem,
-} from '../../../application/query/shop/find/result';
+import { FindShopResult, FindShopResultItem } from '../../../application/query/shop/find/result';
 import { GetShopInfo } from '../../../application/query/shop/get-info';
 import { GetShopInfoResult } from '../../../application/query/shop/get-info/result';
 import { ShopQuery } from '../../../domain/query/shop';

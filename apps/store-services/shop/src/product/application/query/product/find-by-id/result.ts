@@ -10,8 +10,6 @@ export class FindProductByIdResult implements IQueryResult {
   @Expose()
   readonly name: string;
   @Expose()
-  readonly qty: number;
-  @Expose()
   readonly category: string;
   @Expose()
   readonly brand: string;
@@ -23,4 +21,6 @@ export class FindProductByIdResult implements IQueryResult {
   readonly thumbnailLink: Images;
   @Expose()
   readonly images: Images[];
+  @Expose()
+  readonly createdAt: Date;
 }

@@ -11,10 +11,7 @@ import { GalleryItem, ImageItem } from 'ng-gallery';
   styleUrls: ['./detail-product.component.scss'],
 })
 export class DetailProductComponent implements OnInit {
-  constructor(
-    private store: Store<AppStore.ProductStore.ProductReducers.ProductState>,
-    private route: ActivatedRoute
-  ) {
+  constructor(private store: Store<AppStore.ProductStore.ProductReducers.ProductState>, private route: ActivatedRoute) {
     route.params.subscribe((params) => {
       this.productCode = params['productCode'];
     });
@@ -37,49 +34,47 @@ export class DetailProductComponent implements OnInit {
     this.store.dispatch(
       AppStore.ProductStore.ProductActions.loadProductDetail({
         productCode: this.productCode,
-      })
+      }),
     );
-    this.store
-      .select(AppStore.ProductStore.ProductSelectors.selectProductDetail)
-      .subscribe((data) => {
-        if (data.id) this.handleViewedProduct(data.id);
-        if (data.name)
-          this.desciptions.push({
-            key: 'Tên Sản Phẩm',
-            value: data.name,
-          });
-        if (data.productCode)
-          this.desciptions.push({
-            key: 'Mã Sản Phẩm',
-            value: data.productCode,
-          });
-        if (data.brand)
-          this.desciptions.push({
-            key: 'Hãng sản xuất',
-            value: data.brand,
-          });
-        if (data.category)
-          this.desciptions.push({
-            key: 'Danh mục',
-            value: data.category,
-          });
-        if (data.price)
-          this.desciptions.push({
-            key: 'Giá tiền',
-            value: data.price.toString(),
-          });
+    this.store.select(AppStore.ProductStore.ProductSelectors.selectProductDetail).subscribe((data) => {
+      if (data.id) this.handleViewedProduct(data.id);
+      if (data.name)
+        this.desciptions.push({
+          key: 'Tên Sản Phẩm',
+          value: data.name,
+        });
+      if (data.productCode)
+        this.desciptions.push({
+          key: 'Mã Sản Phẩm',
+          value: data.productCode,
+        });
+      if (data.brand)
+        this.desciptions.push({
+          key: 'Hãng sản xuất',
+          value: data.brand,
+        });
+      if (data.category)
+        this.desciptions.push({
+          key: 'Danh mục',
+          value: data.category,
+        });
+      if (data.price)
+        this.desciptions.push({
+          key: 'Giá tiền',
+          value: data.price.toString(),
+        });
 
-        if (data.qty && data.qty > 0) this.stock = true;
+      if (data.qtyStatus) this.stock = data.qtyStatus;
 
-        this.images = data.images ? data.images : [];
-        if (data.images)
-          this.productImages = data.images.map((item) => {
-            return new ImageItem({ src: item.url, thumb: item.url });
-          });
-        this.desciptions = data.description
-          ? [...this.desciptions, ...this.handleDescription(data.description)]
-          : [...this.desciptions];
-      });
+      this.images = data.images ? data.images : [];
+      if (data.images)
+        this.productImages = data.images.map((item) => {
+          return new ImageItem({ src: item.url, thumb: item.url });
+        });
+      this.desciptions = data.description
+        ? [...this.desciptions, ...this.handleDescription(data.description)]
+        : [...this.desciptions];
+    });
   }
 
   handleDescription(description: string): DesObject[] {
@@ -96,9 +91,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   handleViewedProduct(id: string) {
-    const viewed_product = JSON.parse(
-      localStorage.getItem('viewed') || '[]'
-    ) as string[];
+    const viewed_product = JSON.parse(localStorage.getItem('viewed') || '[]') as string[];
     if (!viewed_product.includes(id)) viewed_product.push(id);
     localStorage.setItem('viewed', JSON.stringify(viewed_product));
   }

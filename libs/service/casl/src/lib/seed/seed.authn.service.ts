@@ -1,16 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  ActionEnum,
-  AuthnPrismaService,
-  StatusEnum,
-} from '@store-monorepo/service/prisma';
+import { ActionEnum, AuthnPrismaService, StatusEnum } from '@store-monorepo/service/prisma';
 import {
   InitialRole1,
   InitialRole2,
+  InitialRole3,
   InitialShop1,
   InitialShop2,
   InitialUser1,
   InitialUser2,
+  InitialUser3,
   UtilityImplement,
 } from '@store-monorepo/utility';
 
@@ -18,7 +16,7 @@ import {
 export class SeedAuthnService {
   constructor(
     @Inject(AuthnPrismaService) private prisma: AuthnPrismaService,
-    private readonly util: UtilityImplement
+    private readonly util: UtilityImplement,
   ) {}
 
   seed = async () => {
@@ -39,6 +37,9 @@ export class SeedAuthnService {
         }),
         this.prisma.roles.create({
           data: InitialRole2,
+        }),
+        this.prisma.roles.create({
+          data: InitialRole3,
         }),
       ];
     }
@@ -64,6 +65,9 @@ export class SeedAuthnService {
         this.prisma.users.create({
           data: InitialUser2,
         }),
+        this.prisma.users.create({
+          data: InitialUser3,
+        }),
       ];
     }
 
@@ -77,6 +81,7 @@ export class SeedAuthnService {
             action: ActionEnum.CREATE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop1.id } },
+            role: { connect: { id: InitialRole2.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -86,6 +91,7 @@ export class SeedAuthnService {
             action: ActionEnum.UPDATE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop1.id } },
+            role: { connect: { id: InitialRole2.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -95,6 +101,7 @@ export class SeedAuthnService {
             action: ActionEnum.READ,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop1.id } },
+            role: { connect: { id: InitialRole2.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -104,6 +111,7 @@ export class SeedAuthnService {
             action: ActionEnum.DELETE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop1.id } },
+            role: { connect: { id: InitialRole2.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -113,7 +121,7 @@ export class SeedAuthnService {
             action: ActionEnum.CREATE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop2.id } },
-            role: { connect: { id: InitialRole2.id } },
+            role: { connect: { id: InitialRole3.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -123,7 +131,7 @@ export class SeedAuthnService {
             action: ActionEnum.UPDATE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop2.id } },
-            role: { connect: { id: InitialRole2.id } },
+            role: { connect: { id: InitialRole3.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -133,7 +141,7 @@ export class SeedAuthnService {
             action: ActionEnum.READ,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop2.id } },
-            role: { connect: { id: InitialRole2.id } },
+            role: { connect: { id: InitialRole3.id } },
           },
         }),
         this.prisma.permissions.create({
@@ -143,7 +151,7 @@ export class SeedAuthnService {
             action: ActionEnum.DELETE,
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop2.id } },
-            role: { connect: { id: InitialRole2.id } },
+            role: { connect: { id: InitialRole3.id } },
           },
         }),
       ];

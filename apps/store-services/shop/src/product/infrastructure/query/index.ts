@@ -3,6 +3,8 @@ import { ShopPrismaService } from '@store-monorepo/service/prisma';
 import { plainToClass } from 'class-transformer';
 import { FindProductByCode } from '../../application/query/product/detail';
 import { FindProductByCodeResult } from '../../application/query/product/detail/result';
+import { FindShopByProduct } from '../../application/query/product/detial-shop';
+import { FindShopByProductResult } from '../../application/query/product/detial-shop/result';
 import { FindProduct } from '../../application/query/product/find';
 import { FindProductByAdmin } from '../../application/query/product/find-by-admin';
 import {
@@ -22,19 +24,15 @@ import {
 import { FindProductById } from '../../application/query/product/find-by-id';
 import { FindProductByIdResult } from '../../application/query/product/find-by-id/result';
 import { FindProductByIds } from '../../application/query/product/find-by-ids';
-import {
-  FindProductByIdsResult,
-  FindProductByIdsResultItem,
-} from '../../application/query/product/find-by-ids/result';
+import { FindProductByIdsResult, FindProductByIdsResultItem } from '../../application/query/product/find-by-ids/result';
 import { FindProductSimilar } from '../../application/query/product/find-similar';
 import {
   FindProductSimilarResult,
   FindProductSimilarResultItem,
 } from '../../application/query/product/find-similar/result';
-import {
-  FindProductResult,
-  FindProductResultItem,
-} from '../../application/query/product/find/result';
+import { FindProductResult, FindProductResultItem } from '../../application/query/product/find/result';
+import { GetShopByProduct } from '../../application/query/product/get-shop';
+import { GetShopByProductResult, GetShopByProductResultItem } from '../../application/query/product/get-shop/result';
 import { GetTotalProduct } from '../../application/query/product/get-total';
 import { GetTotalProductResult } from '../../application/query/product/get-total/result';
 import { ProductQuery } from '../../domain/query';
@@ -74,7 +72,7 @@ export class ProductQueryImplement implements ProductQuery {
           ...i,
           thumbnailLink: i.thumbnailLink.url,
         },
-        { excludeExtraneousValues: true }
+        { excludeExtraneousValues: true },
       );
     });
 
@@ -84,9 +82,7 @@ export class ProductQueryImplement implements ProductQuery {
     };
   }
 
-  async findByAdmin(
-    query: FindProductByAdmin
-  ): Promise<FindProductByAdminResult> {
+  async findByAdmin(query: FindProductByAdmin): Promise<FindProductByAdminResult> {
     const { offset, limit, shopIds } = query.data;
     const conditions = [{ shop: { some: { id: { in: shopIds } } } }];
 
@@ -116,8 +112,12 @@ export class ProductQueryImplement implements ProductQuery {
           brand: i.brand.name,
           category: i.category.name,
           thumbnailLink: i.thumbnailLink.url,
+          qty: i.shop.reduce((accumulator, i) => {
+            return accumulator + i.qty;
+          }, 0),
+          createdAt: i.created.at,
         },
-        { excludeExtraneousValues: true }
+        { excludeExtraneousValues: true },
       );
     });
 
@@ -140,6 +140,10 @@ export class ProductQueryImplement implements ProductQuery {
       ...product,
       category: product.category.name,
       brand: product.brand.name,
+      qtyStatus:
+        product.shop.reduce((accumulator, i) => {
+          return accumulator + i.qty;
+        }, 0) > 0,
     };
 
     return plainToClass(FindProductByCodeResult, data, {
@@ -160,6 +164,7 @@ export class ProductQueryImplement implements ProductQuery {
       ...product,
       category: product.category.name,
       brand: product.brand.name,
+      createdAt: product.created.at,
     };
 
     return plainToClass(FindProductByIdResult, data, {
@@ -167,9 +172,42 @@ export class ProductQueryImplement implements ProductQuery {
     });
   }
 
-  async findByBrand(
-    query: FindProductByBrand
-  ): Promise<FindProductByBrandResult> {
+  async findShopDetail(query: FindShopByProduct): Promise<FindShopByProductResult> {
+    const product = await this.prisma.products.findUnique({
+      where: { id: query.data.id },
+    });
+
+    const data = product.shop.find((item) => item.id === query.data.shopId);
+
+    return plainToClass(FindShopByProductResult, data, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  async findShop(query: GetShopByProduct): Promise<GetShopByProductResult> {
+    const product = await this.prisma.products.findUnique({
+      where: { id: query.data.id },
+    });
+
+    const items = product.shop.map((i) => {
+      return plainToClass(
+        GetShopByProductResultItem,
+        {
+          id: i.id,
+          name: i.name,
+          address: i.address,
+        },
+        { excludeExtraneousValues: true },
+      );
+    });
+
+    return {
+      items,
+      total: 0,
+    };
+  }
+
+  async findByBrand(query: FindProductByBrand): Promise<FindProductByBrandResult> {
     const { offset, limit, brandCode } = query.data;
     const [products, total] = await Promise.all([
       this.prisma.products.findMany({
@@ -198,7 +236,7 @@ export class ProductQueryImplement implements ProductQuery {
           ...i,
           thumbnailLink: i.thumbnailLink.url,
         },
-        { excludeExtraneousValues: true }
+        { excludeExtraneousValues: true },
       );
     });
 
@@ -208,9 +246,7 @@ export class ProductQueryImplement implements ProductQuery {
     };
   }
 
-  async findByCategory(
-    query: FindProductByCategory
-  ): Promise<FindProductByCategoryResult> {
+  async findByCategory(query: FindProductByCategory): Promise<FindProductByCategoryResult> {
     const { offset, limit, categoryCode } = query.data;
     const [products, total] = await Promise.all([
       this.prisma.products.findMany({
@@ -238,7 +274,7 @@ export class ProductQueryImplement implements ProductQuery {
           ...i,
           thumbnailLink: i.thumbnailLink.url,
         },
-        { excludeExtraneousValues: true }
+        { excludeExtraneousValues: true },
       );
     });
 
@@ -254,11 +290,7 @@ export class ProductQueryImplement implements ProductQuery {
       where: { AND: conditions },
     });
 
-    return plainToClass(
-      GetTotalProductResult,
-      { total },
-      { excludeExtraneousValues: true }
-    );
+    return plainToClass(GetTotalProductResult, { total }, { excludeExtraneousValues: true });
   }
 
   async findByIds(query: FindProductByIds): Promise<FindProductByIdsResult> {
@@ -273,7 +305,7 @@ export class ProductQueryImplement implements ProductQuery {
           ...i,
           thumbnailLink: i.thumbnailLink.url,
         },
-        { excludeExtraneousValues: true }
+        { excludeExtraneousValues: true },
       );
     });
 
@@ -283,9 +315,7 @@ export class ProductQueryImplement implements ProductQuery {
     };
   }
 
-  async findSimilar(
-    query: FindProductSimilar
-  ): Promise<FindProductSimilarResult> {
+  async findSimilar(query: FindProductSimilar): Promise<FindProductSimilarResult> {
     const product = await this.prisma.products.findUnique({
       where: { id: query.data.id },
       select: {
@@ -296,10 +326,7 @@ export class ProductQueryImplement implements ProductQuery {
     });
     const products = await this.prisma.products.findMany({
       where: {
-        AND: [
-          { brand: { id: product.brand.id } },
-          { category: { id: product.category.id } },
-        ],
+        AND: [{ brand: { id: product.brand.id } }, { category: { id: product.category.id } }],
       },
       orderBy: [
         {
@@ -318,7 +345,7 @@ export class ProductQueryImplement implements ProductQuery {
           ...i,
           thumbnailLink: i.thumbnailLink.url,
         },
-        { excludeExtraneousValues: true }
+        { excludeExtraneousValues: true },
       );
     });
 

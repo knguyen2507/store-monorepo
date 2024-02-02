@@ -1,11 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Inject, Injectable } from '@nestjs/common';
 import { ShopPrismaService } from '@store-monorepo/service/prisma';
-import {
-  InitialShop1,
-  InitialShop2,
-  InitialUser1,
-} from '@store-monorepo/utility';
+import { InitialShop1, InitialShop2, InitialUser1 } from '@store-monorepo/utility';
 import { ObjectId } from 'bson';
 import moment from 'moment';
 
@@ -49,9 +45,7 @@ export class SeedProductService {
                 min: 1,
                 max: 1,
               })}`)
-            : (description += `*done*${faker.animal.bird()}:${faker.lorem.paragraphs(
-                { min: 1, max: 1 }
-              )}`);
+            : (description += `*done*${faker.animal.bird()}:${faker.lorem.paragraphs({ min: 1, max: 1 })}`);
         }
 
         const brand = faker.helpers.arrayElement(brands);
@@ -61,11 +55,13 @@ export class SeedProductService {
             id: InitialShop1.id,
             name: InitialShop1.name,
             address: InitialShop1.address,
+            qty: faker.number.int({ min: 0, max: 5 }),
           },
           {
             id: InitialShop2.id,
             name: InitialShop2.name,
             address: InitialShop2.address,
+            qty: faker.number.int({ min: 0, max: 5 }),
           },
         ];
 
@@ -74,7 +70,6 @@ export class SeedProductService {
             data: {
               name: `${category.name} ${brand.name} ${i}`,
               productCode: `test-product-${i}`,
-              qty: faker.number.int({ min: 0, max: 5 }),
               categoryId: category.id,
               brandId: brand.id,
               price: faker.number.int({ min: 10, max: 500 }),
@@ -86,9 +81,9 @@ export class SeedProductService {
                 username: InitialUser1.username,
                 at: moment().toDate(),
               },
-              shop: faker.helpers.arrayElement(shops),
+              shop: faker.helpers.arrayElements(shops, { min: 1, max: 2 }),
             },
-          })
+          }),
         );
       }
       this.prisma.$transaction(InitialProduct);

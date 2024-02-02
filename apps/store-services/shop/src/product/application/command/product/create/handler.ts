@@ -1,7 +1,6 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Shop } from '@prisma/client/shop';
 import { CloudinaryService } from '@store-monorepo/service/cloudinary';
 import { RMQ, RmqMessage, UtilityImplement } from '@store-monorepo/utility';
 import moment from 'moment';
@@ -10,13 +9,11 @@ import { ProductFactory } from '../../../../infrastructure/factory/product';
 import { ProductRepositoryImplement } from '../../../../infrastructure/repository';
 
 @CommandHandler(CreateProduct)
-export class CreateProductHandler
-  implements ICommandHandler<CreateProduct, void>
-{
+export class CreateProductHandler implements ICommandHandler<CreateProduct, void> {
   constructor(
     private readonly util: UtilityImplement,
     private readonly cloudinaryService: CloudinaryService,
-    private readonly amqpService: AmqpConnection
+    private readonly amqpService: AmqpConnection,
   ) {}
   @Inject()
   private readonly factory: ProductFactory;
@@ -33,7 +30,7 @@ export class CreateProductHandler
     };
     const upload = [];
     let thumbnailLink: any;
-    let shopInfo: Shop[] = [];
+    let shopInfo: { id: string; name: string; address: string }[] = [];
 
     try {
       const payload: RmqMessage = {
@@ -87,7 +84,12 @@ export class CreateProductHandler
       id,
       created,
       updated: [],
-      shop: shopInfo,
+      shop: shopInfo.map((item) => {
+        return {
+          ...item,
+          ...shop.find((i) => i.id === item.id)[0],
+        };
+      }),
     });
 
     await this.product.save(model);

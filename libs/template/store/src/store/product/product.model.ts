@@ -28,6 +28,7 @@ export class ProductDetailModel {
   description: string | null | undefined;
   images!: ImageModel[];
   status: GeneralStatusEnum | null | undefined;
+  qtyStatus: boolean | null | undefined;
   createdAt: Date | null | undefined;
   createdBy: string | null | undefined;
   updatedAt: Date | null | undefined;
@@ -49,4 +50,11 @@ export class ProductModelFindByAdmin {
   thumbnailLink: string | null | undefined;
   category: string | null | undefined;
   brand: string | null | undefined;
+}
+
+export class ShopModel {
+  id: string | null | undefined;
+  name: string | null | undefined;
+  address: string | null | undefined;
+  qty: number | null | undefined;
 }

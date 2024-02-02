@@ -1,5 +1,7 @@
 import { FindProductByCode } from '../../application/query/product/detail';
 import { FindProductByCodeResult } from '../../application/query/product/detail/result';
+import { FindShopByProduct } from '../../application/query/product/detial-shop';
+import { FindShopByProductResult } from '../../application/query/product/detial-shop/result';
 import { FindProduct } from '../../application/query/product/find';
 import { FindProductByAdmin } from '../../application/query/product/find-by-admin';
 import { FindProductByAdminResult } from '../../application/query/product/find-by-admin/result';
@@ -14,6 +16,8 @@ import { FindProductByIdsResult } from '../../application/query/product/find-by-
 import { FindProductSimilar } from '../../application/query/product/find-similar';
 import { FindProductSimilarResult } from '../../application/query/product/find-similar/result';
 import { FindProductResult } from '../../application/query/product/find/result';
+import { GetShopByProduct } from '../../application/query/product/get-shop';
+import { GetShopByProductResult } from '../../application/query/product/get-shop/result';
 import { GetTotalProduct } from '../../application/query/product/get-total';
 import { GetTotalProductResult } from '../../application/query/product/get-total/result';
 
@@ -22,10 +26,10 @@ export interface ProductQuery {
   findByAdmin: (query: FindProductByAdmin) => Promise<FindProductByAdminResult>;
   findByCode: (query: FindProductByCode) => Promise<FindProductByCodeResult>;
   findById: (query: FindProductById) => Promise<FindProductByIdResult>;
+  findShopDetail: (query: FindShopByProduct) => Promise<FindShopByProductResult>;
+  findShop: (query: GetShopByProduct) => Promise<GetShopByProductResult>;
   findByBrand: (query: FindProductByBrand) => Promise<FindProductByBrandResult>;
-  findByCategory: (
-    query: FindProductByCategory
-  ) => Promise<FindProductByCategoryResult>;
+  findByCategory: (query: FindProductByCategory) => Promise<FindProductByCategoryResult>;
   getTotal: (query: GetTotalProduct) => Promise<GetTotalProductResult>;
   findByIds: (query: FindProductByIds) => Promise<FindProductByIdsResult>;
   findSimilar: (query: FindProductSimilar) => Promise<FindProductSimilarResult>;

@@ -39,7 +39,6 @@ model Products {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
   productCode   String     @unique
   name          String
-  qty           Int
   category      Categories @relation(fields: [categoryId], references: [id])
   categoryId    String     @db.ObjectId
   brand         Brands     @relation(fields: [brandId], references: [id])
@@ -72,4 +71,5 @@ type Shop {
   id      String
   name    String
   address String
+  qty     Int
 }

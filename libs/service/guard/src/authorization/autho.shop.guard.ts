@@ -1,18 +1,10 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import {
-  RMQ,
-  RequestWithUser,
-  RmqMessage,
-  UtilityImplement,
-} from '@store-monorepo/utility';
+import { RMQ, RequestWithUser, RmqMessage, UtilityImplement } from '@store-monorepo/utility';
 
 @Injectable()
 export class AuthoShopGuard implements CanActivate {
-  constructor(
-    private readonly util: UtilityImplement,
-    private readonly amqpService: AmqpConnection
-  ) {}
+  constructor(private readonly util: UtilityImplement, private readonly amqpService: AmqpConnection) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<RequestWithUser>();
     const user = request.user;
@@ -21,7 +13,7 @@ export class AuthoShopGuard implements CanActivate {
       messageId: this.util.generateId(),
       data: {
         user,
-        id: request.body.id ? request.body.id : null,
+        id: request.body.shopId ? request.body.shopId : null,
       },
     };
 

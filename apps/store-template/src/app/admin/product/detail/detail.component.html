@@ -6,6 +6,32 @@
   <mat-dialog-content>
     <form #invidualPartnerFormDirective="ngForm" class="invidualForm" fxLayout="column" fxLayoutGap="24px">
       <!-- Form Meta data -->
+      <div class="formShop">
+        <h1>Thông Tin Cửa Hàng</h1>
+        <div fxLayout="row wrap" fxLayoutGap="grid">
+          <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+            <label class="label" for="id">Cửa Hàng</label>
+            <ng-select
+              class="custom"
+              [items]="shopSource"
+              bindLabel="label"
+              bindValue="id"
+              [appendTo]="'body'"
+              placeholder="Chọn cửa hàng"
+              [(ngModel)]="selectedShop"
+              (change)="shopChange($event)"
+              name="shopSelect"
+            >
+            </ng-select>
+          </div>
+          <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+            <label class="label" for="id">Địa Chỉ</label>
+            <div class="inputWrapper">
+              <input class="input isDisabled" type="text" id="id" [value]="this.shop.address" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="formData">
         <h1>Thông Tin Sản Phẩm</h1>
         <div fxLayout="row wrap" fxLayoutGap="grid">
@@ -24,7 +50,7 @@
           <div fxFlex="33%" fxFlex.lg="33%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
             <label class="label" for="id">Ngày Tạo</label>
             <div class="inputWrapper">
-              <input class="input isDisabled" type="text" id="id" [value]="this.item.createdAt" disabled />
+              <input class="input isDisabled" type="text" id="id" [value]="splitTime(this.item.createdAt)" disabled />
             </div>
           </div>
         </div>
@@ -49,7 +75,7 @@
             <div class="fieldWrapper">
               <label class="label" for="id">Tồn Kho</label>
               <div class="inputWrapper">
-                <input class="input isDisabled" type="text" id="qty" [value]="this.item.qty" disabled />
+                <input class="input isDisabled" type="text" id="qty" [value]="this.shop.qty" disabled />
               </div>
             </div>
             <div class="fieldWrapper">

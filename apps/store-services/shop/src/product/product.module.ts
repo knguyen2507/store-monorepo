@@ -6,6 +6,7 @@ import { RedisModule } from '@store-monorepo/service/redis';
 import { CreateProductHandler } from './application/command/product/create/handler';
 import { DeleteProductHandler } from './application/command/product/delete/handler';
 import { FindProductByCodeHandler } from './application/query/product/detail/handler';
+import { FindShopByProductHandler } from './application/query/product/detial-shop/handler';
 import { FindProductByAdminHandler } from './application/query/product/find-by-admin/handler';
 import { FindProductByBrandHandler } from './application/query/product/find-by-brand/handler';
 import { FindProductByCategoryHandler } from './application/query/product/find-by-category/handler';
@@ -13,6 +14,7 @@ import { FindProductByIdHandler } from './application/query/product/find-by-id/h
 import { FindProductByIdsHandler } from './application/query/product/find-by-ids/handler';
 import { FindProductSimilarHandler } from './application/query/product/find-similar/handler';
 import { FindProductHandler } from './application/query/product/find/handler';
+import { GetShopByProductHandler } from './application/query/product/get-shop/handler';
 import { GetTotalProductHandler } from './application/query/product/get-total/handler';
 import { ProductFactory } from './infrastructure/factory/product';
 import { ProductQueryImplement } from './infrastructure/query';
@@ -34,6 +36,8 @@ const queries = [
   FindProductByIdsHandler,
   FindProductSimilarHandler,
   FindProductByIdHandler,
+  GetShopByProductHandler,
+  FindShopByProductHandler,
 ];
 
 const domain = [ProductFactory];

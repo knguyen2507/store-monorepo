@@ -5,9 +5,7 @@ import { ShopQueryImplement } from '../../../../infrastructure/query/shop';
 import { GetShopInfoResult } from './result';
 
 @QueryHandler(GetShopInfo)
-export class GetShopInfoHandler
-  implements IQueryHandler<GetShopInfo, GetShopInfoResult>
-{
+export class GetShopInfoHandler implements IQueryHandler<GetShopInfo, GetShopInfoResult> {
   @Inject()
   private readonly shop: ShopQueryImplement;
 

@@ -1,9 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  ProductDetailModel,
-  ProductModel,
-  ProductModelFindByAdmin,
-} from '../product.model';
+import { ProductDetailModel, ProductModel, ProductModelFindByAdmin, ShopModel } from '../product.model';
 import * as ProductActions from './product.actions';
 
 export const productFeatureKey = 'product';
@@ -20,6 +16,9 @@ export interface ProductState {
   itemByCategory: Partial<ProductModel>[];
   totalByCategory: number;
   totalProduct: number;
+  itemShop: Partial<ShopModel>[];
+  totalShop: number;
+  itemDetailShop: Partial<ShopModel>;
 }
 
 export const initialProductDetail = {
@@ -49,30 +48,32 @@ export const initialProduct: ProductState = {
   itemByCategory: [],
   totalByCategory: 0,
   totalProduct: 0,
+  itemShop: [],
+  totalShop: 0,
+  itemDetailShop: {
+    id: null,
+    name: null,
+    address: null,
+    qty: 0,
+  },
 };
 
 const productReducer = createReducer(
   initialProduct,
-  on(
-    ProductActions.saveProductList,
-    (state: ProductState, { items, total }) => {
-      return {
-        ...state,
-        items,
-        total,
-      };
-    }
-  ),
-  on(
-    ProductActions.saveProductListByAdmin,
-    (state: ProductState, { items, total }) => {
-      return {
-        ...state,
-        itemByAdmin: items,
-        totalByAdmin: total,
-      };
-    }
-  ),
+  on(ProductActions.saveProductList, (state: ProductState, { items, total }) => {
+    return {
+      ...state,
+      items,
+      total,
+    };
+  }),
+  on(ProductActions.saveProductListByAdmin, (state: ProductState, { items, total }) => {
+    return {
+      ...state,
+      itemByAdmin: items,
+      totalByAdmin: total,
+    };
+  }),
   on(ProductActions.saveProductDetail, (state: ProductState, { item }) => {
     return {
       ...state,
@@ -85,16 +86,13 @@ const productReducer = createReducer(
       itemById: item,
     };
   }),
-  on(
-    ProductActions.saveProductListByBrand,
-    (state: ProductState, { items, total }) => {
-      return {
-        ...state,
-        itemByBrand: items,
-        totalByBrand: total,
-      };
-    }
-  ),
+  on(ProductActions.saveProductListByBrand, (state: ProductState, { items, total }) => {
+    return {
+      ...state,
+      itemByBrand: items,
+      totalByBrand: total,
+    };
+  }),
   on(ProductActions.resetProductListByBrand, (state: ProductState) => {
     return {
       ...state,
@@ -102,16 +100,13 @@ const productReducer = createReducer(
       totalByBrand: initialProduct.totalByBrand,
     };
   }),
-  on(
-    ProductActions.saveProductListByCategory,
-    (state: ProductState, { items, total }) => {
-      return {
-        ...state,
-        itemByCategory: items,
-        totalByCategory: total,
-      };
-    }
-  ),
+  on(ProductActions.saveProductListByCategory, (state: ProductState, { items, total }) => {
+    return {
+      ...state,
+      itemByCategory: items,
+      totalByCategory: total,
+    };
+  }),
   on(ProductActions.resetProductListByCategory, (state: ProductState) => {
     return {
       ...state,
@@ -136,12 +131,28 @@ const productReducer = createReducer(
       ...state,
       totalProduct: total,
     };
-  })
+  }),
+  on(ProductActions.saveShopListByProduct, (state: ProductState, { items, total }) => {
+    return {
+      ...state,
+      itemShop: items,
+      totalShop: total,
+    };
+  }),
+  on(ProductActions.resetShopListByProduct, (state: ProductState) => {
+    return {
+      ...state,
+      itemShop: [],
+    };
+  }),
+  on(ProductActions.saveShopDetailByProduct, (state: ProductState, { item }) => {
+    return {
+      ...state,
+      itemDetailShop: item,
+    };
+  }),
 );
 
-export function productReducers(
-  state: ProductState | undefined,
-  action: Action
-) {
+export function productReducers(state: ProductState | undefined, action: Action) {
   return productReducer(state, action);
 }

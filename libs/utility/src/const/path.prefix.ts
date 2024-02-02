@@ -86,6 +86,8 @@ export const pathPrefixQueryProduct = {
   findProductByIds: 'find-by-ids',
   findProductSimilar: 'find-similar',
   getTotalProduct: 'get-total-product',
+  getShopByProduct: 'get-shop-by-product',
+  findShopDetalByProduct: 'find-shop-detail-by-product',
 };
 
 export const pathPrefixCommandProduct = {

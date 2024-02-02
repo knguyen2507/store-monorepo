@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@store-monorepo/template/environment';
-import {
-  FindMany,
-  HttpService,
-  TotalModel,
-} from '@store-monorepo/template/shared';
-import {
-  ProductDetailModel,
-  ProductModel,
-  ProductModelFindByAdmin,
-} from './product.model';
+import { FindMany, HttpService, TotalModel } from '@store-monorepo/template/shared';
+import { ProductDetailModel, ProductModel, ProductModelFindByAdmin, ShopModel } from './product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +11,7 @@ export class ProductService {
 
   private apiUrl = `${environment.urlApi}/msx-shop`;
 
-  findProductList(
-    pagi?: { offset: number; limit: number },
-    searchName?: string
-  ) {
+  findProductList(pagi?: { offset: number; limit: number }, searchName?: string) {
     let payload: any = pagi;
     if (searchName) {
       payload = {
@@ -31,66 +20,53 @@ export class ProductService {
       };
     }
 
-    return this.httpService.get<FindMany<ProductModel>>(
-      `${this.apiUrl}/product/find`,
-      payload
-    );
+    return this.httpService.get<FindMany<ProductModel>>(`${this.apiUrl}/product/find`, payload);
   }
 
   findProductListByAdmin(pagi?: { offset: number; limit: number }) {
-    return this.httpService.getAdmin<FindMany<ProductModelFindByAdmin>>(
-      `${this.apiUrl}/product/admin/find`,
-      { ...pagi }
-    );
+    return this.httpService.getAdmin<FindMany<ProductModelFindByAdmin>>(`${this.apiUrl}/product/admin/find`, {
+      ...pagi,
+    });
   }
 
   findProductDetail(productCode: string) {
-    return this.httpService.get<ProductDetailModel>(
-      `${this.apiUrl}/product/detail`,
-      {
-        productCode,
-      }
-    );
+    return this.httpService.get<ProductDetailModel>(`${this.apiUrl}/product/detail`, {
+      productCode,
+    });
   }
 
   findProductById(id: string) {
-    return this.httpService.get<ProductDetailModel>(
-      `${this.apiUrl}/product/find-by-id`,
-      {
-        id,
-      }
-    );
+    return this.httpService.getAdmin<ProductDetailModel>(`${this.apiUrl}/product/find-by-id`, {
+      id,
+    });
   }
 
-  findProductListByBrand(
-    pagi?: { offset: number; limit: number },
-    brandCode?: string
-  ) {
-    return this.httpService.get<FindMany<ProductModel>>(
-      `${this.apiUrl}/product/find-by-brand`,
-      {
-        ...pagi,
-        brandCode,
-      }
-    );
+  findProductListByBrand(pagi?: { offset: number; limit: number }, brandCode?: string) {
+    return this.httpService.get<FindMany<ProductModel>>(`${this.apiUrl}/product/find-by-brand`, {
+      ...pagi,
+      brandCode,
+    });
   }
 
-  findProductListByCategory(
-    pagi?: { offset: number; limit: number },
-    categoryCode?: string
-  ) {
-    return this.httpService.get<FindMany<ProductModel>>(
-      `${this.apiUrl}/product/find-by-category`,
-      {
-        ...pagi,
-        categoryCode,
-      }
-    );
+  findProductListByCategory(pagi?: { offset: number; limit: number }, categoryCode?: string) {
+    return this.httpService.get<FindMany<ProductModel>>(`${this.apiUrl}/product/find-by-category`, {
+      ...pagi,
+      categoryCode,
+    });
   }
 
   getTotalProduct() {
-    return this.httpService.getAdmin<TotalModel>(
-      `${this.apiUrl}/product/get-total-product`
-    );
+    return this.httpService.getAdmin<TotalModel>(`${this.apiUrl}/product/get-total-product`);
+  }
+
+  getShopByProduct(id: string) {
+    return this.httpService.get<FindMany<ShopModel>>(`${this.apiUrl}/product/get-shop-by-product`, { id });
+  }
+
+  findShopDetail(id: string, shopId: string) {
+    return this.httpService.getAdmin<ShopModel>(`${this.apiUrl}/product/find-shop-detail-by-product`, {
+      id,
+      shopId,
+    });
   }
 }

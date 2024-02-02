@@ -43,13 +43,6 @@ export class ProductCreateFormComponent implements OnInit {
   selectedBrand!: any | null;
   selectedCategory!: any | null;
 
-  cars = [
-    { id: 1, label: 'Volvo' },
-    { id: 2, label: 'Saab' },
-    { id: 3, label: 'Opel' },
-    { id: 4, label: 'Audi' },
-  ];
-
   ngOnInit() {
     this.setForm();
     this.setBrandList();

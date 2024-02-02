@@ -11,12 +11,15 @@ import {
   FindProductByIdsRequestDTO,
   FindProductRequestDTO,
   FindProductSimilarRequestDTO,
+  FindShopDetailByProductRequestDTO,
+  GetShopByProductRequestDTO,
   RequestWithUser,
   UtilityImplement,
   pathPrefixProduct,
   pathPrefixQueryProduct,
 } from '@store-monorepo/utility';
 import { FindProductByCode } from '../application/query/product/detail';
+import { FindShopByProduct } from '../application/query/product/detial-shop';
 import { FindProduct } from '../application/query/product/find';
 import { FindProductByAdmin } from '../application/query/product/find-by-admin';
 import { FindProductByBrand } from '../application/query/product/find-by-brand';
@@ -24,22 +27,20 @@ import { FindProductByCategory } from '../application/query/product/find-by-cate
 import { FindProductById } from '../application/query/product/find-by-id';
 import { FindProductByIds } from '../application/query/product/find-by-ids';
 import { FindProductSimilar } from '../application/query/product/find-similar';
+import { GetShopByProduct } from '../application/query/product/get-shop';
 import { GetTotalProduct } from '../application/query/product/get-total';
 
 @ApiTags(pathPrefixProduct.swagger)
 @Controller(pathPrefixProduct.controller)
 export class ProductQueryController {
-  constructor(
-    private readonly util: UtilityImplement,
-    readonly queryBus: QueryBus
-  ) {}
+  constructor(private readonly util: UtilityImplement, readonly queryBus: QueryBus) {}
 
   @Get(pathPrefixQueryProduct.findProductListByAdmin)
   @UseGuards(AuthnGuard, AuthoShopGuard)
   @ApiBearerAuth()
   async FindProductListByAdmin(
     @Query() query: FindProductByAdminRequestDTO,
-    @Req() request: RequestWithUser
+    @Req() request: RequestWithUser,
   ): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
@@ -60,9 +61,7 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.findProductByCode)
-  async FindProductByCode(
-    @Query() query: FindProductByCodeRequestDTO
-  ): Promise<any> {
+  async FindProductByCode(@Query() query: FindProductByCodeRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
       data: query,
@@ -72,9 +71,8 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.findProductById)
-  async FindProductById(
-    @Query() query: FindProductByIdRequestDTO
-  ): Promise<any> {
+  @UseGuards(AuthnGuard, AuthoShopGuard)
+  async FindProductById(@Query() query: FindProductByIdRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
       data: query,
@@ -84,9 +82,7 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.findProductByBrand)
-  async FindProductByBrand(
-    @Query() query: FindProductByBrandRequestDTO
-  ): Promise<any> {
+  async FindProductByBrand(@Query() query: FindProductByBrandRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
       data: query,
@@ -96,9 +92,7 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.findProductByCategory)
-  async FindProductByCategory(
-    @Query() query: FindProductByCategoryRequestDTO
-  ): Promise<any> {
+  async FindProductByCategory(@Query() query: FindProductByCategoryRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
       data: query,
@@ -108,9 +102,7 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.findProductByIds)
-  async FindProductByIds(
-    @Query() query: FindProductByIdsRequestDTO
-  ): Promise<any> {
+  async FindProductByIds(@Query() query: FindProductByIdsRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
       data: query,
@@ -120,14 +112,22 @@ export class ProductQueryController {
   }
 
   @Get(pathPrefixQueryProduct.findProductSimilar)
-  async FindProductSimilar(
-    @Query() query: FindProductSimilarRequestDTO
-  ): Promise<any> {
+  async FindProductSimilar(@Query() query: FindProductSimilarRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
       data: query,
     };
     const product = new FindProductSimilar(msg);
+    return await this.queryBus.execute(product);
+  }
+
+  @Get(pathPrefixQueryProduct.getShopByProduct)
+  async GetShopByProduct(@Query() query: GetShopByProductRequestDTO): Promise<any> {
+    const msg = {
+      messageId: this.util.generateId(),
+      data: query,
+    };
+    const product = new GetShopByProduct(msg);
     return await this.queryBus.execute(product);
   }
 
@@ -141,5 +141,17 @@ export class ProductQueryController {
     };
     const query = new GetTotalProduct(msg);
     return await this.queryBus.execute(query);
+  }
+
+  @Get(pathPrefixQueryProduct.findShopDetalByProduct)
+  @UseGuards(AuthnGuard, AuthoShopGuard)
+  @ApiBearerAuth()
+  async FindShopByProduct(@Query() query: FindShopDetailByProductRequestDTO): Promise<any> {
+    const msg = {
+      messageId: this.util.generateId(),
+      data: { id: query.id, shopId: query.shopId },
+    };
+    const product = new FindShopByProduct(msg);
+    return await this.queryBus.execute(product);
   }
 }

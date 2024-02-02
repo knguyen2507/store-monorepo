@@ -21,11 +21,14 @@ export class ProductDetailComponent implements OnInit {
   productImages!: GalleryItem[];
   desciptions: DesObject[] = [];
   item: Partial<AppStore.ProductStore.ProductDetailModel> = AppStore.ProductStore.ProductReducers.initialProductDetail;
+  shop: Partial<AppStore.ProductStore.ShopModel> = AppStore.ProductStore.ProductReducers.initialProduct.itemDetailShop;
+  shopSource: any[] = [];
+  selectedShop!: any | null;
+  qty: number = 0;
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getData();
-    }, 0);
+    this.getData();
+    this.setShopList();
   }
 
   getData() {
@@ -63,9 +66,47 @@ export class ProductDetailComponent implements OnInit {
 
   reset() {
     this.store.dispatch(AppStore.ProductStore.ProductActions.resetProductById());
+    this.store.dispatch(AppStore.ProductStore.ProductActions.resetShopListByProduct());
   }
 
   getListImages(images: any[]) {
     this.listImages = images;
+  }
+
+  splitTime(dateTime: Date | null | undefined) {
+    if (dateTime) return dateTime.toString().split('T')[0];
+    return null;
+  }
+
+  setShopList() {
+    this.store.dispatch(AppStore.ProductStore.ProductActions.loadShopListByProduct({ id: this.data.productId }));
+    this.store.select(AppStore.ProductStore.ProductSelectors.selectShopListByProduct).subscribe((data) => {
+      data.itemShop.forEach((item) => {
+        if (item.id) {
+          this.shopSource = [...this.shopSource, { id: item.id, label: item.name }];
+        }
+      });
+      if (data.itemShop[0]) {
+        this.selectedShop = data.itemShop[0].id;
+        this.shopChange(data.itemShop[0]);
+      }
+    });
+  }
+
+  shopChange(selectedShop: any) {
+    if (selectedShop) {
+      this.store.dispatch(
+        AppStore.ProductStore.ProductActions.loadShopDetailByProduct({
+          id: this.data.productId,
+          shopId: selectedShop.id,
+        }),
+      );
+      this.store.select(AppStore.ProductStore.ProductSelectors.selectShopDetailByProduct).subscribe((data) => {
+        this.shop = data.itemDetailShop;
+      });
+      this.store.dispatch(AppStore.ProductStore.ProductActions.resetShopListByProduct());
+    } else {
+      this.shop = AppStore.ShopStore.ShopReducers.initialShop.itemDetail;
+    }
   }
 }

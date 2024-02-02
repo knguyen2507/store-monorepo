@@ -22,10 +22,7 @@ import { GetShopInfo } from '../../application/query/shop/get-info';
 @UseGuards(AuthnGuard)
 @ApiBearerAuth()
 export class ShopQueryController {
-  constructor(
-    private readonly util: UtilityImplement,
-    readonly queryBus: QueryBus
-  ) {}
+  constructor(private readonly util: UtilityImplement, readonly queryBus: QueryBus) {}
 
   @Get(pathPrefixQueryShop.findShops)
   @UseGuards(AuthoShopGuard)
@@ -43,7 +40,7 @@ export class ShopQueryController {
   async FindShopById(@Query() query: FindShopByIdRequestDTO): Promise<any> {
     const msg = {
       messageId: this.util.generateId(),
-      data: query,
+      data: { id: query.shopId },
     };
     const shop = new FindShopById(msg);
     return await this.queryBus.execute(shop);

@@ -1,17 +1,7 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import {
-  AgGridCustomTextFilterComponent,
-  TemplateRendererComponent,
-} from '@store-monorepo/template/shared';
+import { AgGridCustomTextFilterComponent, TemplateRendererComponent } from '@store-monorepo/template/shared';
 import * as AppStore from '@store-monorepo/template/store';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridOptions, GridReadyEvent } from 'ag-grid-community';
@@ -26,7 +16,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private store: Store<AppStore.ProductStore.ProductReducers.ProductState>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
 
   gridOptions: GridOptions = {
@@ -63,9 +53,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       {
         headerName: 'STT',
         valueGetter: (p) =>
-          this.pagi.offset
-            ? (p.node?.rowIndex as number) + this.pagi.offset + 1
-            : (p.node?.rowIndex as number) + 1,
+          this.pagi.offset ? (p.node?.rowIndex as number) + this.pagi.offset + 1 : (p.node?.rowIndex as number) + 1,
         minWidth: 120,
         width: 120,
         sortable: false,
@@ -78,6 +66,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         field: 'name',
       },
       { headerName: 'Giá Sản Phẩm', field: 'price' },
+      { headerName: 'Tổng Tồn Kho', field: 'qty' },
       {
         headerName: 'Hình Ảnh',
         field: 'thumbnailLink',
@@ -113,32 +102,26 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   getList() {
-    this.store
-      .select(AppStore.ParameterStore.parameterSelectors.selectPagiAdmin)
-      .subscribe((data) => {
-        this.pagi = data;
-      });
+    this.store.select(AppStore.ParameterStore.parameterSelectors.selectPagiAdmin).subscribe((data) => {
+      this.pagi = data;
+    });
 
     this.store.dispatch(
       AppStore.ProductStore.ProductActions.loadProductListByAdmin({
         offset: this.pagi.offset ? this.pagi.offset : 0,
         limit: this.pagi.limit ? this.pagi.limit : 50,
-      })
+      }),
     );
-    this.store
-      .select(AppStore.ProductStore.ProductSelectors.selectProductListByAdmin)
-      .subscribe((data) => {
-        this.data = data.itemByAdmin.map((item) => {
-          return {
-            ...item,
-            brand: item.brand ? this.capitalizeFirstLetter(item.brand) : '',
-            category: item.category
-              ? this.capitalizeFirstLetter(item.category)
-              : '',
-          };
-        });
-        this.total = data.totalByAdmin;
+    this.store.select(AppStore.ProductStore.ProductSelectors.selectProductListByAdmin).subscribe((data) => {
+      this.data = data.itemByAdmin.map((item) => {
+        return {
+          ...item,
+          brand: item.brand ? this.capitalizeFirstLetter(item.brand) : '',
+          category: item.category ? this.capitalizeFirstLetter(item.category) : '',
+        };
       });
+      this.total = data.totalByAdmin;
+    });
   }
 
   onPaginatorChanged() {

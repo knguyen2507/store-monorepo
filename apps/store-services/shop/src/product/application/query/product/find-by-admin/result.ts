@@ -9,6 +9,8 @@ export class FindProductByAdminResultItem {
   @Expose()
   readonly name: string;
   @Expose()
+  readonly qty: number;
+  @Expose()
   readonly price: number;
   @Expose()
   readonly thumbnailLink: string;
@@ -16,6 +18,8 @@ export class FindProductByAdminResultItem {
   readonly brand: string;
   @Expose()
   readonly category: string;
+  @Expose()
+  readonly createdAt: Date;
 }
 
 export class FindProductByAdminResult implements IQueryResult {

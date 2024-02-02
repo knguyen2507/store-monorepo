@@ -10,6 +10,7 @@ export type Shop = {
   id: string;
   name: string;
   address: string;
+  qty: number;
 };
 
 export type Images = {
@@ -26,8 +27,6 @@ export class ProductModel {
   productCode: string;
   @Expose()
   name: string;
-  @Expose()
-  qty: number;
   @Expose()
   categoryId: string;
   @Expose()
@@ -48,6 +47,6 @@ export class ProductModel {
   shop: Shop[];
 
   update(data: Partial<this>) {
-    this.qty = data.qty ? data.qty : this.qty;
+    this.shop = data.shop ? data.shop : this.shop;
   }
 }

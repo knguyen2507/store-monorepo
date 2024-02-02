@@ -9,5 +9,6 @@ export * from './interface/message.interface';
 export * from './interface/request.interface';
 export * from './interface/user.interface';
 export * from './module/utility.module';
+export * from './property/product.create.props';
 export * from './result/user.result';
 export * from './type';

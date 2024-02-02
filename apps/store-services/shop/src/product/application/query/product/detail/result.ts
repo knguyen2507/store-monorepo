@@ -10,7 +10,7 @@ export class FindProductByCodeResult implements IQueryResult {
   @Expose()
   readonly name: string;
   @Expose()
-  readonly qty: number;
+  readonly qtyStatus: boolean;
   @Expose()
   readonly category: string;
   @Expose()
