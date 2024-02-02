@@ -3,7 +3,7 @@
     <div class="title">Tạo mới sản phẩm</div>
     <div class="btnGroup">
       <button mat-flat-button color="primary" (click)="submit()">Tạo</button>
-      <button mat-dialog-close mat-stroked-button color="warn">Thoát</button>
+      <button mat-dialog-close mat-stroked-button color="warn" (click)="reset()">Thoát</button>
     </div>
   </div>
   <mat-dialog-content>
@@ -14,6 +14,55 @@
       fxLayoutGap="24px"
       [formGroup]="productForm"
     >
+      <!-- Form Shop Info -->
+      <div class="formShop">
+        <div class="shopHeader">
+          <h1>Thông Tin Cửa Hàng</h1>
+          <div class="btnGroup">
+            <button
+              mat-icon-button
+              type="button"
+              color="dark"
+              class="small-icon-button"
+              matTooltip="Thêm mô tả"
+              (click)="add_shop()"
+            >
+              <mat-icon>playlist_add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div *ngFor="let shop of this.shopData; let i = index">
+          <div fxLayout="row wrap" fxLayoutGap="grid">
+            <div fxFlex="25%" fxFlex.lg="25%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+              <label class="label" for="id">Cửa Hàng</label>
+              <ng-select
+                class="custom"
+                [items]="shopSource"
+                bindLabel="label"
+                bindValue="id"
+                [appendTo]="'body'"
+                placeholder="Chọn cửa hàng"
+                (change)="shopChange($event, shop, i)"
+                name="shopSelect"
+              >
+              </ng-select>
+            </div>
+            <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+              <label class="label" for="id">Địa Chỉ</label>
+              <div class="inputWrapper">
+                <input class="input isDisabled" type="text" id="id" [value]="this.shopData[i].address" disabled />
+              </div>
+            </div>
+            <div fxFlex="25%" fxFlex.lg="25%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+              <label class="label" for="id">Tồn Kho</label>
+              <div class="inputWrapper">
+                <input class="input" type="text" id="qty" (keyup)="onKeyQty(i, $event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Form Meta data -->
       <div class="formData">
         <h1>Thông Tin Sản Phẩm</h1>
@@ -53,12 +102,6 @@
               <label class="label" for="id">Giá Bán</label>
               <div class="inputWrapper">
                 <input class="input" type="text" id="price" formControlName="price" />
-              </div>
-            </div>
-            <div class="fieldWrapper">
-              <label class="label" for="id">Tồn Kho</label>
-              <div class="inputWrapper">
-                <input class="input" type="text" id="qty" formControlName="qty" />
               </div>
             </div>
             <div class="fieldWrapper">

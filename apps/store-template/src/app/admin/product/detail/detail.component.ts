@@ -106,7 +106,7 @@ export class ProductDetailComponent implements OnInit {
       });
       this.store.dispatch(AppStore.ProductStore.ProductActions.resetShopListByProduct());
     } else {
-      this.shop = AppStore.ShopStore.ShopReducers.initialShop.itemDetail;
+      this.shop = AppStore.ProductStore.ProductReducers.initialProduct.itemDetailShop;
     }
   }
 }

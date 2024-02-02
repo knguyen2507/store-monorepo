@@ -28,6 +28,7 @@ export class ProductCreateFormComponent implements OnInit {
     private productStore: Store<AppStore.ProductStore.ProductReducers.ProductState>,
     private brandStore: Store<AppStore.ProductStore.ProductReducers.ProductState>,
     private categoryStore: Store<AppStore.ProductStore.ProductReducers.ProductState>,
+    private shopStore: Store<AppStore.ShopStore.ShopReducers.ShopState>,
     private fb: FormBuilder,
   ) {}
 
@@ -40,13 +41,15 @@ export class ProductCreateFormComponent implements OnInit {
   description: DesObject[] = [];
   brandSource: any[] = [];
   categorySource: any[] = [];
-  selectedBrand!: any | null;
-  selectedCategory!: any | null;
+  shopSource: any[] = [];
+  shopData: Partial<AppStore.ProductStore.ShopModel>[] = [];
+  numShop: number = 0;
 
   ngOnInit() {
     this.setForm();
     this.setBrandList();
     this.setCategoryList();
+    this.setShopList();
   }
 
   setForm() {
@@ -97,6 +100,7 @@ export class ProductCreateFormComponent implements OnInit {
         description: des,
         images: this.listImages,
         mainImage: this.avatar,
+        shop: this.shopData,
       };
 
       console.log(`data:::`, data);
@@ -125,6 +129,18 @@ export class ProductCreateFormComponent implements OnInit {
     });
   }
 
+  setShopList() {
+    this.shopStore.dispatch(AppStore.ShopStore.ShopActions.loadShopList());
+    this.shopStore.select(AppStore.ShopStore.ShopSelectors.selectShopList).subscribe((data) => {
+      data.items.forEach((item) => {
+        if (item.id) {
+          this.numShop += 1;
+          this.shopSource = [...this.shopSource, { id: item.id, label: item.name }];
+        }
+      });
+    });
+  }
+
   getAvatar(avatar: string) {
     this.avatar = avatar;
   }
@@ -141,7 +157,49 @@ export class ProductCreateFormComponent implements OnInit {
     this.description.push({ key: `Mô Tả ${this.description.length + 1}`, value: '' });
   }
 
+  add_shop() {
+    if (this.shopData.length < this.numShop) {
+      this.shopData.push({ id: null, name: null, address: null, qty: 0 });
+    }
+  }
+
   onKey(i: number, event: any) {
     this.description[i].value = event.target.value;
+  }
+
+  onKeyQty(i: number, event: any) {
+    this.shopData[i].qty = Number(event.target.value);
+  }
+
+  shopChange(selectedShop: any, shopId: any, i: number) {
+    if (selectedShop) {
+      let address: string | null | undefined;
+      let name: string | null | undefined;
+      let id: string | null | undefined;
+      this.shopStore.dispatch(
+        AppStore.ShopStore.ShopActions.loadShopDetail({
+          id: selectedShop.id,
+        }),
+      );
+      this.shopStore.select(AppStore.ShopStore.ShopSelectors.selectShopDetail).subscribe((data) => {
+        id = data.itemDetail.id;
+        name = data.itemDetail.name;
+        address = data.itemDetail.address;
+      });
+      setTimeout(() => {
+        this.shopData[i].id = id;
+        this.shopData[i].name = name;
+        this.shopData[i].address = address;
+      }, 1000);
+      this.shopSource = this.shopSource.filter((shop) => shop.id !== selectedShop.id);
+      this.shopStore.dispatch(AppStore.ShopStore.ShopActions.resetShopList());
+    } else {
+      this.shopSource = [...this.shopSource, { id: this.shopData[i].id, label: this.shopData[i].name }];
+    }
+  }
+
+  reset() {
+    this.numShop = 0;
+    this.shopStore.dispatch(AppStore.ShopStore.ShopActions.resetShopList());
   }
 }
