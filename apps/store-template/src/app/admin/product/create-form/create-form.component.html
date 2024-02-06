@@ -7,13 +7,7 @@
     </div>
   </div>
   <mat-dialog-content>
-    <form
-      #invidualPartnerFormDirective="ngForm"
-      class="invidualForm"
-      fxLayout="column"
-      fxLayoutGap="24px"
-      [formGroup]="productForm"
-    >
+    <form #productDetailForm="ngForm" class="detailForm" fxLayout="column" fxLayoutGap="24px" [formGroup]="productForm">
       <!-- Form Shop Info -->
       <div class="formShop">
         <div class="shopHeader">
@@ -32,32 +26,35 @@
           </div>
         </div>
 
-        <div *ngFor="let shop of this.shopData; let i = index">
-          <div fxLayout="row wrap" fxLayoutGap="grid">
-            <div fxFlex="25%" fxFlex.lg="25%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
-              <label class="label" for="id">Cửa Hàng</label>
-              <ng-select
-                class="custom"
-                [items]="shopSource"
-                bindLabel="label"
-                bindValue="id"
-                [appendTo]="'body'"
-                placeholder="Chọn cửa hàng"
-                (change)="shopChange($event, shop, i)"
-                name="shopSelect"
-              >
-              </ng-select>
-            </div>
-            <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
-              <label class="label" for="id">Địa Chỉ</label>
-              <div class="inputWrapper">
-                <input class="input isDisabled" type="text" id="id" [value]="this.shopData[i].address" disabled />
+        <div formArrayName="shop">
+          <div *ngFor="let shop of this.shopData; let i = index" [formGroupName]="i">
+            <div fxLayout="row wrap" fxLayoutGap="grid">
+              <div fxFlex="25%" fxFlex.lg="25%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+                <label class="label" for="id">Cửa Hàng</label>
+                <ng-select
+                  class="custom"
+                  [items]="shopSource"
+                  bindLabel="label"
+                  bindValue="id"
+                  [appendTo]="'body'"
+                  placeholder="Chọn cửa hàng"
+                  [(ngModel)]="this.shopData[i].id"
+                  (change)="shopChange($event, i)"
+                  formControlName="id"
+                >
+                </ng-select>
               </div>
-            </div>
-            <div fxFlex="25%" fxFlex.lg="25%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
-              <label class="label" for="id">Tồn Kho</label>
-              <div class="inputWrapper">
-                <input class="input" type="text" id="qty" (keyup)="onKeyQty(i, $event)" />
+              <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+                <label class="label" for="id">Địa Chỉ</label>
+                <div class="inputWrapper">
+                  <input class="input isDisabled" type="text" [value]="this.shopData[i].address" disabled />
+                </div>
+              </div>
+              <div fxFlex="25%" fxFlex.lg="25%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
+                <label class="label" for="id">Tồn Kho</label>
+                <div class="inputWrapper">
+                  <input class="input" type="text" (keyup)="onKeyQty(i, $event)" />
+                </div>
               </div>
             </div>
           </div>

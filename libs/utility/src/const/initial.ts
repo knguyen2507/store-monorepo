@@ -15,6 +15,7 @@ export const InitialRole3 = {
   name: 'Admin Test 2',
   isSuperAdmin: false,
 };
+
 export const InitialShop1 = {
   id: '6502d51ac4841b15cd7756a2',
   name: 'Cửa hàng 1',
@@ -25,6 +26,17 @@ export const InitialShop2 = {
   name: 'Cửa hàng 2',
   address: 'Tân Đức, Nhơn Mỹ, An Nhơn, Bình Định',
 };
+export const InitialShop3 = {
+  id: '6502d51ac4841b15cd7756c2',
+  name: 'Cửa hàng 3',
+  address: 'Address 1234',
+};
+export const InitialShop4 = {
+  id: '6502d51ac4841b15cd7756d2',
+  name: 'Cửa hàng 4',
+  address: 'Address 123456',
+};
+
 export const InitialUser1 = {
   id: '6502d51ac4841b15cd7756a3',
   name: 'Super Admin 1',

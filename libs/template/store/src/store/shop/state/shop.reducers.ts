@@ -52,6 +52,12 @@ const shopReducer = createReducer(
       total: initialShop.total,
     };
   }),
+  on(ShopActions.resetShopDetail, (state: ShopState) => {
+    return {
+      ...state,
+      itemDetail: initialShop.itemDetail,
+    };
+  }),
 );
 
 export function shopReducers(state: ShopState | undefined, action: Action) {

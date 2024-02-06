@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DesObject, GeneralStatusEnum } from '@store-monorepo/template/shared';
 import * as AppStore from '@store-monorepo/template/store';
 import * as Notiflix from 'notiflix';
+
+interface IShopForm {
+  id: FormControl<string | null>;
+  name: FormControl<string | null>;
+  address: FormControl<string | null>;
+  qty: FormControl<number | null>;
+}
 
 interface IProductForm {
   id: FormControl<string | null>;
   productCode: FormControl<string | null>;
   name: FormControl<string | null>;
   price: FormControl<number | null>;
-  qty: FormControl<number | null>;
+  shop: FormArray<FormGroup<IShopForm>>;
   thumbnailLink: FormControl<string | null>;
   category: FormControl<string | null>;
   brand: FormControl<string | null>;
@@ -42,7 +49,9 @@ export class ProductCreateFormComponent implements OnInit {
   brandSource: any[] = [];
   categorySource: any[] = [];
   shopSource: any[] = [];
+  dataShopSource: Partial<AppStore.ProductStore.ShopModel>[] = [];
   shopData: Partial<AppStore.ProductStore.ShopModel>[] = [];
+  shopData1: Partial<AppStore.ProductStore.ShopModel>[] = [];
   numShop: number = 0;
 
   ngOnInit() {
@@ -58,7 +67,7 @@ export class ProductCreateFormComponent implements OnInit {
       productCode: new FormControl(null),
       name: new FormControl(null),
       price: new FormControl(null),
-      qty: new FormControl(null),
+      shop: this.fb.array<FormGroup<IShopForm>>([this.buildShop()]),
       thumbnailLink: new FormControl(null),
       category: new FormControl(null),
       brand: new FormControl(null),
@@ -67,6 +76,134 @@ export class ProductCreateFormComponent implements OnInit {
     });
     this.controls = this.productForm.controls;
     return this.productForm;
+  }
+
+  buildShop(): FormGroup<IShopForm> {
+    return this.fb.group<IShopForm>({
+      id: new FormControl(null),
+      name: new FormControl(null),
+      address: new FormControl(null),
+      qty: new FormControl(null),
+    });
+  }
+
+  get shopFormArray(): FormArray<FormGroup<IShopForm>> {
+    return this.productForm.get('shop') as FormArray;
+  }
+
+  setBrandList() {
+    this.brandStore.dispatch(AppStore.BrandStore.BrandActions.loadBrandList());
+    this.brandStore.select(AppStore.BrandStore.BrandSelectors.selectBrandList).subscribe((data) => {
+      data.items.forEach((item) => {
+        if (item.id) {
+          this.brandSource = [...this.brandSource, { id: item.id, label: item.name }];
+        }
+      });
+    });
+  }
+
+  setCategoryList() {
+    this.categoryStore.dispatch(AppStore.CategoryStore.CategoryActions.loadCategoryList());
+    this.categoryStore.select(AppStore.CategoryStore.CategorySelectors.selectCategoryList).subscribe((data) => {
+      data.items.forEach((item) => {
+        if (item.id) {
+          this.categorySource = [...this.categorySource, { id: item.id, label: item.name }];
+        }
+      });
+    });
+  }
+
+  setShopList() {
+    this.shopStore.dispatch(AppStore.ShopStore.ShopActions.loadShopList());
+    this.shopStore.select(AppStore.ShopStore.ShopSelectors.selectShopList).subscribe((data) => {
+      let items: any[] = [];
+      let total: number = 0;
+      let shop: AppStore.ProductStore.ShopModel[] = [];
+      data.items.forEach((item) => {
+        if (item.id) {
+          total += 1;
+          items = [...items, { id: item.id, label: item.name }];
+          shop = [...shop, { id: item.id, name: item.name, address: item.address, qty: 0 }];
+        }
+      });
+      this.numShop = total;
+      this.shopSource = items;
+      this.dataShopSource = shop;
+    });
+  }
+
+  getAvatar(avatar: string) {
+    this.avatar = avatar;
+  }
+
+  getListImages(images: any[]) {
+    this.listImages = images;
+  }
+
+  getImagesUpdate(images: any[]) {
+    this.imagesUpdated = images;
+  }
+
+  add_des() {
+    this.description.push({ key: `Mô Tả ${this.description.length + 1}`, value: '' });
+  }
+
+  add_shop() {
+    if (this.shopData.length < this.numShop) {
+      this.shopFormArray.push(this.buildShop());
+      this.shopData = [...this.shopData, { id: null, name: null, address: null, qty: 0 }];
+      this.shopData1 = [...this.shopData1, { id: null, name: null, address: null, qty: 0 }];
+    }
+  }
+
+  onKey(i: number, event: any) {
+    this.description[i].value = event.target.value;
+  }
+
+  onKeyQty(i: number, event: any) {
+    this.shopData[i].qty = Number(event.target.value);
+  }
+
+  shopChange(selectedShop: any, i: number) {
+    if (selectedShop) {
+      const data = this.dataShopSource.find((shop) => shop.id === selectedShop.id);
+      if (this.shopData[i].id && this.shopData[i].address === null) {
+        this.getShopData(i, data);
+      } else {
+        if (this.shopData1[i].id !== selectedShop.id) {
+          this.shopSource = [...this.shopSource, { id: this.shopData1[i].id, label: this.shopData1[i].name }];
+          this.getShopData(i, data);
+        }
+      }
+    } else {
+      this.shopSource = [...this.shopSource, { id: this.shopData1[i].id, label: this.shopData1[i].name }];
+      this.getShopData(i);
+    }
+  }
+
+  reset() {
+    this.numShop = 0;
+    this.shopStore.dispatch(AppStore.ShopStore.ShopActions.resetShopList());
+  }
+
+  getShopData(i: number, item?: Partial<AppStore.ShopStore.ShopModel>) {
+    if (item) {
+      this.shopData[i].id = item.id;
+      this.shopData[i].name = item.name;
+      this.shopData[i].address = item.address;
+      this.shopData1[i].id = item.id;
+      this.shopData1[i].name = item.name;
+      this.shopData1[i].address = item.address;
+    } else {
+      this.shopData[i].id = null;
+      this.shopData[i].name = null;
+      this.shopData[i].address = null;
+      this.shopData1[i].id = null;
+      this.shopData1[i].name = null;
+      this.shopData1[i].address = null;
+    }
+
+    this.shopSource = this.shopSource.filter((shop) => shop.id !== this.shopData[i].id);
   }
 
   submit() {
@@ -95,111 +232,20 @@ export class ProductCreateFormComponent implements OnInit {
         }
       }
 
+      const shop = [];
+      for (const item of this.shopData) {
+        if (item.id) shop.push({ id: item.id, qty: item.qty ? item.qty : 0 });
+      }
+
       const data = {
         ...raws,
         description: des,
         images: this.listImages,
         mainImage: this.avatar,
-        shop: this.shopData,
+        shop,
       };
 
       console.log(`data:::`, data);
     }
-  }
-
-  setBrandList() {
-    this.brandStore.dispatch(AppStore.BrandStore.BrandActions.loadBrandList());
-    this.brandStore.select(AppStore.BrandStore.BrandSelectors.selectBrandList).subscribe((data) => {
-      data.items.forEach((item) => {
-        if (item.id) {
-          this.brandSource = [...this.brandSource, { id: item.id, label: item.name }];
-        }
-      });
-    });
-  }
-
-  setCategoryList() {
-    this.categoryStore.dispatch(AppStore.CategoryStore.CategoryActions.loadCategoryList());
-    this.categoryStore.select(AppStore.CategoryStore.CategorySelectors.selectCategoryList).subscribe((data) => {
-      data.items.forEach((item) => {
-        if (item.id) {
-          this.categorySource = [...this.categorySource, { id: item.id, label: item.name }];
-        }
-      });
-    });
-  }
-
-  setShopList() {
-    this.shopStore.dispatch(AppStore.ShopStore.ShopActions.loadShopList());
-    this.shopStore.select(AppStore.ShopStore.ShopSelectors.selectShopList).subscribe((data) => {
-      data.items.forEach((item) => {
-        if (item.id) {
-          this.numShop += 1;
-          this.shopSource = [...this.shopSource, { id: item.id, label: item.name }];
-        }
-      });
-    });
-  }
-
-  getAvatar(avatar: string) {
-    this.avatar = avatar;
-  }
-
-  getListImages(images: any[]) {
-    this.listImages = images;
-  }
-
-  getImagesUpdate(images: any[]) {
-    this.imagesUpdated = images;
-  }
-
-  add_des() {
-    this.description.push({ key: `Mô Tả ${this.description.length + 1}`, value: '' });
-  }
-
-  add_shop() {
-    if (this.shopData.length < this.numShop) {
-      this.shopData.push({ id: null, name: null, address: null, qty: 0 });
-    }
-  }
-
-  onKey(i: number, event: any) {
-    this.description[i].value = event.target.value;
-  }
-
-  onKeyQty(i: number, event: any) {
-    this.shopData[i].qty = Number(event.target.value);
-  }
-
-  shopChange(selectedShop: any, shopId: any, i: number) {
-    if (selectedShop) {
-      let address: string | null | undefined;
-      let name: string | null | undefined;
-      let id: string | null | undefined;
-      this.shopStore.dispatch(
-        AppStore.ShopStore.ShopActions.loadShopDetail({
-          id: selectedShop.id,
-        }),
-      );
-      this.shopStore.select(AppStore.ShopStore.ShopSelectors.selectShopDetail).subscribe((data) => {
-        id = data.itemDetail.id;
-        name = data.itemDetail.name;
-        address = data.itemDetail.address;
-      });
-      setTimeout(() => {
-        this.shopData[i].id = id;
-        this.shopData[i].name = name;
-        this.shopData[i].address = address;
-      }, 1000);
-      this.shopSource = this.shopSource.filter((shop) => shop.id !== selectedShop.id);
-      this.shopStore.dispatch(AppStore.ShopStore.ShopActions.resetShopList());
-    } else {
-      this.shopSource = [...this.shopSource, { id: this.shopData[i].id, label: this.shopData[i].name }];
-    }
-  }
-
-  reset() {
-    this.numShop = 0;
-    this.shopStore.dispatch(AppStore.ShopStore.ShopActions.resetShopList());
   }
 }

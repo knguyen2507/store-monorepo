@@ -6,6 +6,8 @@ import {
   InitialRole3,
   InitialShop1,
   InitialShop2,
+  InitialShop3,
+  InitialShop4,
   InitialUser1,
   InitialUser2,
   InitialUser3,
@@ -52,6 +54,12 @@ export class SeedAuthnService {
         }),
         this.prisma.shops.create({
           data: InitialShop2,
+        }),
+        this.prisma.shops.create({
+          data: InitialShop3,
+        }),
+        this.prisma.shops.create({
+          data: InitialShop4,
         }),
       ];
     }
@@ -152,6 +160,78 @@ export class SeedAuthnService {
             status: StatusEnum.ACTIVE,
             shop: { connect: { id: InitialShop2.id } },
             role: { connect: { id: InitialRole3.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac09`,
+            name: `${InitialShop3.name} Create Permission`,
+            action: ActionEnum.CREATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop3.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac10`,
+            name: `${InitialShop3.name} Update Permission`,
+            action: ActionEnum.UPDATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop3.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac11`,
+            name: `${InitialShop3.name} Read Permission`,
+            action: ActionEnum.UPDATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop3.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac12`,
+            name: `${InitialShop3.name} Delete Permission`,
+            action: ActionEnum.UPDATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop3.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac13`,
+            name: `${InitialShop4.name} Create Permission`,
+            action: ActionEnum.CREATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop4.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac14`,
+            name: `${InitialShop4.name} Update Permission`,
+            action: ActionEnum.UPDATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop4.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac15`,
+            name: `${InitialShop4.name} Read Permission`,
+            action: ActionEnum.UPDATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop4.id } },
+          },
+        }),
+        this.prisma.permissions.create({
+          data: {
+            id: `65ae3be1f774570f1308ac16`,
+            name: `${InitialShop4.name} Delete Permission`,
+            action: ActionEnum.UPDATE,
+            status: StatusEnum.ACTIVE,
+            shop: { connect: { id: InitialShop4.id } },
           },
         }),
       ];

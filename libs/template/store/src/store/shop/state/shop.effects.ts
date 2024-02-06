@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, mergeMap } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs';
 import { ShopService } from '../shop.service';
 import * as ShopActions from './shop.actions';
 import { ShopState } from './shop.reducers';
@@ -37,6 +37,7 @@ export class ShopEffects {
             }),
           );
         }),
+        take(1),
       );
     },
     { dispatch: false },
