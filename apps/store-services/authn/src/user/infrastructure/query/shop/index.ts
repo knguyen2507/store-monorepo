@@ -5,8 +5,6 @@ import { FindShopById } from '../../../application/query/shop/detail';
 import { FindShopByIdResult } from '../../../application/query/shop/detail/result';
 import { FindShop } from '../../../application/query/shop/find';
 import { FindShopResult, FindShopResultItem } from '../../../application/query/shop/find/result';
-import { GetShopInfo } from '../../../application/query/shop/get-info';
-import { GetShopInfoResult } from '../../../application/query/shop/get-info/result';
 import { ShopQuery } from '../../../domain/query/shop';
 
 export class ShopQueryImplement implements ShopQuery {
@@ -45,19 +43,5 @@ export class ShopQueryImplement implements ShopQuery {
     return plainToClass(FindShopByIdResult, shop, {
       excludeExtraneousValues: true,
     });
-  }
-
-  async findByIds(query: GetShopInfo): Promise<GetShopInfoResult> {
-    const shops = await this.prisma.shops.findMany({
-      where: { id: { in: query.data.ids } },
-    });
-
-    const items = shops.map((item) => {
-      return plainToClass(FindShopResultItem, item, {
-        excludeExtraneousValues: true,
-      });
-    });
-
-    return { items };
   }
 }

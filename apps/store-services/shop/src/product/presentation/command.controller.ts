@@ -4,7 +4,6 @@ import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { AuthnGuard } from '@store-monorepo/service/guard';
 import {
-  CreateProductResquestDTO,
   DeleteProductResquestDTO,
   FileUpload,
   RequestWithUser,
@@ -27,22 +26,36 @@ export class ProductCommandController {
   @ApiConsumes('multipart/form-data')
   async CreateProduct(
     @UploadedFiles() images: Array<FileUpload>,
-    @Body() body: CreateProductResquestDTO,
+    @Body() body: any,
     @Req() request: RequestWithUser,
   ): Promise<any> {
+    const data = {} as any;
+    for (const i in body) {
+      if (i !== 'data') {
+        if (body[i] !== 'undefined') {
+          if (i === 'shop') {
+            const parseAdd = JSON.parse(body[i]);
+            data[i] = Array.isArray(parseAdd) ? parseAdd : [parseAdd];
+          } else {
+            data[i] = JSON.parse(body[i]);
+          }
+        }
+      }
+    }
+
     const msg = {
       messageId: this.util.generateId(),
       data: {
-        productCode: body.productCode,
-        name: body.name,
-        categoryId: body.categoryId,
-        brandId: body.brandId,
-        price: Number(body.price),
-        description: body.description,
+        productCode: data.productCode,
+        name: data.name,
+        categoryId: data.categoryId,
+        brandId: data.brandId,
+        price: Number(data.price),
+        description: data.description,
         files: images,
-        main: body.mainImage,
+        main: data.mainImage,
         user: request.user,
-        shop: body.shop,
+        shop: data.shop,
       },
     };
     const command = new CreateProduct(msg);

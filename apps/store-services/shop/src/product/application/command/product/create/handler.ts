@@ -1,8 +1,8 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-import { Inject, InternalServerErrorException } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CloudinaryService } from '@store-monorepo/service/cloudinary';
-import { RMQ, RmqMessage, UtilityImplement } from '@store-monorepo/utility';
+import { UtilityImplement } from '@store-monorepo/utility';
 import moment from 'moment';
 import { CreateProduct } from '.';
 import { ProductFactory } from '../../../../infrastructure/factory/product';
@@ -30,25 +30,6 @@ export class CreateProductHandler implements ICommandHandler<CreateProduct, void
     };
     const upload = [];
     let thumbnailLink: any;
-    let shopInfo: { id: string; name: string; address: string }[] = [];
-
-    try {
-      const payload: RmqMessage = {
-        messageId: this.util.generateId(),
-        data: {
-          ids: shop,
-        },
-      };
-      const rmqData = await this.amqpService.request<any>({
-        exchange: RMQ.EXCHANGE,
-        routingKey: RMQ.RK_AUHTN_QRY_GET_SHOP_INFORMATION,
-        payload,
-        timeout: 10000,
-      });
-      shopInfo = rmqData.items;
-    } catch (error) {
-      throw new InternalServerErrorException();
-    }
 
     for (const image of files) {
       const uploaded = await this.cloudinaryService.uploadFile(image);
@@ -84,12 +65,7 @@ export class CreateProductHandler implements ICommandHandler<CreateProduct, void
       id,
       created,
       updated: [],
-      shop: shopInfo.map((item) => {
-        return {
-          ...item,
-          ...shop.find((i) => i.id === item.id)[0],
-        };
-      }),
+      shop,
     });
 
     await this.product.save(model);

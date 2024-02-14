@@ -8,12 +8,16 @@ export class ProductModel {
   thumbnailLink: string | null | undefined;
   category: string | null | undefined;
   brand: string | null | undefined;
+  categoryId: string | null | undefined;
+  brandId: string | null | undefined;
   description: string | null | undefined;
   status: GeneralStatusEnum | null | undefined;
   createdAt: Date | null | undefined;
   createdBy: string | null | undefined;
   updatedAt: Date | null | undefined;
   updatedBy: string | null | undefined;
+  mainImage: string | null | undefined;
+  shop: { id: string; qty: number }[] | null | undefined;
 }
 
 export class ProductDetailModel {

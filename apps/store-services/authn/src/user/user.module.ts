@@ -17,7 +17,6 @@ import { FindShopHandler } from './application/query/shop/find/handler';
 import { FindUserByIdHandler } from './application/query/user/detail/handler';
 import { FindUserHandler } from './application/query/user/find/handler';
 import { GetTotalUserHandler } from './application/query/user/get-total/handler';
-import { GetUserInfoHandler } from './application/query/user/get-user-info/handler';
 import { VerifyAccessTokenHandler } from './application/query/user/verify-token/handler';
 import { PermissionFactory } from './infrastructure/factory/permission';
 import { RoleFactory } from './infrastructure/factory/role';
@@ -69,7 +68,6 @@ const queries = [
   FindShopByIdHandler,
   FindRoleHandler,
   FindRoleByIdHandler,
-  GetUserInfoHandler,
 ];
 
 const domain = [UserFactory, RoleFactory, ShopFactory, PermissionFactory];

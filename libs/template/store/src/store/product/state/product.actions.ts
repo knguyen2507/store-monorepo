@@ -24,6 +24,7 @@ const RESET_PRODUCT_LIST_BY_CATEGORY_ACTION = '[Product] Reset Product List By C
 const RESET_PRODUCT_DETAIL_ACTION = '[Product] Reset Product Detail';
 const RESET_PRODUCT_BY_ID_ACTION = '[Product] Reset Product By Id';
 const RESET_SHOP_LIST_BY_PRODUCT_ACTION = '[Product] Reset Shop List By Product';
+const CREATE_PRODUCT_ACTION = '[Product] Create Product';
 
 export const loadProductList = createAction(
   LOAD_PRODUCT_LIST_ACTION,
@@ -86,3 +87,8 @@ export const loadShopDetailByProduct = createAction(
   props<{ id: string; shopId: string }>(),
 );
 export const saveShopDetailByProduct = createAction(SAVE_SHOP_DETAIL_BY_PRODUCT_ACTION, props<{ item: ShopModel }>());
+
+export const createProduct = createAction(
+  CREATE_PRODUCT_ACTION,
+  props<{ images: File[]; item: Partial<ProductModel> }>(),
+);

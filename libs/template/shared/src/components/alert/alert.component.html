@@ -1,0 +1,59 @@
+<swal
+  #createSwal
+  title="Vui lòng xác nhận"
+  text="{{ createText }}"
+  icon="question"
+  [showCancelButton]="true"
+  confirmButtonText="Xác nhận"
+  cancelButtonText="Hủy"
+  [reverseButtons]="true"
+  (confirm)="createConfirm()"
+  (dismiss)="createDismiss()"
+  (deny)="createDeny()"
+>
+</swal>
+
+<swal
+  #updateSwal
+  title="Vui lòng xác nhận"
+  text="{{ updateText }}"
+  icon="question"
+  [showCancelButton]="true"
+  confirmButtonText="Xác nhận"
+  cancelButtonText="Hủy"
+  [reverseButtons]="true"
+  (confirm)="updateConfirm()"
+  (dismiss)="updateDismiss()"
+  (deny)="updateDeny()"
+>
+</swal>
+
+<swal
+  #softDeleteSwal
+  title="Vui lòng xác nhận"
+  text="{{ softDeleteText }}"
+  icon="question"
+  [showCancelButton]="true"
+  confirmButtonText="Xác nhận"
+  cancelButtonText="Hủy"
+  [reverseButtons]="true"
+  (confirm)="softDeleteConfirm()"
+  (dismiss)="softDeleteDismiss()"
+  (deny)="softDeleteDeny()"
+>
+</swal>
+
+<swal
+  #hardDeleteSwal
+  title="Vui lòng xác nhận"
+  text="{{ hardDeleteText }}"
+  icon="question"
+  [showCancelButton]="true"
+  confirmButtonText="Xác nhận"
+  cancelButtonText="Hủy"
+  [reverseButtons]="true"
+  (confirm)="hardDeleteConfirm()"
+  (dismiss)="hardDeleteDismiss()"
+  (deny)="hardDeleteDeny()"
+>
+</swal>

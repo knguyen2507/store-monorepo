@@ -27,7 +27,13 @@
           <div fxFlex="50%" fxFlex.lg="50%" fxFlex.sm="100%" fxFlex.lt-sm="100%" class="fieldWrapper">
             <label class="label" for="id">Địa Chỉ</label>
             <div class="inputWrapper">
-              <input class="input isDisabled" type="text" id="id" [value]="this.shop.address" disabled />
+              <input
+                class="input isDisabled"
+                type="text"
+                id="id"
+                [value]="this.shop ? this.shop.address : ''"
+                disabled
+              />
             </div>
           </div>
         </div>
@@ -76,7 +82,7 @@
             <div class="fieldWrapper">
               <label class="label" for="id">Tồn Kho</label>
               <div class="inputWrapper">
-                <input class="input isDisabled" type="text" id="qty" [value]="this.shop.qty" disabled />
+                <input class="input isDisabled" type="text" id="qty" [value]="this.shop ? this.shop.qty : 0" disabled />
               </div>
             </div>
             <div class="fieldWrapper">

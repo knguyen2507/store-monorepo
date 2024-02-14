@@ -7,6 +7,16 @@ export class ShopCreateProductRequestProperties {
   @IsOptional()
   id!: string;
 
+  @ApiProperty({ example: 'Test Product', type: String })
+  @IsString()
+  @IsOptional()
+  name!: string;
+
+  @ApiProperty({ example: 'Test Address', type: String })
+  @IsString()
+  @IsOptional()
+  address!: string;
+
   @ApiProperty({ example: 1, type: Number })
   @IsNumber()
   @IsOptional()

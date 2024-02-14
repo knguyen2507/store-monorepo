@@ -1,4 +1,5 @@
 <div class="content" role="main">
+  <app-templete-alert></app-templete-alert>
   <app-navigation *ngIf="showComponent; else second"></app-navigation>
   <ng-template #second><router-outlet></router-outlet></ng-template>
 </div>

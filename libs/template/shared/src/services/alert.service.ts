@@ -6,8 +6,8 @@ import { GeneralStatusEnum } from '../enum/status.general.enum';
   providedIn: 'root',
 })
 export class AlertService {
-  create$ = new Subject<string>();
-  createConfirm$ = new Subject<boolean>();
+  create$: Subject<string> = new Subject<string>();
+  createConfirm$: Subject<boolean> = new Subject<boolean>();
   fireCreate(data: string) {
     this.create$.next(data);
   }

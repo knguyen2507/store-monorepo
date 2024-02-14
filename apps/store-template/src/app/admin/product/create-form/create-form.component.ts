@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DesObject, GeneralStatusEnum } from '@store-monorepo/template/shared';
+import { AlertService, DesObject, GeneralStatusEnum } from '@store-monorepo/template/shared';
 import * as AppStore from '@store-monorepo/template/store';
 import * as Notiflix from 'notiflix';
 
@@ -36,6 +36,7 @@ export class ProductCreateFormComponent implements OnInit {
     private brandStore: Store<AppStore.ProductStore.ProductReducers.ProductState>,
     private categoryStore: Store<AppStore.ProductStore.ProductReducers.ProductState>,
     private shopStore: Store<AppStore.ShopStore.ShopReducers.ShopState>,
+    private alertService: AlertService,
     private fb: FormBuilder,
   ) {}
 
@@ -207,7 +208,6 @@ export class ProductCreateFormComponent implements OnInit {
   }
 
   submit() {
-    alert(`Tạo mới sản phẩm`);
     this.productForm.markAsTouched();
     if (this.productForm.valid) {
       if (this.listImages.length === 0) {
@@ -234,18 +234,31 @@ export class ProductCreateFormComponent implements OnInit {
 
       const shop = [];
       for (const item of this.shopData) {
-        if (item.id) shop.push({ id: item.id, qty: item.qty ? item.qty : 0 });
+        if (item.id) shop.push({ id: item.id, name: item.name, address: item.address, qty: item.qty ? item.qty : 0 });
       }
 
       const data = {
         ...raws,
+        categoryId: raws.category,
+        brandId: raws.brand,
         description: des,
-        images: this.listImages,
         mainImage: this.avatar,
         shop,
       };
 
       console.log(`data:::`, data);
+      this.alertService.fireCreate(`Bạn có muốn tạo mới sản phẩm không?`);
+      const sub = this.alertService.createConfirm$.subscribe((res) => {
+        if (res) {
+          this.productStore.dispatch(
+            AppStore.ProductStore.ProductActions.createProduct({
+              images: this.listImages,
+              item: data,
+            }),
+          );
+        }
+        sub.unsubscribe();
+      });
     }
   }
 }

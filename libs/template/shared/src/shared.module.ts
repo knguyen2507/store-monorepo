@@ -21,6 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AgGridModule } from 'ag-grid-angular';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { GalleryModule } from 'ng-gallery';
@@ -30,6 +31,7 @@ import {
   AgGridCustomDateFilterComponent,
   AgGridCustomSetFilterComponent,
   AgGridCustomTextFilterComponent,
+  AlertComponent,
   ListItemComponent,
   PaginatorAdminComponent,
   PaginatorComponent,
@@ -80,11 +82,12 @@ const components = [
   AgGridCustomDateFilterComponent,
   TemplateRendererComponent,
   UploadAlbumComponent,
+  AlertComponent,
 ];
 
 @NgModule({
   declarations: components,
-  imports: [...matModules, ...modules],
+  imports: [...matModules, ...modules, SweetAlert2Module.forRoot()],
   exports: [...matModules, ...modules, ...components],
 })
 export class SharedModule {}

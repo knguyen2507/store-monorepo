@@ -69,4 +69,20 @@ export class ProductService {
       shopId,
     });
   }
+
+  createProduct(images: File[], product: Partial<ProductModel>) {
+    const data = new FormData();
+    const propertyName = Object.keys(product);
+    if (images) {
+      for (const image of images) {
+        data.append('images', image);
+      }
+    }
+    for (const property of propertyName) {
+      if (property !== 'images') {
+        data.append(property, JSON.stringify(product[property as keyof typeof product]));
+      }
+    }
+    return this.httpService.postAdmin<void>(`${this.apiUrl}/product/create`, data);
+  }
 }

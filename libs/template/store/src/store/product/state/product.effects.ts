@@ -207,4 +207,16 @@ export class ProductEffects {
     },
     { dispatch: false },
   );
+
+  createProduct$ = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(ProductActions.createProduct),
+        mergeMap((data) => {
+          return this.productService.createProduct(data.images, data.item);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 }

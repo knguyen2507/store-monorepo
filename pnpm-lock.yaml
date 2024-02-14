@@ -92,6 +92,9 @@ dependencies:
   '@prisma/client':
     specifier: ^5.7.1
     version: 5.7.1
+  '@sweetalert2/ngx-sweetalert2':
+    specifier: ^12.2.0
+    version: 12.2.0(@angular/common@17.0.8)(@angular/core@17.0.8)(sweetalert2@11.10.5)
   '@types/bcrypt':
     specifier: ^5.0.2
     version: 5.0.2
@@ -6403,6 +6406,19 @@ packages:
 
   /@swc/types@0.1.5:
     resolution: {integrity: sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==}
+
+  /@sweetalert2/ngx-sweetalert2@12.2.0(@angular/common@17.0.8)(@angular/core@17.0.8)(sweetalert2@11.10.5):
+    resolution: {integrity: sha512-3zvzPJ4p8n7hXUYQ/8LSL5DfUPh60TZSabOjTgrgFKRnwCTS8z6WREoLiklQg9575VUT+Th3mmLzDBXJjJVpbw==}
+    peerDependencies:
+      '@angular/common': ^14.0.0 || ^15.0.0 || ^16.0.0
+      '@angular/core': ^14.0.0 || ^15.0.0 || ^16.0.0
+      sweetalert2: ^11.0.0
+    dependencies:
+      '@angular/common': 17.0.8(@angular/core@17.0.8)(rxjs@7.8.1)
+      '@angular/core': 17.0.8(rxjs@7.8.1)(zone.js@0.14.2)
+      sweetalert2: 11.10.5
+      tslib: 2.6.2
+    dev: false
 
   /@tokenizer/token@0.3.0:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
@@ -13543,6 +13559,10 @@ packages:
 
   /swagger-ui-dist@5.10.3:
     resolution: {integrity: sha512-fu3aozjxFWsmcO1vyt1q1Ji2kN7KlTd1vHy27E9WgPyXo9nrEzhQPqgxaAjbMsOmb8XFKNGo4Sa3Q+84Fh+pFw==}
+    dev: false
+
+  /sweetalert2@11.10.5:
+    resolution: {integrity: sha512-q9eE3EKhMcpIDU/Xcz7z5lk8axCGkgxwK47gXGrrfncnBJWxHPPHnBVAjfsVXcTt8Yi8U6HNEcBRSu+qGeyFdA==}
     dev: false
 
   /symbol-observable@4.0.0:
